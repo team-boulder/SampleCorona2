@@ -1,5 +1,7 @@
 local scene = storyboard.newScene()
 
+-- hogehogehoge
+
 -- require view
 local mae_view = require( ViewDir .. 'mae_view' )
 local home_view = require( ViewDir .. 'home_view' )
