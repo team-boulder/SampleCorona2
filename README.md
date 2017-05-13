@@ -9,4 +9,4 @@ git add *(ファイル名) //※印は変更した全てのファイル
 git commit -m "コメント"
 git push origin branch名(master) //originはgitのURL //masterにはpushしない
 
-git pull orgin master //みんなのファイルの更新
+git pull origin master //みんなのファイルの更新
