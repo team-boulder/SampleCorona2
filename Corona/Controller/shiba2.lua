@@ -1,29 +1,17 @@
 local scene = storyboard.newScene()
 
--- hogehogehoge
-
 -- require view
-local mae_view = require( ViewDir .. 'mae_view' )
+local shiba_view = require( ViewDir .. 'shiba2_view' )
 local home_view = require( ViewDir .. 'home_view' )
 
 local function viewHandler( event )
-	if event.name == 'mae_view-tap' then
+	if event.name == 'shiba_view-tap' then
 
 		if event.value == 'back' then
 			storyboard.gotoScene(ContDir..'home')
+			print("ThinThin")
 		end
 
-		if event.value == 'shiba' then
-			storyboard.gotoScene(ContDir..'shiba')
-		end
-		
-		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'natsu')
-		end
-
-		if event.value == 'kuma' then
-			storyboard.gotoScene(ContDir..'kuma')
-		end
 	end
 end
 
@@ -35,9 +23,9 @@ function scene:willEnterScene( event )
 	local group = self.view
 
 	--user_model:addEventListener( modelHandler )
-	mae_view:addEventListener( viewHandler )
+	shiba_view:addEventListener( viewHandler )
 
-	local view_obj = mae_view.create()
+	local view_obj = shiba_view.create()
 	group:insert( view_obj )
 
 end
@@ -50,9 +38,9 @@ function scene:exitScene( event )
 	local group = self.view
 
 	--user_model:removeEventListener( modelHandler )
-	mae_view:removeEventListener( viewHandler )
+	shiba_view:removeEventListener( viewHandler )
 
-	mae_view.destroy()
+	shiba_view.destroy()
 
 end
 
