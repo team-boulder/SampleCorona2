@@ -10,6 +10,11 @@ local function viewHandler( event )
 
 		if event.value == 'back' then
 			storyboard.gotoScene(ContDir..'home')
+        end
+
+		if event.value == 'shop' then
+			print('Hello')
+			storyboard.gotoScene(ContDir..'home')
 		end
 
 	end
