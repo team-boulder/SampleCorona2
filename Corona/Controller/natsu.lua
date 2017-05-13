@@ -1,3 +1,5 @@
+--gitの練習だお
+
 local scene = storyboard.newScene()
 
 -- require view
