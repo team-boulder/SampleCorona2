@@ -18,7 +18,7 @@ local function viewHandler( event )
 		end
 		
 		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'nastu')
+			storyboard.gotoScene(ContDir..'natsu')
 		end
 
 		if event.value == 'kuma' then
