@@ -9,6 +9,7 @@ local function viewHandler( event )
 
 		if event.value == 'back' then
 			storyboard.gotoScene(ContDir..'home')
+			print("ThinThin")
 		end
 
 	end
