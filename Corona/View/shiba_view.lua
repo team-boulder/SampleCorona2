@@ -8,6 +8,9 @@ function self.create()
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
+	obj.banana = display.newImage( ImgDir..'shiba/thinthin.png', _W, 400)
+    obj.banana:scale(0.5,0.5)
+    obj.banana.y = 200
     obj.title = display.newText('ショップ',0,50,nil,40)
     obj.title:setReferencePoint(display.CenterReferencePoint)
     obj.title.x = _W/2
@@ -20,6 +23,8 @@ function self.create()
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
     obj.group:insert( obj.back )
+	print ("ドアホ！")
+	--obj.group.insert( obj.banana)
 
     return obj.group
 end
