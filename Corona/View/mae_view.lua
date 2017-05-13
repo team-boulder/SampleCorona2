@@ -42,7 +42,6 @@ function self.create()
 	obj.text:addEventListener('tap',self.tap)
 	anim.new(obj.text)
 
-
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
     obj.group:insert( obj.back )
