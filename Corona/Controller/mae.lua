@@ -13,6 +13,17 @@ local function viewHandler( event )
 			storyboard.gotoScene(ContDir..'home')
 		end
 
+		if event.value == 'shiba' then
+			storyboard.gotoScene(ContDir..'shiba')
+		end
+		
+		if event.value == 'natsu' then
+			storyboard.gotoScene(ContDir..'natsu')
+		end
+
+		if event.value == 'kuma' then
+			storyboard.gotoScene(ContDir..'kuma')
+		end
 	end
 end
 
