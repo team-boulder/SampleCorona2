@@ -1,4 +1,6 @@
 local self = object.new()
+local anim = require("Plugin.anim.anim")
+
 
 local obj = {}
 function self.create()
@@ -36,6 +38,9 @@ function self.create()
 
 	obj.text = display.newText('前原だよ！！', 0, _H-500, nil, 100)
 	obj.text:setReferencePoint(display.CenterReferencePoint)
+	obj.text.value = 'maehara'
+	obj.text:addEventListener('tap',self.tap)
+	anim.new(obj.text)
 
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
@@ -67,5 +72,9 @@ function self.tap( e )
 	self:dispatchEvent( event )
 	return true
 end
+
+function self.puni()
+	obj.text:punipuni()
+end 
 
 return self

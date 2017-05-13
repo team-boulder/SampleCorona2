@@ -1,4 +1,5 @@
 local self = object.new()
+local anim = require("Plugin.anim.anim")
 
 local obj = {}
 function self.create()
@@ -14,12 +15,17 @@ function self.create()
     obj.banana.y = _H/4
 	obj.b_text = display.newText('今夜どう？🍌',0,200,nil,35)
 	obj.b_text.x = _W/4
+	anim.new(obj.banana)
+	obj.banana:punipuni()
+
 	--あわびちゃん
 	obj.awabi = display.newImage( ImgDir..'shiba/awabi.png', -_W/6, 400)
     obj.awabi:scale(0.5,0.5)
     obj.awabi.y = _H/2
 	obj.a_text = display.newText('最低💔 近づかないで！',0,500,nil,35)
 	obj.a_text.x = _W/1.6
+	anim.new(obj.awabi)
+	obj.awabi:shake()
 
 	obj.b_text:setReferencePoint(display.CenterReferencePoint)
     obj.title = display.newText('おshibaのBanana_part2',0,50,nil,40)
