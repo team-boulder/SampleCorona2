@@ -8,7 +8,13 @@ function self.create()
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
-    obj.title = display.newText('ショップ',0,50,nil,40)
+	obj.banana = display.newImage( ImgDir..'shiba/thinthin.png', _W/3, 400)
+    obj.banana:scale(0.5,0.5)
+    obj.banana.y = _H/4
+	obj.b_text = display.newText('やあ！ThinThinだよ',0,200,nil,35)
+	obj.b_text.x = _W/4
+	obj.b_text:setReferencePoint(display.CenterReferencePoint)
+    obj.title = display.newText('おshibaのBanana',0,50,nil,40)
     obj.title:setReferencePoint(display.CenterReferencePoint)
     obj.title.x = _W/2
     obj.back = display.newText('戻る',_W/2,_H-150,nil,50)
@@ -20,6 +26,8 @@ function self.create()
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
     obj.group:insert( obj.back )
+	obj.group:insert( obj.banana)
+	obj.group:insert( obj.b_text)
 
     return obj.group
 end

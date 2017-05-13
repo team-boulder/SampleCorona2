@@ -24,6 +24,11 @@ local function viewHandler( event )
 		if event.value == 'kuma' then
 			storyboard.gotoScene(ContDir..'kuma')
 		end
+
+		if event.value == 'maehara' then
+			mae_view.puni()
+		end
+
 	end
 end
 
