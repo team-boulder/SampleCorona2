@@ -1,5 +1,6 @@
 local scene = storyboard.newScene()
 
+--Kumakawa
 -- require view
 local kuma_view = require( ViewDir .. 'kuma_view' )
 local home_view = require( ViewDir .. 'home_view' )
