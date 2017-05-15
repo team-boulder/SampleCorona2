@@ -1,15 +1,25 @@
 # SampleCorona2
+- CoronaSDKとgitの使い方に慣れよう  
 
-git clone URL
-cd git名
-git branch branch名
-git branch //ブランチの確認
-git checkout branch名 //ブランチ名に作業フォルダの切り替え
-git add *(ファイル名) //※印は変更した全てのファイル
-git commit -m "コメント"
-git push origin branch名(master) //originはgitのURL //masterにはpushしない
+## gitの操作
+### クローン
+git clone URL  
 
-git pull origin master //みんなのファイルの更新
+cd gitレポジトリ名  
+### ブランチを切る
+git branch 
+- ブランチの確認
+git branch branch名 
+git checkout branch名 
+- 作業したいブランチへの切り替え 
+### コミット
+git add *(ファイル名) 
+- ※は変更した全てのファイル  
 
-git pull origin branch名　//誰かのやつとマージ(持って来て自分のに合わせて作業できる)
-                         //この時は自分の作業スペースとは別に作るといい
+git commit -m "コメント"  
+### プッシュ
+git push origin branch名(master)  
+- originはgitのURLのエイリアス。masterには通常pushしない　　
+### プル
+git push origin branch名(master)  
+- 誰かのブランチをpullするときは自分の作業ブランチとは別にブランチを作るといい

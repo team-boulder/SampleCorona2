@@ -3,20 +3,28 @@
 local scene = storyboard.newScene()
 
 -- require view
+local natsu_view1 = require( ViewDir .. 'natsu_view1' )
 local natsu_view = require( ViewDir .. 'natsu_view' )
-local home_view = require( ViewDir .. 'home_view' )
+
+local tapCount = 0
 
 local function viewHandler( event )
-	if event.name == 'natsu_view-tap' then
+	if event.name == 'natsu_view-tap1' then
 
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home')
+			tapCount = 0
+			storyboard.gotoScene(ContDir..'natsu')
 		end
 
-		if event.value == 'next' then
-			storyboard.gotoScene(ContDir..'natsu1')
+		if event.value == 'image' then
+			if tapCount < 10 then
+				tapCount = tapCount + 1
+				natsu_view1.refresh(tapCount)
+				print(tapCount)
+			else
+				tapCount = 0
+			end	
 		end
-
 	end
 end
 
@@ -28,9 +36,9 @@ function scene:willEnterScene( event )
 	local group = self.view
 
 	--user_model:addEventListener( modelHandler )
-	natsu_view:addEventListener( viewHandler )
+	natsu_view1:addEventListener( viewHandler )
 
-	local view_obj = natsu_view.create()
+	local view_obj = natsu_view1.create()
 	group:insert( view_obj )
 
 end
@@ -43,9 +51,9 @@ function scene:exitScene( event )
 	local group = self.view
 
 	--user_model:removeEventListener( modelHandler )
-	natsu_view:removeEventListener( viewHandler )
+	natsu_view1:removeEventListener( viewHandler )
 
-	natsu_view.destroy()
+	natsu_view1.destroy()
 
 end
 
