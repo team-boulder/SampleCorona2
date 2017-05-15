@@ -5,16 +5,22 @@ local scene = storyboard.newScene()
 local kuma_view = require( ViewDir .. 'kuma_view' )
 local home_view = require( ViewDir .. 'home_view' )
 
+local tapcount = 0
 local function viewHandler( event )
 	if event.name == 'kuma_view-tap' then
 
-		if event.value == 'back' then
+		if event.value == 'rect' then
 			storyboard.gotoScene(ContDir..'home')
         end
 
 		if event.value == 'shop' then
 			print('Hello')
 			storyboard.gotoScene(ContDir..'home')
+		end
+		if event.value == 'Noback' then
+			kuma_view.puni()
+			kuma_view.reflesh()
+			-- print(tapcount)
 		end
 
 	end
