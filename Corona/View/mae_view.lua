@@ -1,6 +1,7 @@
 local self = object.new()
 local anim = require("Plugin.anim.anim")
-
+local physics = require("physics")
+local widget = require( "widget" )
 
 local obj = {}
 function self.create()
@@ -8,12 +9,44 @@ function self.create()
 		obj.group = display.newGroup()
 	end
 
+
+	local function networkListener( event )
+		local data = json.decode(event.response)
+		local scrollView = widget.newScrollView(
+    		{
+        	top = 0,
+        	left = 10,
+        	width = 600,
+        	height = 400,
+        	scrollWidth = 60,
+        	scrollHeight = 80,
+        	listener = scrollListener
+    		}
+		)
+		for i , var in pairs(data) do
+			local obj1 = display.newText(data[i].id, 0, i*100 , 100, 150)
+			local obj2 = display.newText(data[i].name, 100, i*100 , 200, 150)
+			local obj3 = display.newText(data[i].region, 300, i*100 , 200, 150)
+			obj1:setFillColor(1,0,0)
+			obj2:setFillColor(1,0,0)
+			obj3:setFillColor(1,0,0)
+			scrollView:insert(obj1)
+			scrollView:insert(obj2)
+			scrollView:insert(obj3)
+		end
+	end
+	local params = {}
+	fnetwork.request("http://api.football-api.com/2.0/competitions?Authorization=565ec012251f932ea4000001fa542ae9d994470e73fdb314a8a56d76", "GET", networkListener, params)
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
 
-    obj.title = display.newText('ショップ',0,50,nil,40)
+    obj.title = display.newText('ショップ',0, playerInfoData['hoge'],nil,40) 
+    playerInfoData['hoge'] = playerInfoData['hoge'] + 10
     obj.title:setReferencePoint(display.CenterReferencePoint)
     obj.title.x = _W/2
+    physics.start()
+    physics.addBody(obj.title, { friction=1.0, bounce=1.0 })
+    
 
     obj.back = display.newText('戻る',_W/2,_H-150,nil,50)
     obj.back:setReferencePoint(display.CenterReferencePoint)
@@ -50,6 +83,7 @@ function self.create()
 	obj.text.value = 'maehara'
 	obj.text:addEventListener('tap',self.tap)
 	anim.new(obj.text)
+	physics.addBody(obj.text, "static" ,{ friction=1.0, bounce=1.0 })
 
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
