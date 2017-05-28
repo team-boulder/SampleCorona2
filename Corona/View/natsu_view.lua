@@ -11,15 +11,24 @@ function self.create()
     obj.title = display.newText('ショップ',0,50,nil,40)
     obj.title:setReferencePoint(display.CenterReferencePoint)
     obj.title.x = _W/2
+
     obj.back = display.newText('戻る',_W/2,_H-150,nil,50)
     obj.back:setReferencePoint(display.CenterReferencePoint)
     obj.back.x = _W/2
     obj.back.value = 'back'
+	obj.back:addEventListener('tap',self.tap)
 
-    obj.back:addEventListener('tap',self.tap)
+	obj.next = display.newText('次へ',0,0,nil,50)
+	obj.next:setReferencePoint(display.CenterReferencePoint)
+	obj.next.x = _W/2
+	obj.next.y = _H/2
+	obj.next.value = 'next'
+	obj.next:addEventListener('tap',self.tap)
+    
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
     obj.group:insert( obj.back )
+	obj.group:insert( obj.next )
 
     return obj.group
 end
