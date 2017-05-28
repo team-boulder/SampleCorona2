@@ -21,5 +21,5 @@ git commit -m "コメント"
 git push origin branch名(master)  
 - originはgitのURLのエイリアス。masterには通常pushしない　　
 ### プル
-git push origin branch名(master)  
+git pull origin branch名(master)  
 - 誰かのブランチをpullするときは自分の作業ブランチとは別にブランチを作るといい
