@@ -54,6 +54,7 @@ function this.setAll( data )
 
 	playerInfoData['name']          	= data['name'] or 'PLAYER' .. string.format( '%05d', math.random( 10000 ) )
 	playerInfoData['block_time']    	= tonumber( data['block_time'] ) or 0
+	playerInfoData['hoge']    			= tonumber( data['hoge'] ) or 0
 	playerInfoData['buy_items']     	= data['buy_items'] or {1,1,1,1}
 	playerInfoData['block']         	= tonumber( data['block'] ) or 0
 	playerInfoData['size']          	= tonumber( data['size'] ) or 0.2
