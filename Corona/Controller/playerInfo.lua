@@ -10,7 +10,7 @@
 @
 @ Comment  :
 @
-]]--
+]]--ß
 
 local this = object.new()
 playerInfoData = {}
@@ -59,19 +59,8 @@ function this.setAll( data )
 	playerInfoData['size']          	= tonumber( data['size'] ) or 0.2
 	playerInfoData['pet_tap']					= tonumber( data['pet_tap'] ) or 1
 	playerInfoData['tutorial']        = tonumber( data['tutorial'] ) or 1
-	playerInfoData['petdata']					= data['petadata'] or {
-		{-1,-1,1,1,1,1,1,1,-1,-1},
-		{-1,1,1,1,1,1,1,1,1,-1},
-		{1,0,0,1,1,1,0,0,1,1},
-		{1,0,0,1,1,1,0,0,1,1},
-		{1,1,1,1,1,1,1,1,1,1},
-		{1,1,1,0,0,0,1,1,1,1},
-		{-1,1,-1,1,-1,1,1,-1,1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
-	}
-
+	playerInfoData['petdata']					= data['petadata'] or 1
+    playerInfoData['age']				= tonumber( data['age'] ) or 1
 
 	this.reload()
 end
