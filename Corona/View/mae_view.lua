@@ -21,20 +21,29 @@ function self.create()
 	obj.back.value = 'back'
 	obj.back:addEventListener('tap',self.tap)
 	
-	obj.shiba = display.newText('芝',_W/2 + 100,_H-300,nil,50)
+	obj.shiba = display.newText('芝', 0 ,_H-300,nil,50)
     obj.shiba:setReferencePoint(display.CenterReferencePoint)
+    obj.shiba.x = _W/4
     obj.shiba.value = 'shiba'
 	obj.shiba:addEventListener('tap',self.tap)
-    
+    anim.new(obj.shiba)
+    obj.shiba:ika()
+
 	obj.kuma = display.newText('熊',_W/2 - 100,_H-300,nil,50)
     obj.kuma:setReferencePoint(display.CenterReferencePoint)
+    obj.kuma.x = _W/2
     obj.kuma.value = 'kuma'
 	obj.kuma:addEventListener('tap',self.tap)
+	anim.new(obj.kuma)
+	obj.kuma:ika()
 
 	obj.natsu = display.newText('夏',_W/2,_H-300,nil,50)
     obj.natsu:setReferencePoint(display.CenterReferencePoint)
+    obj.natsu.x = _W*3/4
     obj.natsu.value = 'natsu'
 	obj.natsu:addEventListener('tap',self.tap)
+	anim.new(obj.natsu)
+	obj.natsu:ika()
 
 	obj.text = display.newText('前原だよ！！', 0, _H-500, nil, 100)
 	obj.text:setReferencePoint(display.CenterReferencePoint)
@@ -73,7 +82,8 @@ function self.tap( e )
 	return true
 end
 
-function self.puni()
+function self.puni() 
+	obj.text:stopAnim()
 	obj.text:punipuni()
 end 
 
