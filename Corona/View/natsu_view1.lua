@@ -36,6 +36,7 @@ function self.create()
 	obj.text.value = 'text'
     
     obj.group:insert( obj.bg )
+	obj.group:insert( obj.back)
 	obj.group:insert( obj.image )
 	obj.group:insert( obj.whiteimage )
 	obj.group:insert( obj.text )

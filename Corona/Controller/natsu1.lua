@@ -13,7 +13,7 @@ local function viewHandler( event )
 
 		if event.value == 'back' then
 			tapCount = 0
-			storyboard.gotoScene(ContDir..'natsu')
+			storyboard.gotoScene(ContDir..'home')
 		end
 
 		if event.value == 'image' then
