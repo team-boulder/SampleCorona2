@@ -3,10 +3,19 @@ local anim = require("Plugin.anim.anim")
 
 local obj = {}
 function self.create()
+local param = {}
 	if obj.group == nil then
 		obj.group = display.newGroup()
 	end
-
+	local w_text
+	local function listener(event)
+		--print(event.response)
+		local data = json.decode(event.response)
+		print(data[1].id)
+		w_text=data[1].id
+		obj.n_text = display.newText(w_text,0,100,nill,15)
+		obj.n_text.x = _W/4
+	end
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
 	--バナナくん
@@ -15,6 +24,7 @@ function self.create()
     obj.banana.y = _H/4
 	obj.b_text = display.newText('今夜どう？🍌',0,200,nil,35)
 	obj.b_text.x = _W/4
+	fnetwork.request( 'http://api.football-api.com/2.0/competitions?Authorization=565ec012251f932ea4000001fa542ae9d994470e73fdb314a8a56d76', 'GET', listener, param )
 	anim.new(obj.banana)
 	obj.banana:punipuni()
 
@@ -44,6 +54,7 @@ function self.create()
 	obj.group:insert( obj.b_text)
 	obj.group:insert( obj.awabi)
 	obj.group:insert( obj.a_text)
+	obj.group:insert( obj.title )
 
     return obj.group
 end
