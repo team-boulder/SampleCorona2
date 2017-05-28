@@ -56,10 +56,11 @@ function this.setAll( data )
 	playerInfoData['block_time']    	= tonumber( data['block_time'] ) or 0
 	playerInfoData['buy_items']     	= data['buy_items'] or {1,1,1,1}
 	playerInfoData['block']         	= tonumber( data['block'] ) or 0
+	playerInfoData['thinthin_size']     = tonumber( data['thinthin_size'] ) or 0
 	playerInfoData['size']          	= tonumber( data['size'] ) or 0.2
-	playerInfoData['pet_tap']					= tonumber( data['pet_tap'] ) or 1
-	playerInfoData['tutorial']        = tonumber( data['tutorial'] ) or 1
-	playerInfoData['petdata']					= data['petadata'] or {
+	playerInfoData['pet_tap']			= tonumber( data['pet_tap'] ) or 1
+	playerInfoData['tutorial']        	= tonumber( data['tutorial'] ) or 1
+	playerInfoData['petdata']			= data['petadata'] or {
 		{-1,-1,1,1,1,1,1,1,-1,-1},
 		{-1,1,1,1,1,1,1,1,1,-1},
 		{1,0,0,1,1,1,0,0,1,1},
