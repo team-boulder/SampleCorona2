@@ -1,6 +1,7 @@
 local self = object.new()
 
 local on = 0
+local time = 5000
 local obj = {}
 function self.create()
 	if obj.group == nil then
@@ -33,8 +34,9 @@ function self.create()
 	obj.ifback.isVisible = false
 	anim.new(obj.ifback)
 	obj.ifback:punipuni()
-
-	transition.to( obj.rect, { time=5000, transition=easing.continuousLoop,x=(0), y=(0), iterations=-1, xScale=0.3, yScale=0.3} )
+	print(playerInfoData['age'])
+	print(time - playerInfoData['age'] * 2000) 
+	transition.to( obj.rect, { time = time - playerInfoData['age'] * 2000, transition=easing.continuousLoop,x=(0), y=(0), iterations=-1, xScale=0.3, yScale=0.3} )
     -- obj.back:addEventListener('tap',self.tap)
     obj.rect:addEventListener('tap',self.tap)
     obj.title:addEventListener('tap',self.tap)
