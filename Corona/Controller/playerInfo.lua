@@ -71,6 +71,7 @@ function this.setAll( data )
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
 	}
+	playerInfoData['test'] = data['test'] or 'unko'
 
 
 	this.reload()
