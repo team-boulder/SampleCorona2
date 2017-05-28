@@ -4,6 +4,7 @@ local scene = storyboard.newScene()
 local shiba_view = require( ViewDir .. 'shiba_view' )
 local home_view = require( ViewDir .. 'home_view' )
 local shiba2_view = require( ViewDir .. 'shiba2_view' )
+local playerInfo = require( ContDir .. 'playerInfo')
 
 local function viewHandler( event )
 	if event.name == 'shiba_view-tap' then
@@ -16,6 +17,9 @@ local function viewHandler( event )
 		if event.value == 'next' then
 			storyboard.gotoScene(ContDir..'shiba2')
 			print("ThinThin_next")
+			playerInfoData['thinthin_size'] = playerInfoData['thinthin_size'] + 1 
+			playerInfo.save()
+
 		end
 
 	end
