@@ -1,4 +1,5 @@
 local self = object.new()
+local playerInfo = require( ContDir .. 'playerInfo')
 
 local obj = {}
 function self.create()
@@ -27,8 +28,9 @@ function self.create()
 	obj.whiteimage.x = _W/2
 	obj.whiteimage.y = 200
 	obj.whiteimage.value = 'whiteimage'
-	obj.whiteimage.alpha = 0
+	obj.whiteimage.alpha = 0.1 * playerInfoData['test']
 	obj.whiteimage:addEventListener('tap',self.tap)
+	
 
 	obj.text = display.newText("↑画像タップしてね",0,0,nil,40)
 	obj.text.x = _W/2

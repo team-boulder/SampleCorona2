@@ -5,6 +5,7 @@ local scene = storyboard.newScene()
 -- require view
 local natsu_view1 = require( ViewDir .. 'natsu_view1' )
 local natsu_view = require( ViewDir .. 'natsu_view' )
+local playerInfo = require( ContDir .. 'playerInfo')
 
 local tapCount = 0
 
@@ -12,7 +13,7 @@ local function viewHandler( event )
 	if event.name == 'natsu_view-tap1' then
 
 		if event.value == 'back' then
-			tapCount = 0
+			--tapCount = 0
 			storyboard.gotoScene(ContDir..'home')
 		end
 
@@ -20,10 +21,12 @@ local function viewHandler( event )
 			if tapCount < 10 then
 				tapCount = tapCount + 1
 				natsu_view1.refresh(tapCount)
-				print(tapCount)
+				playerInfoData['test'] = tapCount
 			else
 				tapCount = 0
 			end	
+			playerInfoData['test'] = tapCount
+			playerInfo.save()
 		end
 	end
 end
