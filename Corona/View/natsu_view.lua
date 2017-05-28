@@ -1,7 +1,11 @@
+local widget = require( "widget" )
+
 local self = object.new()
+
 
 local obj = {}
 function self.create()
+
 	if obj.group == nil then
 		obj.group = display.newGroup()
 	end

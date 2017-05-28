@@ -5,7 +5,6 @@ local scene = storyboard.newScene()
 -- require view
 local natsu_view1 = require( ViewDir .. 'natsu_view1' )
 local natsu_view = require( ViewDir .. 'natsu_view' )
-local playerInfo = require( ContDir .. 'playerInfo')
 
 local tapCount = 0
 
