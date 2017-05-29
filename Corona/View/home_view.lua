@@ -60,27 +60,27 @@ function self.create()
 			box:addEventListener('touch')
 			obj.scrollView:insert(box)
 		end
-		obj.grow = display.newText('夏山',50,100,'Noto-Light.otf',35)
-		obj.grow:setFillColor(0)
-		obj.grow.value = 'natsu'
-		obj.scrollView:insert(obj.grow)
-		obj.shop = display.newText('芝',50,180,'Noto-Light.otf',35)
-		obj.shop:setFillColor(0)
-		obj.shop.value = 'shiba'
-		obj.scrollView:insert(obj.shop)
-		obj.reset = display.newText('熊川',50,260,'Noto-Light.otf',35)
-		obj.reset:setFillColor(0)
-		obj.reset.value = 'kuma'
-		obj.scrollView:insert(obj.reset)
-		obj.full = display.newText('前原',50,340,'Noto-Light.otf',35)
-		obj.full:setFillColor(0)
-		obj.full.value = 'mae'
-		obj.scrollView:insert(obj.full)
+		obj.natsu = display.newText('夏山',50,100,'Noto-Light.otf',35)
+		obj.natsu:setFillColor(0)
+		obj.natsu.value = 'natsu'
+		obj.scrollView:insert(obj.natsu)
+		obj.shiba = display.newText('芝',50,180,'Noto-Light.otf',35)
+		obj.shiba:setFillColor(0)
+		obj.shiba.value = 'shiba'
+		obj.scrollView:insert(obj.shiba)
+		obj.kuma = display.newText('熊川',50,260,'Noto-Light.otf',35)
+		obj.kuma:setFillColor(0)
+		obj.kuma.value = 'kuma'
+		obj.scrollView:insert(obj.kuma)
+		obj.mae = display.newText('前原',50,340,'Noto-Light.otf',35)
+		obj.mae:setFillColor(0)
+		obj.mae.value = 'mae'
+		obj.scrollView:insert(obj.mae)
 
-		obj.grow:addEventListener('tap',self.tap)
-		obj.shop:addEventListener('tap',self.tap)
-		obj.reset:addEventListener('tap',self.tap)
-		obj.full:addEventListener('tap',self.tap)
+		obj.natsu:addEventListener('tap',self.tap)
+		obj.shiba:addEventListener('tap',self.tap)
+		obj.kuma:addEventListener('tap',self.tap)
+		obj.mae:addEventListener('tap',self.tap)
 
 		obj.group:insert( obj.bg )
 		obj.group:insert( obj.scrollView )
