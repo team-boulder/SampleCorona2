@@ -45,6 +45,9 @@ function self.create()
 		obj.title:setReferencePoint(display.CenterReferencePoint)
 		obj.title.x = _W/2
 		obj.title.y = obj.header.height/2
+		obj.menu = display.newImage( ImgDir .. 'home/menu.png',30,30)
+		obj.menu.value = 'menu'
+		obj.menu:addEventListener('tap',self.tap)
 		obj.scrollView = widget.newScrollView(
 		{
         	top = 0,
@@ -83,7 +86,28 @@ function self.create()
 		obj.addButton.value = 'add'
 		obj.addButton:addEventListener('tap',self.tap)
 
-		-- ポップアップウィンドウを予め作成しておく
+		-- メニューを予め作成しておく
+		obj.menuGroup = display.newGroup()
+		obj.menuBG = display.newRect(0,0,_W,_H)
+		obj.menuBG:setFillColor(0,0,0,150)
+		obj.menuBG.alpha = 0
+		obj.menuBG.value = 'menubg'
+		obj.menuBG:addEventListener('tap',self.tap)
+		obj.menuBG:addEventListener('touch',self.touch)
+		obj.menuWindow = display.newRect(obj.menuGroup,0, 0, 400, _H)
+		obj.menuWindow:setFillColor(240)
+		obj.menuWindow.value = 'menuWindow'
+		obj.menuWindow:addEventListener('tap',self.tap)
+		obj.menuWindow:addEventListener('touch',self.touch)
+		obj.menuTitle = display.newText(obj.menuGroup,'ありがちなメニュー',0,0,'Noto-Light.otf',35)
+		obj.menuTitle:setReferencePoint(display.CenterReferencePoint)
+		obj.menuTitle:setFillColor(100)
+		obj.menuTitle.x = obj.menuWindow.x 
+		obj.menuTitle.y = 50
+		obj.menuGroup.x = -400
+		obj.menuGroup.alpha = 0
+
+		-- ポップアップウィンドウも予め作成しておく
 		obj.popupGroup = display.newGroup()
 		obj.bg = display.newRect(obj.popupGroup,0,0,_W,_H)
 		obj.bg:setFillColor(0,0,0,150)
@@ -117,11 +141,24 @@ function self.create()
 		obj.group:insert( obj.scrollView )
 		obj.group:insert( obj.header )
 		obj.group:insert( obj.title )
+		obj.group:insert( obj.menu )
 		obj.group:insert( obj.addButton )
+		obj.group:insert( obj.menuBG )
+		obj.group:insert( obj.menuGroup )
 		obj.group:insert( obj.popupGroup )
 
 		return obj.group
 	end
+end
+
+function self.showMenu()
+	transition.to( obj.menuGroup, { time = 150, alpha = 1, x = 0 } )
+	transition.to( obj.menuBG, { time = 150, alpha = 1 } )
+end
+
+function self.hideMenu()
+	transition.to( obj.menuGroup, { time = 150, alpha = 0, x = -400 } )
+	transition.to( obj.menuBG, { time = 150, alpha = 0 } )
 end
 
 function self.showPopup()
@@ -137,7 +174,11 @@ end
 function self.addLabel()
 	local content = createContent(obj.textField.text)
 	content.y = headerSize + obj.contentNum * boxSize
+	content.value = 'temp'
+	content.text = obj.textField.text
+	content:addEventListener('tap',self.tap)
 	obj.scrollView:insert(content)
+	obj.contentNum = obj.contentNum + 1
 	self.hidePopup()
 	obj.textField.text = ''
 end
@@ -193,6 +234,9 @@ function self.tap( e )
 		name   = 'home_view-tap',
 		value  = e.target.value,
 	}
+	if e.target.text then
+		event['text'] = e.target.text
+    end
 	self:dispatchEvent( event )
 
 	if e.target.value == 'bg' and e.target.value == 'popupWindow' then

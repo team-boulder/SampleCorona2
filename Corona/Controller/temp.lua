@@ -1,52 +1,13 @@
 local scene = storyboard.newScene()
 
 -- require view
-local home_view = require( ViewDir .. 'home_view' )
+local temp_view = require( ViewDir .. 'temp_view' )
 
 local function viewHandler( event )
-	if event.name == 'home_view-tap' then
+	if event.name == 'temp_view-tap' then
 
-		if event.value == 'shiba' then
-			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
-		end
-		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'natsu',{effect="slideLeft"})
-		end
-		if event.value == 'kuma' then
-			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
-		end
-		if event.value == 'mae' then
-			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
-		end
-		if event.value == 'temp' then
-			storyboard.showOverlay(ContDir..'temp',{effect="slideLeft",params = { title = event.text or 'temp' } })
-		end
-		if event.value == 'add' then
-			home_view.showPopup()
-		end
-		if event.value == 'menu' then
-			home_view.showMenu()
-		end
-		if event.value == 'menubg' then
-			home_view.hideMenu()
-		end
 		if event.value == 'bg' then
-			home_view.hidePopup()
-		end
-		if event.value == 'accept' then
-			local function onComplete( event )
-				if ( event.action == "clicked" ) then
-					local i = event.index
-					if ( i == 1 ) then
-						home_view.addLabel()
-					end
-				end
-			end
-			if home_view.checkText() then
-				native.showAlert( "確認", "本当に追加しますか", { "OK", "キャンセル" }, onComplete )
-            else
-				native.showAlert( "警告", "入力欄が空白です", { "OK" })
-			end
+			storyboard.hideOverlay( "slideRight" )
 		end
 	end
 end
@@ -59,11 +20,9 @@ end
 function scene:willEnterScene( event )
 	local group = self.view
 
-	sound.loopPlay(sound.home)
-	--user_model:addEventListener( modelHandler )
-	home_view:addEventListener( viewHandler )
+	temp_view:addEventListener( viewHandler )
 
-	local view_obj = home_view.create()
+	local view_obj = temp_view.create(event.params)
 	group:insert( view_obj )
 
 end
@@ -75,8 +34,7 @@ end
 function scene:exitScene( event )
 	local group = self.view
 
-	--user_model:removeEventListener( modelHandler )
-	home_view:removeEventListener( viewHandler )
+	temp_view:removeEventListener( viewHandler )
 
 end
 
@@ -87,7 +45,7 @@ end
 
 function scene:destroyScene( event )
 	local group = self.view
-	home_view.destroy()
+	temp_view.destroy()
 end
 
 
