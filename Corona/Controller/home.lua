@@ -1,18 +1,3 @@
---[[
-@
-@ Project  :
-@
-@ Filename : start.lua
-@
-@ Author   : Task Nagashige
-@
-@ Date     : 2015-10-10
-@
-@ Comment  : アプリ起動時に色々な情報を取ってきて起動の準備をするページ。
-@            実態はスプラッシュが表示されているのみ
-@
-]]--
-
 local scene = storyboard.newScene()
 
 -- require view
@@ -22,34 +7,46 @@ local function viewHandler( event )
 	if event.name == 'home_view-tap' then
 
 		if event.value == 'shiba' then
-			storyboard.gotoScene(ContDir..'shiba')
+			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
 		end
 		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'natsu')
+			storyboard.gotoScene(ContDir..'natsu',{effect="slideLeft"})
 		end
 		if event.value == 'kuma' then
-			storyboard.gotoScene(ContDir..'kuma')
+			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
 		end
 		if event.value == 'mae' then
-			storyboard.gotoScene(ContDir..'mae')
+			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
 		end
-		if event.value == 'block_tap' then
-			if playerInfoData['block'] < block_model.current_limit then
-				playerInfoData['block'] = playerInfoData['block'] + playerInfoData['pet_tap']
+		if event.value == 'temp' then
+			storyboard.showOverlay(ContDir..'temp',{effect="slideLeft",params = { title = event.text or 'temp' } })
+		end
+		if event.value == 'add' then
+			home_view.showPopup()
+		end
+		if event.value == 'menu' then
+			home_view.showMenu()
+		end
+		if event.value == 'menubg' then
+			home_view.hideMenu()
+		end
+		if event.value == 'bg' then
+			home_view.hidePopup()
+		end
+		if event.value == 'accept' then
+			local function onComplete( event )
+				if ( event.action == "clicked" ) then
+					local i = event.index
+					if ( i == 1 ) then
+						home_view.addLabel()
+					end
+				end
 			end
-		end
-		--テスト用
-		if event.value == 'full' then
-			playerInfoData['block'] = block_model.current_limit
-		end
-		if event.value == 'reset' then
-			playerInfoData['block_limit'] = 1000
-			playerInfoData['block_speed'] = 10
-			playerInfoData['block'] = 0
-			playerInfoData['block_food'] = 20
-			playerInfoData['spd'] = 1000
-			playerInfoData['pet_tap'] = 1
-			playerInfoData['block_evol'] = 500
+			if home_view.checkText() then
+				native.showAlert( "確認", "本当に追加しますか", { "OK", "キャンセル" }, onComplete )
+            else
+				native.showAlert( "警告", "入力欄が空白です", { "OK" })
+			end
 		end
 	end
 end
@@ -81,8 +78,6 @@ function scene:exitScene( event )
 	--user_model:removeEventListener( modelHandler )
 	home_view:removeEventListener( viewHandler )
 
-	home_view.destroy()
-
 end
 
 function scene:didExitScene( event )
@@ -92,6 +87,7 @@ end
 
 function scene:destroyScene( event )
 	local group = self.view
+	home_view.destroy()
 end
 
 

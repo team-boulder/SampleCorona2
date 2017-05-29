@@ -1,19 +1,3 @@
---[[
-@
-@ Project  :
-@
-@ Filename : main.lua
-@
-@ Author   : Task Nagashige
-@
-@ Date     :
-@
-@ Comment  :
-@
-@ Package  : jp.co.freep.Sample
-@
-]]--
-
 -- 提出時にはfalse
 __isDebug = true
 __isTested = false
