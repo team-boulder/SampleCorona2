@@ -1,15 +1,3 @@
---[[
-@
-@ Project  :
-@
-@ Filename : home_view.lua
-@
-@ Author   : Tomohiro Matsuo
-@
-@ Date     : 2015-10-10
-@
-]]--
-
 local self = object.new()
 
 local obj = {}
@@ -98,7 +86,8 @@ function self.destroy()
 			display.remove( obj.group )
 			obj.group = nil
 		end
-		transition.to( obj.group, { time = 200, alpha = 0, onComplete = remove } )
+		remove()
+		-- transition.to( obj.group, { time = 200, alpha = 0, onComplete = remove } )
 	end
 end
 

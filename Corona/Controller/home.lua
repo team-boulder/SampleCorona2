@@ -48,8 +48,6 @@ function scene:exitScene( event )
 	--user_model:removeEventListener( modelHandler )
 	home_view:removeEventListener( viewHandler )
 
-	home_view.destroy()
-
 end
 
 function scene:didExitScene( event )
@@ -59,6 +57,7 @@ end
 
 function scene:destroyScene( event )
 	local group = self.view
+	home_view.destroy()
 end
 
 
