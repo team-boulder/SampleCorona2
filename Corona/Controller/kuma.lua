@@ -35,7 +35,7 @@ function scene:willEnterScene( event )
 
 	--user_model:addEventListener( modelHandler )
 	kuma_view:addEventListener( viewHandler )
-
+	playerInfoData['age'] = playerInfoData['age'] - 0.2
 	local view_obj = kuma_view.create()
 	group:insert( view_obj )
 
