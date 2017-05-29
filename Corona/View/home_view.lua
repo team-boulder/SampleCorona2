@@ -20,15 +20,62 @@ function self.create()
 
 		obj.bg = display.newRect(0,0,_W,_H)
 		obj.bg:setFillColor(0)
-		obj.grow = display.newText('夏山',_W-200,_H/2+300,'8bit.ttf',40)
+		obj.header = display.newRect(0,0,_W,90)
+		obj.header:setFillColor(120,230,240)
+		obj.title = display.newText('   Coincheck',0,0,'Noto-Light.otf',35)
+		obj.title:setReferencePoint(display.CenterReferencePoint)
+		obj.title.x = _W/2
+		obj.title.y = obj.header.height/2
+		obj.scrollView = widget.newScrollView(
+		{
+        	top = 0,
+        	left = 0,
+        	width = _W,
+        	height = _H,
+        	scrollWidth = 60,
+        	scrollHeight = 80
+		})
+		obj.scrollView:setIsLocked( true, "horizontal" )
+		for i=0,20 do
+			local box = display.newRect(obj.group,0,i*80+90,_W,80)
+			function box:touch(event)
+				print(event.phase)
+				if event.phase == "began" then
+					print('began')
+					self:setFillColor(120,230,240)
+					self.isFocus = true
+					timer.performWithDelay(100,function()
+						self:setFillColor(255)
+					end)
+				elseif self.isfocus then
+					if event.phase == "ended" or event.phase == "cancelled" then
+						print('end')
+						self:setfillcolor(255)
+						self.isfocus = false
+					end
+				end
+			end
+			box:setStrokeColor(220)
+			box.strokeWidth = 2
+			box:addEventListener('touch')
+			obj.scrollView:insert(box)
+		end
+		obj.grow = display.newText('夏山',50,100,'Noto-Light.otf',35)
+		obj.grow:setFillColor(0)
 		obj.grow.value = 'natsu'
-		obj.shop = display.newText('芝',_W-200,_H/2+380,'8bit.ttf',40)
+		obj.scrollView:insert(obj.grow)
+		obj.shop = display.newText('芝',50,180,'Noto-Light.otf',35)
+		obj.shop:setFillColor(0)
 		obj.shop.value = 'shiba'
-		--テスト用
-		obj.reset = display.newText('熊川',_W-600,_H/2+380,'8bit.ttf',40)
+		obj.scrollView:insert(obj.shop)
+		obj.reset = display.newText('熊川',50,260,'Noto-Light.otf',35)
+		obj.reset:setFillColor(0)
 		obj.reset.value = 'kuma'
-		obj.full = display.newText('前原',_W-600,_H/2+300,'8bit.ttf',40)
+		obj.scrollView:insert(obj.reset)
+		obj.full = display.newText('前原',50,340,'Noto-Light.otf',35)
+		obj.full:setFillColor(0)
 		obj.full.value = 'mae'
+		obj.scrollView:insert(obj.full)
 
 		obj.grow:addEventListener('tap',self.tap)
 		obj.shop:addEventListener('tap',self.tap)
@@ -36,10 +83,9 @@ function self.create()
 		obj.full:addEventListener('tap',self.tap)
 
 		obj.group:insert( obj.bg )
-		obj.group:insert( obj.grow )
-		obj.group:insert( obj.shop )
-		obj.group:insert( obj.reset )
-		obj.group:insert( obj.full )
+		obj.group:insert( obj.scrollView )
+		obj.group:insert( obj.header )
+		obj.group:insert( obj.title )
 
 		return obj.group
 	end
