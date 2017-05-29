@@ -18,6 +18,27 @@ local function viewHandler( event )
 		if event.value == 'mae' then
 			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
 		end
+		if event.value == 'add' then
+			home_view.showPopup()
+		end
+		if event.value == 'bg' then
+			home_view.hidePopup()
+		end
+		if event.value == 'accept' then
+			local function onComplete( event )
+				if ( event.action == "clicked" ) then
+					local i = event.index
+					if ( i == 1 ) then
+						home_view.addLabel()
+					end
+				end
+			end
+			if home_view.checkText() then
+				native.showAlert( "確認", "本当に追加しますか", { "OK", "キャンセル" }, onComplete )
+            else
+				native.showAlert( "警告", "入力欄が空白です", { "OK" })
+			end
+		end
 	end
 end
 

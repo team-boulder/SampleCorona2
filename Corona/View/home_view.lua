@@ -7,20 +7,24 @@ local tableData = {
 	{ label = '熊川', value = 'kuma' },
 	{ label = '前原', value = 'mae' },
 }
+local themeColor = {120,230,240}
+local headerSize = 100
+local boxSize = 100
 
 local function createContent(str)
 	local group = display.newGroup()
-	local box = display.newRect(group,0,0,_W,80)
+
+	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
 	local text = display.newText(group,str,50,0,'Noto-Light.otf',35)
 	text:setReferencePoint(display.CenterReferencePoint)
 	text.y = box.height/2
-	text:setFillColor(0)
+	text:setFillColor(80)
+
 	function box:touch(event)
-		print(event.phase)
 		if event.phase == "began" then
-			self:setFillColor(120,230,240)
+			self:setFillColor(unpack(themeColor))
 			timer.performWithDelay(100,function()
 				self:setFillColor(255)
 			end)
@@ -34,10 +38,9 @@ function self.create()
 	if obj.group == nil then
 		obj.group = display.newGroup()
 
-		obj.bg = display.newRect(0,0,_W,_H)
-		obj.bg:setFillColor(0)
-		obj.header = display.newRect(0,0,_W,90)
-		obj.header:setFillColor(120,230,240)
+		obj.contentNum = 0
+		obj.header = display.newRect(0,0,_W,headerSize)
+		obj.header:setFillColor(unpack(themeColor))
 		obj.title = display.newText('   Coincheck',0,0,'Noto-Light.otf',35)
 		obj.title:setReferencePoint(display.CenterReferencePoint)
 		obj.title.x = _W/2
@@ -53,58 +56,98 @@ function self.create()
 		})
 		obj.scrollView:setIsLocked( true, "horizontal" )
 
+		-- 連想配列から取り出してテーブルを作成
 		for i,v in ipairs(tableData) do
 			obj[v.value] = createContent(v.label)
-			obj[v.value].y = 90 + (i-1)*80
+			obj[v.value].y = headerSize + (i-1)*boxSize
 			obj[v.value].value = v.value
 			obj[v.value]:addEventListener('tap',self.tap)
 			obj.scrollView:insert(obj[v.value])
+			obj.contentNum = obj.contentNum + 1
 		end
-		-- for i=0,20 do
-		-- 	local box = display.newRect(obj.group,0,i*80+90,_W,80)
-		-- 	function box:touch(event)
-		-- 		print(event.phase)
-		-- 		if event.phase == "began" then
-		-- 			self:setFillColor(120,230,240)
-		-- 			timer.performWithDelay(100,function()
-		-- 				self:setFillColor(255)
-		-- 			end)
-		-- 		end
-		-- 	end
-		-- 	box:setStrokeColor(220)
-		-- 	box.strokeWidth = 2
-		-- 	box:addEventListener('touch')
-		-- 	obj.scrollView:insert(box)
-		-- end
-		-- obj.natsu = display.newText('夏山',50,100,'Noto-Light.otf',35)
-		-- obj.natsu:setFillColor(0)
-		-- obj.natsu.value = 'natsu'
-		-- obj.scrollView:insert(obj.natsu)
-		-- obj.shiba = display.newText('芝',50,180,'Noto-Light.otf',35)
-		-- obj.shiba:setFillColor(0)
-		-- obj.shiba.value = 'shiba'
-		-- obj.scrollView:insert(obj.shiba)
-		-- obj.kuma = display.newText('熊川',50,260,'Noto-Light.otf',35)
-		-- obj.kuma:setFillColor(0)
-		-- obj.kuma.value = 'kuma'
-		-- obj.scrollView:insert(obj.kuma)
-		-- obj.mae = display.newText('前原',50,340,'Noto-Light.otf',35)
-		-- obj.mae:setFillColor(0)
-		-- obj.mae.value = 'mae'
-		-- obj.scrollView:insert(obj.mae)
 
-		-- obj.natsu:addEventListener('tap',self.tap)
-		-- obj.shiba:addEventListener('tap',self.tap)
-		-- obj.kuma:addEventListener('tap',self.tap)
-		-- obj.mae:addEventListener('tap',self.tap)
+		-- 追加ボタンの生成
+		obj.addButton = display.newGroup()
+		local circle = display.newCircle( obj.addButton, _W-100, _H-100, 50)
+		local plus = display.newText( obj.addButton, '＋', 0, 0, nil, 70)
+		plus:setReferencePoint(display.CenterReferencePoint)
+		plus.x = circle.x
+		plus.y = circle.y
+		circle:setFillColor(unpack(themeColor))
+		circle.fill.effect = "filter.bloom"
+		circle.fill.effect.levels.white = 0.2
+		circle.fill.effect.levels.black = 1.0
+		circle.fill.effect.levels.gamma = 0.2
+		obj.addButton:setReferencePoint(circle.x, circle.y)
+		obj.addButton.anim = true
+		obj.addButton.value = 'add'
+		obj.addButton:addEventListener('tap',self.tap)
 
-		obj.group:insert( obj.bg )
+		-- ポップアップウィンドウを予め作成しておく
+		obj.popupGroup = display.newGroup()
+		obj.bg = display.newRect(obj.popupGroup,0,0,_W,_H)
+		obj.bg:setFillColor(0,0,0,150)
+		obj.bg.value = 'bg'
+		obj.bg:addEventListener('tap',self.tap)
+		obj.bg:addEventListener('touch',self.touch)
+		obj.popupWindow = display.newRect(obj.popupGroup,1/10*_W, 1/5*_H, 4/5*_W, 3/5*_H)
+		obj.popupWindow:setFillColor(240)
+		obj.popupWindow.value = 'popupWindow'
+		obj.popupWindow:addEventListener('tap',self.tap)
+		obj.popupWindow:addEventListener('touch',self.touch)
+		obj.message = display.newText(obj.popupGroup,'ラベルを入力してください',0,0,'Noto-Light.otf',35)
+		obj.message:setReferencePoint(display.CenterReferencePoint)
+		obj.message:setFillColor(100)
+		obj.message.x = obj.popupWindow.x 
+		obj.message.y = obj.popupWindow.y - 200
+		obj.textField = native.newTextField( 0,0, obj.popupWindow.width*0.8, 80 )
+		obj.textField:setReferencePoint(display.CenterReferencePoint)
+		obj.textField.x = obj.popupWindow.x 
+		obj.textField.y = obj.popupWindow.y - 50
+		obj.accept = display.newText(obj.popupGroup,'追加',0,0,'Noto-Medium.otf',35)
+		obj.accept:setReferencePoint(display.CenterReferencePoint)
+		obj.accept:setFillColor(unpack(themeColor))
+		obj.accept.x = obj.popupWindow.x 
+		obj.accept.y = obj.popupWindow.y + 200
+		obj.accept.value = 'accept'
+		obj.accept:addEventListener('tap',self.tap)
+		obj.popupGroup:insert(obj.textField)
+		obj.popupGroup.alpha = 0
+
 		obj.group:insert( obj.scrollView )
 		obj.group:insert( obj.header )
 		obj.group:insert( obj.title )
+		obj.group:insert( obj.addButton )
+		obj.group:insert( obj.popupGroup )
 
 		return obj.group
 	end
+end
+
+function self.showPopup()
+	transition.to( obj.popupGroup, { time = 150, alpha = 1 } )
+	obj.textField.isVisible = true
+end
+
+function self.hidePopup()
+	transition.to( obj.popupGroup, { time = 150, alpha = 0 } )
+	obj.textField.isVisible = false
+end
+
+function self.addLabel()
+	local content = createContent(obj.textField.text)
+	content.y = headerSize + obj.contentNum * boxSize
+	obj.scrollView:insert(content)
+	self.hidePopup()
+	obj.textField.text = ''
+end
+
+function self.checkText()
+	if obj.textField.text == '' then
+		return false
+    else
+		return true
+    end
 end
 
 function self.destroy()
@@ -118,14 +161,45 @@ function self.destroy()
 	end
 end
 
+function self.touch( e )
+
+	local event =
+	{
+		name   = 'home_view-touch',
+		value  = e.target.value,
+	}
+	self:dispatchEvent( event )
+
+	if e.target.value == 'bg' and e.target.value == 'popupWindow' then
+		return false
+    else
+		return true
+    end
+end
+
 function self.tap( e )
+
+	if e.target.anim then
+		transition.to(e.target,{
+			time=100,
+			xScale=0.8,
+			yScale=0.8,
+			transition=easing.continuousLoop
+		})
+	end
+
 	local event =
 	{
 		name   = 'home_view-tap',
 		value  = e.target.value,
 	}
 	self:dispatchEvent( event )
-	return true
+
+	if e.target.value == 'bg' and e.target.value == 'popupWindow' then
+		return false
+    else
+		return true
+    end
 end
 
 return self
