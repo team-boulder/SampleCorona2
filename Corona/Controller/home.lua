@@ -1,18 +1,3 @@
---[[
-@
-@ Project  :
-@
-@ Filename : start.lua
-@
-@ Author   : Task Nagashige
-@
-@ Date     : 2015-10-10
-@
-@ Comment  : アプリ起動時に色々な情報を取ってきて起動の準備をするページ。
-@            実態はスプラッシュが表示されているのみ
-@
-]]--
-
 local scene = storyboard.newScene()
 
 -- require view
@@ -22,34 +7,16 @@ local function viewHandler( event )
 	if event.name == 'home_view-tap' then
 
 		if event.value == 'shiba' then
-			storyboard.gotoScene(ContDir..'shiba')
+			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
 		end
 		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'natsu')
+			storyboard.gotoScene(ContDir..'natsu',{effect="slideLeft"})
 		end
 		if event.value == 'kuma' then
-			storyboard.gotoScene(ContDir..'kuma')
+			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
 		end
 		if event.value == 'mae' then
-			storyboard.gotoScene(ContDir..'mae')
-		end
-		if event.value == 'block_tap' then
-			if playerInfoData['block'] < block_model.current_limit then
-				playerInfoData['block'] = playerInfoData['block'] + playerInfoData['pet_tap']
-			end
-		end
-		--テスト用
-		if event.value == 'full' then
-			playerInfoData['block'] = block_model.current_limit
-		end
-		if event.value == 'reset' then
-			playerInfoData['block_limit'] = 1000
-			playerInfoData['block_speed'] = 10
-			playerInfoData['block'] = 0
-			playerInfoData['block_food'] = 20
-			playerInfoData['spd'] = 1000
-			playerInfoData['pet_tap'] = 1
-			playerInfoData['block_evol'] = 500
+			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
 		end
 	end
 end
