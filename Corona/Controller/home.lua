@@ -30,6 +30,10 @@ local function viewHandler( event )
 		if event.value == 'menubg' then
 			home_view.hideMenu()
 		end
+		if event.value == 'setting' then
+			home_view.hideMenu()
+			storyboard.gotoScene(ContDir..'setting',{effect="slideLeft" })
+		end
 		if event.value == 'bg' then
 			home_view.hidePopup()
 		end

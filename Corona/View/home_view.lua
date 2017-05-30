@@ -7,7 +7,8 @@ local tableData = {
 	{ label = '熊川', value = 'kuma' },
 	{ label = '前原', value = 'mae' },
 }
-local themeColor = {120,230,240}
+-- local themeColor = {120,230,240}
+local themeColor = playerInfoData['theme_color']
 local headerSize = 100
 local boxSize = 100
 
@@ -46,8 +47,11 @@ function self.create()
 		obj.title.x = _W/2
 		obj.title.y = obj.header.height/2
 		obj.menu = display.newImage( ImgDir .. 'home/menu.png',30,30)
-		obj.menu.value = 'menu'
-		obj.menu:addEventListener('tap',self.tap)
+		obj.menuArea = display.newRect(0,0,150,100)
+		obj.menuArea.value = 'menu'
+		obj.menuArea.isVisible = false
+		obj.menuArea.isHitTestable = true
+		obj.menuArea:addEventListener('tap',self.tap)
 		obj.scrollView = widget.newScrollView(
 		{
         	top = 0,
@@ -104,6 +108,13 @@ function self.create()
 		obj.menuTitle:setFillColor(100)
 		obj.menuTitle.x = obj.menuWindow.x 
 		obj.menuTitle.y = 50
+		obj.menuSetting = display.newText(obj.menuGroup,'設定',0,0,'Noto-Light.otf',35)
+		obj.menuSetting:setReferencePoint(display.CenterReferencePoint)
+		obj.menuSetting:setFillColor(100)
+		obj.menuSetting.x = obj.menuWindow.x 
+		obj.menuSetting.y = 180
+		obj.menuSetting.value = 'setting'
+		obj.menuSetting:addEventListener('tap',self.tap)
 		obj.menuGroup.x = -400
 		obj.menuGroup.alpha = 0
 
@@ -128,6 +139,7 @@ function self.create()
 		obj.textField:setReferencePoint(display.CenterReferencePoint)
 		obj.textField.x = obj.popupWindow.x 
 		obj.textField.y = obj.popupWindow.y - 50
+		obj.textField.isVisible = false
 		obj.accept = display.newText(obj.popupGroup,'追加',0,0,'Noto-Medium.otf',35)
 		obj.accept:setReferencePoint(display.CenterReferencePoint)
 		obj.accept:setFillColor(unpack(themeColor))
@@ -142,6 +154,7 @@ function self.create()
 		obj.group:insert( obj.header )
 		obj.group:insert( obj.title )
 		obj.group:insert( obj.menu )
+		obj.group:insert( obj.menuArea )
 		obj.group:insert( obj.addButton )
 		obj.group:insert( obj.menuBG )
 		obj.group:insert( obj.menuGroup )
