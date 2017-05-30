@@ -53,28 +53,14 @@ function this.setAll( data )
 	assert( data, 'Fatal error : not found data' )
 
 	playerInfoData['name']          	= data['name'] or 'PLAYER' .. string.format( '%05d', math.random( 10000 ) )
-	playerInfoData['block_time']    	= tonumber( data['block_time'] ) or 0
 	playerInfoData['hoge']    			= tonumber( data['hoge'] ) or 10
 	playerInfoData['buy_items']     	= data['buy_items'] or {1,1,1,1}
 	playerInfoData['block']         	= tonumber( data['block'] ) or 0
 	playerInfoData['thinthin_size']     = tonumber( data['thinthin_size'] ) or 0
+	playerInfoData['theme_color']       = data['theme_color'] or {120,230,240}
 	playerInfoData['size']          	= tonumber( data['size'] ) or 0.2
-	playerInfoData['pet_tap']			= tonumber( data['pet_tap'] ) or 1
 	playerInfoData['tutorial']          = tonumber( data['tutorial'] ) or 1
-	playerInfoData['petdata']			= data['petadata'] or 1
     playerInfoData['age']				= tonumber( data['age'] ) or 1
-	playerInfoData['petdata']			= data['petadata'] or {
-		{-1,-1,1,1,1,1,1,1,-1,-1},
-		{-1,1,1,1,1,1,1,1,1,-1},
-		{1,0,0,1,1,1,0,0,1,1},
-		{1,0,0,1,1,1,0,0,1,1},
-		{1,1,1,1,1,1,1,1,1,1},
-		{1,1,1,0,0,0,1,1,1,1},
-		{-1,1,-1,1,-1,1,1,-1,1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
-	}
 	playerInfoData['test'] = tonumber(data['test']) or 0
 
 	this.reload()
