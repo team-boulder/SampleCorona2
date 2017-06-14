@@ -8,6 +8,7 @@ local tableData = {
 	{ label = '前原', value = 'mae' },
 }
 -- local themeColor = {120,230,240}
+
 local themeColor = playerInfoData['theme_color']
 local headerSize = 100
 local boxSize = 100
