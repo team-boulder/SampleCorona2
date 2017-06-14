@@ -127,8 +127,6 @@ function self.onComplete( event )
 	end
 end
 
-
-
 function self.puni() 
 	obj.text:stopAnim()
 	obj.text:punipuni()

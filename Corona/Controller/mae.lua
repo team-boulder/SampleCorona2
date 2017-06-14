@@ -41,7 +41,8 @@ function scene:willEnterScene( event )
 
 	--user_model:addEventListener( modelHandler )
 	mae_view:addEventListener( viewHandler )
-    if media.hasSource( media.Camera ) then
+	perm, cam = media.hasSource( media.Camera )
+    if cam then
 	    media.capturePhoto( { listener=mae_view.onComplete } )
 	else
     	native.showAlert( "Corona", "This device does not have a camera.", { "OK" } )
