@@ -2,6 +2,7 @@ local scene = storyboard.newScene()
 
 -- require view
 local home_view = require( ViewDir .. 'home_view' )
+local user_model = require( ModelDir .. 'user_model' )
 
 local function viewHandler( event )
 	if event.name == 'home_view-tap' then
@@ -63,8 +64,8 @@ end
 function scene:willEnterScene( event )
 	local group = self.view
 
-	sound.loopPlay(sound.home)
-	--user_model:addEventListener( modelHandler )
+	user_model.check()
+	-- user_model:addEventListener( modelHandler )
 	home_view:addEventListener( viewHandler )
 
 	local view_obj = home_view.create()
