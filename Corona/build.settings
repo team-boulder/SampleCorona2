@@ -91,6 +91,7 @@ settings =
             NSCalendarsUsageDescription = "Testing",
             NSPhotoLibraryUsageDescription = "Testing",
             NSCameraUsageDescription = "Testing",
+            NSMotionUsageDescription = "This app would like to access the accelerometer.",
 			CFBundleIconFiles =  
 			{
 				"Icon.png",

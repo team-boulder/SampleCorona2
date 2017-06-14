@@ -4,6 +4,8 @@ local widget = require( "widget" )
 
 local obj = {}
 
+local swittch = 0
+
 -- ScrollView listener
 local function scrollListener( event )
  
@@ -25,6 +27,20 @@ local function scrollListener( event )
    	return true
 end
 
+
+
+local function shakeListener( event )
+    if event.isShake then
+        print( "The device is being shaken!" )
+		if swittch == 0 then
+			swittch = 1
+			print(swittch)
+		end
+
+		sound.play(sound.push)
+	end
+	return true
+end
 
 
 local function listener(event)
@@ -78,7 +94,9 @@ function self.create()
 	--background:setFillColor(0,0,0)
 	--scrollView:insert( background )
 	--end
-	
+
+
+	Runtime:addEventListener( "accelerometer", shakeListener )
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
@@ -116,8 +134,12 @@ function self.create()
     obj.next.x = _W/2
 	obj.next.value = 'next'
 	obj.next:addEventListener('tap',self.tap)
+
+
     
+	
     obj.group:insert( obj.bg )
+	obj.group:insert( obj.scrollView )
     obj.group:insert( obj.title )
     obj.group:insert( obj.back )
 	obj.group:insert( obj.next )
