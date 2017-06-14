@@ -26,6 +26,7 @@ local function viewHandler( event )
 	end
 end
 
+
 function scene:createScene( event )
 	local group = self.view
 end
