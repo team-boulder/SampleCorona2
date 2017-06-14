@@ -36,22 +36,22 @@ function self.create()
     obj.back.value = 'back'
 	obj.back:addEventListener('tap',self.tap)
 
-	obj.under = display.newRect(0,0, _W, 1)
+	obj.under = display.newRect(0,0, _W*2, 1)
 	obj.under.x = 0
 	obj.under.y = _H
 	physics.addBody(obj.under, "static")
 
-	obj.top = display.newRect(0,0, _W, 1)
+	obj.top = display.newRect(0,0, _W*2, 1)
 	obj.top.x = 0
 	obj.top.y = 0
 	physics.addBody(obj.top, "static")
 
-	obj.left = display.newRect(0,0, 1, _H)
+	obj.left = display.newRect(0,0, 1, _H*2)
 	obj.left.x = 0
 	obj.left.y = 0
 	physics.addBody(obj.left, "static")
 
-	obj.right = display.newRect(0,0, 1, _H)
+	obj.right = display.newRect(0,0, 1, _H*2)
 	obj.right.x = _W
 	obj.right.y = 0
 	physics.addBody(obj.right, "static")

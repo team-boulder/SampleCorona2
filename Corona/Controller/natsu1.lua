@@ -18,20 +18,32 @@ local function viewHandler( event )
 
 		if event.value == 'image' then
 			if tapCount < 10 then
+				system.vibrate()
 				tapCount = tapCount + 1
 				natsu_view1.refresh(tapCount)
 				playerInfoData['test'] = tapCount
 			else
+				native.showAlert( "警告", "射精しました" ,{ "OK" }, vibration )
 				tapCount = 0
 			end	
+			
 			playerInfoData['test'] = tapCount
 			playerInfo.save()
 		end
 	end
 end
 
+function vibration( event )
+	system.vibrate()
+	media.playVideo( "video/chomado.mp4", true , showControls, onComplete )
+end
+
 function scene:createScene( event )
 	local group = self.view
+end
+
+function onComplete( event )
+	print("再生終了")
 end
 
 function scene:willEnterScene( event )
