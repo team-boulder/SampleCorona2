@@ -91,7 +91,8 @@ settings =
             NSCalendarsUsageDescription = "Testing",
             NSPhotoLibraryUsageDescription = "Testing",
             NSCameraUsageDescription = "Testing",
-
+            NSCameraUsageDescription = "This app would like to access the camera.",
+            NSPhotoLibraryUsageDescription = "This app would like to access the photo library.",
             NSMotionUsageDescription = "This app would like to access the accelerometer.",
             NSMicrophoneUsageDescription = "This app would like to access the microphone.",
 
@@ -160,6 +161,8 @@ settings =
             "android.permission.WRITE_EXTERNAL_STORAGE",
             "android.permission.VIBRATE",
             "android.permission.RECORD_AUDIO",
+            "android.permission.CAMERA",
+            "android.permission.WRITE_EXTERNAL_STORAGE",
         },
 	    intentFilters =
 	    {
