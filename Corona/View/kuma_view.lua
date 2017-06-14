@@ -67,7 +67,7 @@ function self.locationHandler( event )
 end
 
 function self.destroy()
-	Runtime:removeEventListener( "location", locationHandler )
+	Runtime:removeEventListener( "location", self.locationHandler )
 	if obj.group then
 		local function remove()
 			display.remove( obj.group )
