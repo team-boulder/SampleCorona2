@@ -72,7 +72,6 @@ local function onSystemEvent(event)
 	if event.type == 'applicationSuspend' or event.type == 'applicationExit' then
 		suspend_time = os.time()
 	elseif event.type == 'applicationResume' then
-		user_model.resume()
 		local diff_time = os.difftime( os.time() , suspend_time )
 		if diff_time > 10 then
 			-- ads.show( 'interstitial' )
