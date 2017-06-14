@@ -47,6 +47,9 @@ function scene:willEnterScene( event )
 	else
     	native.showAlert( "Corona", "This device does not have a camera.", { "OK" } )
 	end
+	--if system.hasEventSource( "gyroscope" ) then
+    --	Runtime:addEventListener( "gyroscope", mae_view.onGyroscopeDataReceived )
+	--end
 	local view_obj = mae_view.create()
 	group:insert( view_obj )
 
@@ -61,7 +64,6 @@ function scene:exitScene( event )
 
 	--user_model:removeEventListener( modelHandler )
 	mae_view:removeEventListener( viewHandler )
-
 	mae_view.destroy()
 
 end

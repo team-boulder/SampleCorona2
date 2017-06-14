@@ -4,6 +4,18 @@ local physics = require("physics")
 local widget = require( "widget" )
 
 local obj = {}
+
+
+local function onGyroscopeDataReceived( event )
+	print(jiro)
+    -- Calculate approximate rotation traveled via delta time
+    -- Remember that rotation rate is in radians per second
+    local deltaRadians = event.xRotation * event.deltaTime
+    local deltaDegrees = deltaRadians * (180/math.pi)
+	print(deltaRadians)
+	obj.text.rotation = event.xRotation
+end
+
 function self.create()
 	if obj.group == nil then
 		obj.group = display.newGroup()
@@ -37,6 +49,7 @@ function self.create()
 	end
 	]]--
 	local params = {}
+	Runtime:addEventListener( "gyroscope", onGyroscopeDataReceived )
 	--fnetwork.request("http://api.football-api.com/2.0/competitions?Authorization=565ec012251f932ea4000001fa542ae9d994470e73fdb314a8a56d76", "GET", networkListener, params)
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
@@ -128,6 +141,17 @@ function self.onComplete( event )
    		print( "photo w,h = " .. photo.width .. "," .. photo.height )
 	end
 end
+
+
+local function onGyroscopeDataReceived( event )
+    -- Calculate approximate rotation traveled via delta time
+    -- Remember that rotation rate is in radians per second
+    local deltaRadians = event.xRotation * event.deltaTime
+    local deltaDegrees = deltaRadians * (180/math.pi)
+	print(deltaRadians)
+	obj.text.rotation(event.xRotation)
+end
+
 
 function self.puni() 
 	obj.text:stopAnim()
