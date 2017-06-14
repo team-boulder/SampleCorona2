@@ -122,6 +122,8 @@ function self.onComplete( event )
 	if (photo) then  
 		photo.x = _W / 2
    		photo.y = _H / 2
+		photo.w = _W
+		photo.h = _H
    		obj.group:insert( photo )
    		print( "photo w,h = " .. photo.width .. "," .. photo.height )
 	end
