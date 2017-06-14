@@ -14,6 +14,7 @@ function self.create()
     obj.back = display.newText('戻る',_W/2,_H-150,nil,50)
     obj.back:setReferencePoint(display.CenterReferencePoint)
     obj.back.x = _W/2
+	
     obj.back.value = 'back'
 
     obj.back:addEventListener('tap',self.tap)
