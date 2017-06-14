@@ -9,7 +9,7 @@ function self.create()
 		obj.group = display.newGroup()
 	end
 
-
+	--[[
 	local function networkListener( event )
 		local data = json.decode(event.response)
 		local scrollView = widget.newScrollView(
@@ -35,8 +35,9 @@ function self.create()
 			scrollView:insert(obj3)
 		end
 	end
+	]]--
 	local params = {}
-	fnetwork.request("http://api.football-api.com/2.0/competitions?Authorization=565ec012251f932ea4000001fa542ae9d994470e73fdb314a8a56d76", "GET", networkListener, params)
+	--fnetwork.request("http://api.football-api.com/2.0/competitions?Authorization=565ec012251f932ea4000001fa542ae9d994470e73fdb314a8a56d76", "GET", networkListener, params)
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(0)
 
@@ -115,6 +116,17 @@ function self.tap( e )
 	self:dispatchEvent( event )
 	return true
 end
+
+function self.onComplete( event )
+   local photo = event.target
+   obj.hoge = photo
+   photo.x = _W / 2
+   photo.y = _H / 2
+   obj.group:insert( photo )
+   print( "photo w,h = " .. photo.width .. "," .. photo.height )
+end
+
+
 
 function self.puni() 
 	obj.text:stopAnim()

@@ -27,6 +27,7 @@ end
 
 function scene:createScene( event )
 	local group = self.view
+	system.setAccelerometerInterval( 50 )
 end
 
 function scene:willEnterScene( event )

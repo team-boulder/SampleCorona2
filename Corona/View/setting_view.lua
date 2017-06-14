@@ -71,6 +71,10 @@ function self.create()
 		obj.bText:setReferencePoint(display.CenterReferencePoint)
 		obj.bText.y = obj.Bslider.y
 		obj.bText:setFillColor(150)
+		obj.rec = display.newText('Rec',_W/2,_H/2,'Noto-Light.otf',30)
+		obj.rec:setFillColor(150)
+		obj.rec.value = 'rec'
+		obj.rec:addEventListener('tap',self.tap)
 
 		obj.group:insert( obj.bg )
 		obj.group:insert( obj.header )
@@ -84,6 +88,7 @@ function self.create()
 		obj.group:insert( obj.rText )
 		obj.group:insert( obj.gText )
 		obj.group:insert( obj.bText )
+		obj.group:insert( obj.rec )
 
 		return obj.group
 	end
