@@ -9,6 +9,20 @@ local function viewHandler( event )
 		if event.value == 'back' then
 			storyboard.gotoScene(ContDir..'home',{effect="slideRight" })
 		end
+		if event.value == 'rec' then
+			local filePath = system.pathForFile( "newRecording.wav", system.DocumentsDirectory )
+			r = media.newRecording( filePath )
+			r:startRecording()
+			print("recording")
+			timer.performWithDelay( 1000,function()
+				r:stopRecording()
+				print("playing")
+				media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
+			end)
+		end
+		if event.value == 'play' then
+			media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
+		end
 	end
 end
 

@@ -91,6 +91,7 @@ settings =
             NSCalendarsUsageDescription = "Testing",
             NSPhotoLibraryUsageDescription = "Testing",
             NSCameraUsageDescription = "Testing",
+            NSMicrophoneUsageDescription = "This app would like to access the microphone.",
 			CFBundleIconFiles =  
 			{
 				"Icon.png",
@@ -155,6 +156,7 @@ settings =
             "com.android.vending.BILLING",
             "android.permission.WRITE_EXTERNAL_STORAGE",
             "android.permission.VIBRATE",
+            "android.permission.RECORD_AUDIO",
         },
 	    intentFilters =
 	    {
