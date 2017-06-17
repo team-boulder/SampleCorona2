@@ -42,10 +42,10 @@ function self.create(params)
 	obj.title:scale(0.3,0.3)
 	obj.title.x = _W/2+20
 	obj.title.y = 50
-	obj.back = display.newImageRect("back.png",800,800)
-	obj.back:scale(0.06,0.06)
-	obj.back.x = _W-30
-	obj.back.y = 30
+	obj.back = display.newImageRect(ImgDir.."result/back.png",50,50)
+	obj.back:scale(1,1)
+	obj.back.x = 50
+	obj.back.y = 50
 	obj.back.value = "back"
 	obj.back:addEventListener("tap",self.tap)
 	-- obj.title = display.newText('   甘zon',0,0,'Noto-Light.otf',35)
@@ -98,6 +98,8 @@ function self.create(params)
 	obj.scrollView:insert(obj.price)
 	obj.scrollView:insert(obj.detail)
 
+	obj.scrollView.isVisible = false
+	obj.detail.isVisible = false
 	obj.group:insert( obj.bg )
 	obj.group:insert( obj.header )
 	obj.group:insert( obj.title )
