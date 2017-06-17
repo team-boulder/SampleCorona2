@@ -18,7 +18,7 @@ function self.create()
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(255,255,255)
-    obj.title = display.newText('付近のボルダリングジムはこちら',0,100,nil,40)
+    obj.title = display.newText('付近のボルダリングジムはこちら',0,200,nil,40)
     obj.title:setReferencePoint(display.CenterReferencePoint)
 	obj.title:setFillColor(0)
     obj.title.x = _W/2
