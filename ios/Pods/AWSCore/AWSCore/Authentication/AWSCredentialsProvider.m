@@ -444,7 +444,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
                 // This should never happen, but just in case
                 if (!providerRef.identityId) {
                     AWSLogError(@"In refresh, but identitId is nil.");
-                    AWSLogError(@"Result from getIdentityId is %@", task.result);
+                    AWSLogError(@"result from getIdentityId is %@", task.result);
                     return [AWSTask taskWithError:[NSError errorWithDomain:AWSCognitoIdentityProviderErrorDomain
                                                                      code:AWSCognitoIdentityProviderErrorIdentityIsNil
                                                                  userInfo:@{NSLocalizedDescriptionKey: @"identityId shouldn't be nil"}]
@@ -489,7 +489,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
             providerRef.identityId = identityIdFromResponse;
         }
 
-        return [AWSTask taskWithResult:self.identityId];
+        return [AWSTask taskWithresult:self.identityId];
     }];
 }
 
@@ -497,7 +497,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
     // Grab a reference to our provider in case it changes out from under us
     id<AWSCognitoIdentityProvider> providerRef = self.identityProvider;
 
-    return [[[AWSTask taskWithResult:nil] continueWithExecutor:self.refreshExecutor withSuccessBlock:^id(AWSTask *task) {
+    return [[[AWSTask taskWithresult:nil] continueWithExecutor:self.refreshExecutor withSuccessBlock:^id(AWSTask *task) {
         self.count++;
         if (self.count <= 1) {
             return [[providerRef refresh] continueWithSuccessBlock:^id(AWSTask *task) {
@@ -521,7 +521,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
             }];
         } else {
             dispatch_semaphore_wait(self.semaphore, dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));
-            return [AWSTask taskWithResult:nil];
+            return [AWSTask taskWithresult:nil];
         }
     }] continueWithBlock:^id(AWSTask *task) {
         if (task.error) {
@@ -546,7 +546,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
         // This should never happen, but just in case
         if (!providerRef.identityId) {
             AWSLogError(@"In refresh, but identityId is nil.");
-            AWSLogError(@"Result from getIdentityId is %@", task.result);
+            AWSLogError(@"result from getIdentityId is %@", task.result);
             return [AWSTask taskWithError:[NSError errorWithDomain:AWSCognitoCredentialsProviderErrorDomain
                                                              code:AWSCognitoCredentialsProviderIdentityIdIsNil
                                                          userInfo:@{NSLocalizedDescriptionKey: @"identityId shouldn't be nil"}]

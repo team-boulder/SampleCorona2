@@ -143,7 +143,7 @@ NSString *const AWSSignatureV4Terminator = @"aws4_request";
 
 - (AWSTask *)interceptRequest:(NSMutableURLRequest *)request {
     [request addValue:request.URL.host forHTTPHeaderField:@"Host"];
-    return [[AWSTask taskWithResult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
+    return [[AWSTask taskWithresult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
         // clear authorization header if set
         [request setValue:nil forHTTPHeaderField:@"Authorization"];
 
@@ -528,7 +528,7 @@ NSString *const AWSSignatureV4Terminator = @"aws4_request";
 }
 
 - (AWSTask *)interceptRequest:(NSMutableURLRequest *)request {
-    return [[AWSTask taskWithResult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
+    return [[AWSTask taskWithresult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
         NSString *HTTPBodyString = [[NSString alloc] initWithData:request.HTTPBody
                                                          encoding:NSUTF8StringEncoding];
         NSMutableDictionary *parameters = [NSMutableDictionary new];

@@ -153,7 +153,7 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
             AWSKinesisPutRecordsOutput *putRecordsOutput = task.result;
 
             for (int i = 0; i < [putRecordsOutput.records count]; i++) {
-                AWSKinesisPutRecordsResultEntry *resultEntry = putRecordsOutput.records[i];
+                AWSKinesisPutRecordsresultEntry *resultEntry = putRecordsOutput.records[i];
                 if (resultEntry.errorCode) {
                     AWSLogInfo(@"Error Code: [%@] Error Message: [%@]", resultEntry.errorCode, resultEntry.errorMessage);
                 }

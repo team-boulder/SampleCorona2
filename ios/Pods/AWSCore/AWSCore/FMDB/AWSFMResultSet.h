@@ -22,7 +22,7 @@
  - `<FMDatabase>`
  */
 
-@interface AWSFMResultSet : NSObject {
+@interface AWSFMresultSet : NSObject {
     AWSFMDatabase          *_parentDB;
     AWSFMStatement         *_statement;
     
@@ -56,7 +56,7 @@
  
  @param aDB A `<FMDatabase>` to be used
  
- @return A `FMResultSet` on success; `nil` on failure
+ @return A `FMresultSet` on success; `nil` on failure
  */
 
 + (instancetype)resultSetWithStatement:(AWSFMStatement *)statement usingParentDatabase:(AWSFMDatabase*)aDB;
@@ -135,7 +135,7 @@
 
 - (NSString*)columnNameForIndex:(int)columnIdx;
 
-/** Result set integer value for column.
+/** result set integer value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -144,7 +144,7 @@
 
 - (int)intForColumn:(NSString*)columnName;
 
-/** Result set integer value for column.
+/** result set integer value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -153,7 +153,7 @@
 
 - (int)intForColumnIndex:(int)columnIdx;
 
-/** Result set `long` value for column.
+/** result set `long` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -162,7 +162,7 @@
 
 - (long)longForColumn:(NSString*)columnName;
 
-/** Result set long value for column.
+/** result set long value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -171,7 +171,7 @@
 
 - (long)longForColumnIndex:(int)columnIdx;
 
-/** Result set `long long int` value for column.
+/** result set `long long int` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -180,7 +180,7 @@
 
 - (long long int)longLongIntForColumn:(NSString*)columnName;
 
-/** Result set `long long int` value for column.
+/** result set `long long int` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -189,7 +189,7 @@
 
 - (long long int)longLongIntForColumnIndex:(int)columnIdx;
 
-/** Result set `unsigned long long int` value for column.
+/** result set `unsigned long long int` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -198,7 +198,7 @@
 
 - (unsigned long long int)unsignedLongLongIntForColumn:(NSString*)columnName;
 
-/** Result set `unsigned long long int` value for column.
+/** result set `unsigned long long int` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -207,7 +207,7 @@
 
 - (unsigned long long int)unsignedLongLongIntForColumnIndex:(int)columnIdx;
 
-/** Result set `BOOL` value for column.
+/** result set `BOOL` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -216,7 +216,7 @@
 
 - (BOOL)boolForColumn:(NSString*)columnName;
 
-/** Result set `BOOL` value for column.
+/** result set `BOOL` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -225,7 +225,7 @@
 
 - (BOOL)boolForColumnIndex:(int)columnIdx;
 
-/** Result set `double` value for column.
+/** result set `double` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -235,7 +235,7 @@
 
 - (double)doubleForColumn:(NSString*)columnName;
 
-/** Result set `double` value for column.
+/** result set `double` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -245,7 +245,7 @@
 
 - (double)doubleForColumnIndex:(int)columnIdx;
 
-/** Result set `NSString` value for column.
+/** result set `NSString` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -255,7 +255,7 @@
 
 - (NSString*)stringForColumn:(NSString*)columnName;
 
-/** Result set `NSString` value for column.
+/** result set `NSString` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -264,7 +264,7 @@
 
 - (NSString*)stringForColumnIndex:(int)columnIdx;
 
-/** Result set `NSDate` value for column.
+/** result set `NSDate` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -273,7 +273,7 @@
 
 - (NSDate*)dateForColumn:(NSString*)columnName;
 
-/** Result set `NSDate` value for column.
+/** result set `NSDate` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -283,7 +283,7 @@
 
 - (NSDate*)dateForColumnIndex:(int)columnIdx;
 
-/** Result set `NSData` value for column.
+/** result set `NSData` value for column.
  
  This is useful when storing binary data in table (such as image or the like).
 
@@ -295,7 +295,7 @@
 
 - (NSData*)dataForColumn:(NSString*)columnName;
 
-/** Result set `NSData` value for column.
+/** result set `NSData` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -304,7 +304,7 @@
 
 - (NSData*)dataForColumnIndex:(int)columnIdx;
 
-/** Result set `(const unsigned char *)` value for column.
+/** result set `(const unsigned char *)` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -313,7 +313,7 @@
 
 - (const unsigned char *)UTF8StringForColumnName:(NSString*)columnName;
 
-/** Result set `(const unsigned char *)` value for column.
+/** result set `(const unsigned char *)` value for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -322,7 +322,7 @@
 
 - (const unsigned char *)UTF8StringForColumnIndex:(int)columnIdx;
 
-/** Result set object for column.
+/** result set object for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -333,7 +333,7 @@
 
 - (id)objectForColumnName:(NSString*)columnName;
 
-/** Result set object for column.
+/** result set object for column.
 
  @param columnIdx Zero-based index for column.
 
@@ -344,7 +344,7 @@
 
 - (id)objectForColumnIndex:(int)columnIdx;
 
-/** Result set object for column.
+/** result set object for column.
  
  This method allows the use of the "boxed" syntax supported in Modern Objective-C. For example, by defining this method, the following syntax is now supported:
  
@@ -365,7 +365,7 @@
 
 - (id)objectForKeyedSubscript:(NSString *)columnName;
 
-/** Result set object for column.
+/** result set object for column.
 
  This method allows the use of the "boxed" syntax supported in Modern Objective-C. For example, by defining this method, the following syntax is now supported:
 
@@ -386,7 +386,7 @@
 
 - (id)objectAtIndexedSubscript:(int)columnIdx;
 
-/** Result set `NSData` value for column.
+/** result set `NSData` value for column.
 
  @param columnName `NSString` value of the name of the column.
 
@@ -400,7 +400,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
 
 - (NSData*)dataNoCopyForColumn:(NSString*)columnName NS_RETURNS_NOT_RETAINED;
 
-/** Result set `NSData` value for column.
+/** result set `NSData` value for column.
 
  @param columnIdx Zero-based index for column.
 

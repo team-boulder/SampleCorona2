@@ -36,12 +36,12 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
 
 // stub class that should be overriden
 - (AWSTask *)getIdentityId {
-    return [AWSTask taskWithResult:self.identityId];
+    return [AWSTask taskWithresult:self.identityId];
 }
 
 // stub class that should be overriden
 - (AWSTask *)refresh {
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 - (void)clear {
@@ -165,9 +165,9 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
 
 - (AWSTask *)getIdentityId {
     if (self.identityId) {
-        return [AWSTask taskWithResult:self.identityId];
+        return [AWSTask taskWithresult:self.identityId];
     } else {
-        return [[[AWSTask taskWithResult:nil] continueWithExecutor:self.executor withBlock:^id(AWSTask *task) {
+        return [[[AWSTask taskWithresult:nil] continueWithExecutor:self.executor withBlock:^id(AWSTask *task) {
             self.count++;
             if (self.count <= 1) {
                 AWSCognitoIdentityGetIdInput *getIdInput = [AWSCognitoIdentityGetIdInput new];
@@ -179,7 +179,7 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
             }
             else {
                 dispatch_semaphore_wait(self.semaphore, dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));
-                return [AWSTask taskWithResult:nil];
+                return [AWSTask taskWithresult:nil];
             }
         }] continueWithBlock:^id(AWSTask *task) {
             self.count--;
@@ -194,7 +194,7 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
                 AWSCognitoIdentityGetIdResponse *getIdResponse = task.result;
                 self.identityId = getIdResponse.identityId;
             }
-            return [AWSTask taskWithResult:self.identityId];
+            return [AWSTask taskWithresult:self.identityId];
         }];
     }
 }
@@ -204,7 +204,7 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
         // This should never happen, but just in case
         if (!self.identityId) {
             AWSLogError(@"In refresh, but identitId is nil.");
-            AWSLogError(@"Result from getIdentityId is %@", task.result);
+            AWSLogError(@"result from getIdentityId is %@", task.result);
             return [AWSTask taskWithError:[NSError errorWithDomain:AWSCognitoIdentityProviderErrorDomain
                                                              code:AWSCognitoIdentityProviderErrorIdentityIsNil
                                                          userInfo:@{NSLocalizedDescriptionKey: @"identityId shouldn't be nil"}]];
@@ -235,7 +235,7 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
                     // This should never happen, but just in case
                     if (!self.identityId) {
                         AWSLogError(@"In refresh, but identitId is nil.");
-                        AWSLogError(@"Result from getIdentityId is %@", task.result);
+                        AWSLogError(@"result from getIdentityId is %@", task.result);
                         return [AWSTask taskWithError:[NSError errorWithDomain:AWSCognitoIdentityProviderErrorDomain
                                                                          code:AWSCognitoIdentityProviderErrorIdentityIsNil
                                                                      userInfo:@{NSLocalizedDescriptionKey: @"identityId shouldn't be nil"}]
@@ -275,7 +275,7 @@ NSString *const AWSCognitoNotificationNewId = @"NEWID";
             self.identityId = identityIdFromToken;
         }
 
-        return [AWSTask taskWithResult:nil];
+        return [AWSTask taskWithresult:nil];
     }];
 }
 

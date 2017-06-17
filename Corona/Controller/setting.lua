@@ -7,7 +7,7 @@ local function viewHandler( event )
 	if event.name == 'setting_view-tap' then
 
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home',{effect="slideRight" })
+			storyboard.gotoScene(ContDir..'result',{effect="slideRight" })
 		end
 		if event.value == 'rec' then
 			local filePath = system.pathForFile( "newRecording.wav", system.DocumentsDirectory )

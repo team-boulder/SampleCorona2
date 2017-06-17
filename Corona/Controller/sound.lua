@@ -20,7 +20,7 @@ local is_debug = true
 self.op_tap   = audio.loadSound( AudioDir .. 'op_tap.mp3' )
 self.push       = audio.loadSound( AudioDir .. 'push.mp3' )
 --うるさいからけしとく
---self.home       = audio.loadSound( AudioDir .. 'home.mp3' )
+--self.result       = audio.loadSound( AudioDir .. 'result.mp3' )
 
 --BGM再生開始時の遅延測定
 function self.checkDelay()

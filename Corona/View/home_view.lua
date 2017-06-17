@@ -49,6 +49,8 @@ function self.create()
 		obj.musi:scale(0.07,0.07)
 		obj.musi.x = 3*_W/4 +100
 		obj.musi.y = _H/2+50
+		obj.musi.value = 'result'
+		obj.musi:addEventListener('tap',self.tap)
 
 		-- local sheetOptions = {
 		-- 	width = 512,

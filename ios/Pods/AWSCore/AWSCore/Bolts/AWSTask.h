@@ -37,18 +37,18 @@ extern NSString *const AWSTaskMultipleExceptionsException;
  inspect the state of the task, and to add continuations to
  be run once the task is complete.
  */
-@interface AWSTask<__covariant ResultType> : NSObject
+@interface AWSTask<__covariant resultType> : NSObject
 
 /*!
  A block that can act as a continuation for a task.
  */
-typedef __nullable id(^AWSContinuationBlock)(AWSTask<ResultType> *task);
+typedef __nullable id(^AWSContinuationBlock)(AWSTask<resultType> *task);
 
 /*!
  Creates a task that is already completed with the given result.
  @param result The result for the task.
  */
-+ (instancetype)taskWithResult:(nullable ResultType)result;
++ (instancetype)taskWithresult:(nullable resultType)result;
 
 /*!
  Creates a task that is already completed with the given error.
@@ -80,7 +80,7 @@ typedef __nullable id(^AWSContinuationBlock)(AWSTask<ResultType> *task);
  an `NSArray` of all task results in the order they were provided.
  @param tasks An `NSArray` of the tasks to use as an input.
  */
-+ (instancetype)taskForCompletionOfAllTasksWithResults:(nullable NSArray<AWSTask *> *)tasks;
++ (instancetype)taskForCompletionOfAllTasksWithresults:(nullable NSArray<AWSTask *> *)tasks;
 
 /*!
  Returns a task that will be completed a certain amount of time in the future.
@@ -114,7 +114,7 @@ typedef __nullable id(^AWSContinuationBlock)(AWSTask<ResultType> *task);
 /*!
  The result of a successful task.
  */
-@property (nullable, nonatomic, strong, readonly) ResultType result;
+@property (nullable, nonatomic, strong, readonly) resultType result;
 
 /*!
  The error of a failed task.

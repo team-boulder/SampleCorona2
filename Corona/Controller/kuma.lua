@@ -3,19 +3,19 @@ local scene = storyboard.newScene()
 --Kumakawa
 -- require view
 local kuma_view = require( ViewDir .. 'kuma_view' )
-local home_view = require( ViewDir .. 'home_view' )
+local result_view = require( ViewDir .. 'result_view' )
 
 local tapcount = 0
 local function viewHandler( event )
 	if event.name == 'kuma_view-tap' then
 
 		if event.value == 'rect' then
-			storyboard.gotoScene(ContDir..'home')
+			storyboard.gotoScene(ContDir..'result')
         end
 
 		if event.value == 'shop' then
 			print('Hello')
-			storyboard.gotoScene(ContDir..'home')
+			storyboard.gotoScene(ContDir..'result')
 		end
 		if event.value == 'Noback' then
 			kuma_view.puni()

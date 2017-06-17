@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
     NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:delegate.request.URL];
     mutableRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     
-    [[[[[[AWSTask taskWithResult:nil] continueWithBlock:^id(AWSTask *task) {
+    [[[[[[AWSTask taskWithresult:nil] continueWithBlock:^id(AWSTask *task) {
         id signer = [delegate.request.requestInterceptors lastObject];
         if (signer) {
 #pragma clang diagnostic push
@@ -204,7 +204,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
             }
         }
         
-        AWSTask *sequencialTask = [AWSTask taskWithResult:nil];
+        AWSTask *sequencialTask = [AWSTask taskWithresult:nil];
         for(id<AWSNetworkingRequestInterceptor>interceptor in request.requestInterceptors) {
             if ([interceptor respondsToSelector:@selector(interceptRequest:)]) {
                 sequencialTask = [sequencialTask continueWithSuccessBlock:^id(AWSTask *task) {
@@ -219,7 +219,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
         if ([request.requestSerializer respondsToSelector:@selector(validateRequest:)]) {
             return [request.requestSerializer validateRequest:mutableRequest];
         } else {
-            return [AWSTask taskWithResult:nil];
+            return [AWSTask taskWithresult:nil];
         }
     }] continueWithSuccessBlock:^id(AWSTask *task) {
         switch (delegate.taskType) {
@@ -261,7 +261,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
         AWSLogError(@"Session task failed with error: %@", error);
     }
     
-    [[[AWSTask taskWithResult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
+    [[[AWSTask taskWithresult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
         AWSURLSessionManagerDelegate *delegate = [self.sessionManagerDelegates objectForKey:@(sessionTask.taskIdentifier)];
         
         if (delegate.responseFilehandle) {

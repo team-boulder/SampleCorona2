@@ -12,15 +12,15 @@
 #import "AWSFMDatabase+Private.h"
 
 @interface AWSFMDatabase (PrivateStuff)
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
 @end
 
 @implementation AWSFMDatabase (AWSFMDatabaseAdditions)
 
-#define RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(type, sel)             \
+#define RETURN_result_FOR_QUERY_WITH_SELECTOR(type, sel)             \
 va_list args;                                                        \
 va_start(args, query);                                               \
-AWSFMResultSet *resultSet = [self executeQuery:query withArgumentsInArray:0x00 orDictionary:0x00 orVAList:args];   \
+AWSFMresultSet *resultSet = [self executeQuery:query withArgumentsInArray:0x00 orDictionary:0x00 orVAList:args];   \
 va_end(args);                                                        \
 if (![resultSet next]) { return (type)0; }                           \
 type ret = [resultSet sel:0];                                        \
@@ -30,31 +30,31 @@ return ret;
 
 
 - (NSString*)stringForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(NSString *, stringForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(NSString *, stringForColumnIndex);
 }
 
 - (int)intForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(int, intForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(int, intForColumnIndex);
 }
 
 - (long)longForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(long, longForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(long, longForColumnIndex);
 }
 
 - (BOOL)boolForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(BOOL, boolForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(BOOL, boolForColumnIndex);
 }
 
 - (double)doubleForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(double, doubleForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(double, doubleForColumnIndex);
 }
 
 - (NSData*)dataForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(NSData *, dataForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(NSData *, dataForColumnIndex);
 }
 
 - (NSDate*)dateForQuery:(NSString*)query, ... {
-    RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(NSDate *, dateForColumnIndex);
+    RETURN_result_FOR_QUERY_WITH_SELECTOR(NSDate *, dateForColumnIndex);
 }
 
 
@@ -62,7 +62,7 @@ return ret;
     
     tableName = [tableName lowercaseString];
     
-    AWSFMResultSet *rs = [self executeQuery:@"select [sql] from sqlite_master where [type] = 'table' and lower(name) = ?", tableName];
+    AWSFMresultSet *rs = [self executeQuery:@"select [sql] from sqlite_master where [type] = 'table' and lower(name) = ?", tableName];
     
     //if at least one next exists, table exists
     BOOL returnBool = [rs next];
@@ -77,10 +77,10 @@ return ret;
  get table with list of tables: result colums: type[STRING], name[STRING],tbl_name[STRING],rootpage[INTEGER],sql[STRING]
  check if table exist in database  (patch from OZLB)
 */
-- (AWSFMResultSet*)getSchema {
+- (AWSFMresultSet*)getSchema {
     
     //result colums: type[STRING], name[STRING],tbl_name[STRING],rootpage[INTEGER],sql[STRING]
-    AWSFMResultSet *rs = [self executeQuery:@"SELECT type, name, tbl_name, rootpage, sql FROM (SELECT * FROM sqlite_master UNION ALL SELECT * FROM sqlite_temp_master) WHERE type != 'meta' AND name NOT LIKE 'sqlite_%' ORDER BY tbl_name, type DESC, name"];
+    AWSFMresultSet *rs = [self executeQuery:@"SELECT type, name, tbl_name, rootpage, sql FROM (SELECT * FROM sqlite_master UNION ALL SELECT * FROM sqlite_temp_master) WHERE type != 'meta' AND name NOT LIKE 'sqlite_%' ORDER BY tbl_name, type DESC, name"];
     
     return rs;
 }
@@ -88,10 +88,10 @@ return ret;
 /* 
  get table schema: result colums: cid[INTEGER], name,type [STRING], notnull[INTEGER], dflt_value[],pk[INTEGER]
 */
-- (AWSFMResultSet*)getTableSchema:(NSString*)tableName {
+- (AWSFMresultSet*)getTableSchema:(NSString*)tableName {
     
     //result colums: cid[INTEGER], name,type [STRING], notnull[INTEGER], dflt_value[],pk[INTEGER]
-    AWSFMResultSet *rs = [self executeQuery:[NSString stringWithFormat: @"pragma table_info('%@')", tableName]];
+    AWSFMresultSet *rs = [self executeQuery:[NSString stringWithFormat: @"pragma table_info('%@')", tableName]];
     
     return rs;
 }
@@ -103,7 +103,7 @@ return ret;
     tableName  = [tableName lowercaseString];
     columnName = [columnName lowercaseString];
     
-    AWSFMResultSet *rs = [self getTableSchema:tableName];
+    AWSFMresultSet *rs = [self getTableSchema:tableName];
     
     //check if column is present in table schema
     while ([rs next]) {
@@ -125,7 +125,7 @@ return ret;
 #if SQLITE_VERSION_NUMBER >= 3007017
     uint32_t r = 0;
     
-    AWSFMResultSet *rs = [self executeQuery:@"pragma application_id"];
+    AWSFMresultSet *rs = [self executeQuery:@"pragma application_id"];
     
     if ([rs next]) {
         r = (uint32_t)[rs longLongIntForColumnIndex:0];
@@ -140,7 +140,7 @@ return ret;
 - (void)setApplicationID:(uint32_t)appID {
 #if SQLITE_VERSION_NUMBER >= 3007017
     NSString *query = [NSString stringWithFormat:@"pragma application_id=%d", appID];
-    AWSFMResultSet *rs = [self executeQuery:query];
+    AWSFMresultSet *rs = [self executeQuery:query];
     [rs next];
     [rs close];
 #endif
@@ -175,7 +175,7 @@ return ret;
 - (uint32_t)userVersion {
     uint32_t r = 0;
     
-    AWSFMResultSet *rs = [self executeQuery:@"pragma user_version"];
+    AWSFMresultSet *rs = [self executeQuery:@"pragma user_version"];
     
     if ([rs next]) {
         r = (uint32_t)[rs longLongIntForColumnIndex:0];
@@ -187,7 +187,7 @@ return ret;
 
 - (void)setUserVersion:(uint32_t)version {
     NSString *query = [NSString stringWithFormat:@"pragma user_version = %d", version];
-    AWSFMResultSet *rs = [self executeQuery:query];
+    AWSFMresultSet *rs = [self executeQuery:query];
     [rs next];
     [rs close];
 }

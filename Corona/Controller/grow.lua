@@ -2,13 +2,13 @@ local scene = storyboard.newScene()
 
 -- require view
 local shop_view = require( ViewDir .. 'shop_view' )
-local home_view = require( ViewDir .. 'home_view' )
+local result_view = require( ViewDir .. 'result_view' )
 
 local function viewHandler( event )
 	if event.name == 'shop_view-tap' then
 
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home')
+			storyboard.gotoScene(ContDir..'result')
 		end
 
 	end

@@ -1,42 +1,74 @@
 local scene = storyboard.newScene()
 
 -- require view
-local shiba_view = require( ViewDir .. 'shiba_view' )
 local result_view = require( ViewDir .. 'result_view' )
-local shiba2_view = require( ViewDir .. 'shiba2_view' )
-local playerInfo = require( ContDir .. 'playerInfo')
+local user_model = require( ModelDir .. 'user_model' )
 
 local function viewHandler( event )
-	if event.name == 'shiba_view-tap' then
+	if event.name == 'result_view-tap' then
 
-		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'result')
-			print("ThinThin")
+		if event.value == 'shiba' then
+			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
 		end
-
-		if event.value == 'next' then
-			storyboard.gotoScene(ContDir..'shiba2')
-			print("ThinThin_next")
-			playerInfoData['thinthin_size'] = playerInfoData['thinthin_size'] + 1 
-			playerInfo.save()
-
+		if event.value == 'natsu' then
+			storyboard.gotoScene(ContDir..'natsu',{effect="slideLeft"})
 		end
-
+		if event.value == 'kuma' then
+			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
+		end
+		if event.value == 'mae' then
+			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
+		end
+		if event.value == 'temp' then
+			storyboard.showOverlay(ContDir..'temp',{effect="slideLeft",params = { title = event.text or 'temp' } })
+		end
+		if event.value == 'add' then
+			result_view.showPopup()
+		end
+		if event.value == 'menu' then
+			result_view.showMenu()
+		end
+		if event.value == 'menubg' then
+			result_view.hideMenu()
+		end
+		if event.value == 'setting' then
+			result_view.hideMenu()
+			storyboard.gotoScene(ContDir..'setting',{effect="slideLeft" })
+		end
+		if event.value == 'bg' then
+			result_view.hidePopup()
+		end
+		if event.value == 'accept' then
+			local function onComplete( event )
+				if ( event.action == "clicked" ) then
+					local i = event.index
+					if ( i == 1 ) then
+						result_view.addLabel()
+					end
+				end
+			end
+			if result_view.checkText() then
+				native.showAlert( "確認", "本当に追加しますか", { "OK", "キャンセル" }, onComplete )
+            else
+				native.showAlert( "警告", "入力欄が空白です", { "OK" })
+			end
+		end
 	end
 end
 
+
 function scene:createScene( event )
 	local group = self.view
-	system.setAccelerometerInterval( 50 )
 end
 
 function scene:willEnterScene( event )
 	local group = self.view
 
-	--user_model:addEventListener( modelHandler )
-	shiba_view:addEventListener( viewHandler )
+	user_model.check()
+	-- user_model:addEventListener( modelHandler )
+	result_view:addEventListener( viewHandler )
 
-	local view_obj = shiba_view.create()
+	local view_obj = result_view.create()
 	group:insert( view_obj )
 
 end
@@ -49,9 +81,7 @@ function scene:exitScene( event )
 	local group = self.view
 
 	--user_model:removeEventListener( modelHandler )
-	shiba_view:removeEventListener( viewHandler )
-
-	shiba_view.destroy()
+	result_view:removeEventListener( viewHandler )
 
 end
 
@@ -62,6 +92,7 @@ end
 
 function scene:destroyScene( event )
 	local group = self.view
+	result_view.destroy()
 end
 
 

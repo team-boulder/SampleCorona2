@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, AWSNetworkingRetryType) {
 
 @class AWSNetworkingConfiguration;
 @class AWSNetworkingRequest;
-@class AWSTask<__covariant ResultType>;
+@class AWSTask<__covariant resultType>;
 
 typedef void (^AWSNetworkingUploadProgressBlock) (int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend);
 typedef void (^AWSNetworkingDownloadProgressBlock) (int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
