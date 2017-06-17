@@ -17,10 +17,14 @@ function self.create()
 	height = 0
 	local params = {}
 	
-    local image = params.image or display.newImage( ImgDir .. 'product_detail/NoImage.png')
+    local image = params.image or display.newImageRect( ImgDir .. 'product_detail/NoImage.png', 512, 512)
     local name  = params.name  or "hoge"
 	local price = params.price or 0
 	local detail = params.detail or "ここに詳細の文が入ります.デジタル大辞泉 - 文章の用語解説 - 1 文を連ねて、まとまった思想・感情を表現したもの。主に詩に対して、散文をいう。2 文法で、文よりも大きな単位。一文だけのこともあるが、通常はいくつかの文が集まって、まとまった思想・話題を表現するもの。3 威儀"
+
+	--if image.width > 512 then
+	--	image:scale(0.5,0.5)
+	--end
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(255)
