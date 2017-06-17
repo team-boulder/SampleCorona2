@@ -3,6 +3,14 @@ local self = object.new()
 local on = 0
 local time = 5000
 local obj = {}
+local options1 = 
+{ 
+    title = "ボルダリングジムbigfoot福岡店", 
+    subtitle = "ロック クライミング ジム", 
+    listener = markerListener1,
+	-- imageFile = "boul1.png",
+}
+
 function self.create()
 	if obj.group == nil then
 		obj.group = display.newGroup()
@@ -51,33 +59,32 @@ function self.create()
 	-- obj.group:insert( obj.rect )
 	-- obj.group:insert( obj.ifback )
 
-	-- Runtime:addEventListener( "location", self.locationHandler )
-	-- self.locationHandler()
-local options1 = 
+	obj.myMap = native.newMapView( 0, _H/2 - 220, _W, 500 )
+	Runtime:addEventListener( "location", self.gpsHandler )
+	--elf.locationHandler()
+
+	obj.group:insert( obj.myMap )
+
+    return obj.group
+end
+
+function self.gpsHandler( event )
+	local latitude = event.latitude
+	local longitude = event.longitude
+	obj.myMap:setRegion( latitude, longitude, 0.02, 0.02 )
+	Runtime:removeEventListener( "location", self.gpsHandler )
+end
+
+function self.locationHandler()
+	-- local latitude = event.latitude
+	-- local longitude = event.longitude
+	local options1 = 
 { 
     title = "ボルダリングジムbigfoot福岡店", 
     subtitle = "ロック クライミング ジム", 
     listener = markerListener1,
 	-- imageFile = "boul1.png",
 }
-
-	obj.myMap = native.newMapView( 0, _H/2 - 220, _W, 500 )
-	obj.myMap:addMarker( 33.593716, 130.405979, options1 )
-	obj.group:insert( obj.myMap )
-
-    return obj.group
-end
-
-function self.locationHandler( event )
-	local latitude = event.latitude
-	local longitude = event.longitude
--- 	local options1 = 
--- { 
---     title = "ボルダリングジムbigfoot福岡店", 
---     subtitle = "ロック クライミング ジム", 
---     listener = markerListener1,
--- 	-- imageFile = "boul1.png",
--- }
 	local options2 = 
 { 
     title = "ボルダリングジム・ホアホア", 
@@ -92,13 +99,25 @@ function self.locationHandler( event )
     listener = markerListener3,
 	-- imageFile = "boul1.png",
 }
+	local options4 = 
+{ 
+    title = "Mono Climbing Studio", 
+    subtitle = "ロック クライミング ジム", 
+    listener = markerListener4,
+	-- imageFile = "boul1.png",
+}
 
-	if obj.markerID then
-		obj.myMap:removeMarker( obj.markerID )
-	end
+	-- if obj.markerID then
+	-- 	obj.myMap:removeMarker( obj.markerID )
+	-- end
 	-- obj.markerID = obj.myMap:addMarker( 33.593716, 130.405979, options1 )
-	obj.markerID = obj.myMap:addMarker( 33.591188, 130.430758, options2 )
-	obj.markerID = obj.myMap:addMarker( 33.589241, 130.392957, options3 )
+	obj.myMap:addMarker( 33.593716, 130.405979, options1 )
+	obj.myMap:addMarker( 33.591188, 130.430758, options2 )
+	obj.myMap:addMarker( 33.589241, 130.392957, options3 )
+	obj.myMap:addMarker( 33.589241, 130.392957, options4 )
+	-- obj.myMap:setRegion( 33.567811, 130.442033, 0.02, 0.02 )
+	-- obj.myMap:setRegion( latitude, longitude, 0.02, 0.02 )
+	print(latitude)
 end
 
 function self.destroy()
