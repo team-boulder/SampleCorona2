@@ -14,7 +14,7 @@ local function viewHandler( event )
 --         end
 
 		if event.value == 'back' then
-			print('Hello')
+			-- print('Hello')
 			storyboard.hideOverlay(ContDir..'home')
 
 		end

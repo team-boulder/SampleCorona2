@@ -108,7 +108,7 @@ end
 function self.tap( e )
 	local event =
 	{
-		name   = 'product_detail-tap',
+		name   = 'product_detail_view-tap',
 		value  = e.target.value,
 	}
 	self:dispatchEvent( event )
