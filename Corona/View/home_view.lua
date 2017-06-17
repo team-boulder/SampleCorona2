@@ -103,7 +103,7 @@ end
 
 
 function self.destroy()
-	obj.BG.destroy()
+	-- obj.BG.destroy()
 	if obj.group then
 		local function remove()
 			display.remove( obj.group )

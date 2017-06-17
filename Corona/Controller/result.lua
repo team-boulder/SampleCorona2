@@ -17,7 +17,7 @@ local function viewHandler( event )
 			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
 		end
 		if event.value == 'mae' then
-			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
+			storyboard.gotoScene(ContDir..'product_detail',{effect="slideLeft"})
 		end
 		if event.value == 'temp' then
 			storyboard.showOverlay(ContDir..'temp',{effect="slideLeft",params = { title = event.text or 'temp' } })
