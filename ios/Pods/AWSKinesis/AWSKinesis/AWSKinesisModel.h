@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisStreamStatus) {
 @class AWSKinesisPutRecordsInput;
 @class AWSKinesisPutRecordsOutput;
 @class AWSKinesisPutRecordsRequestEntry;
-@class AWSKinesisPutRecordsResultEntry;
+@class AWSKinesisPutRecordsresultEntry;
 @class AWSKinesisRecord;
 @class AWSKinesisRemoveTagsFromStreamInput;
 @class AWSKinesisSequenceNumberRange;
@@ -395,7 +395,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisStreamStatus) {
 @property (nonatomic, strong) NSString * _Nullable partitionKey;
 
 /**
- <p>Guarantees strictly increasing sequence numbers, for puts from the same client and to the same partition key. Usage: set the <code>SequenceNumberForOrdering</code> of record <i>n</i> to the sequence number of record <i>n-1</i> (as returned in the <a>PutRecordResult</a> when putting record <i>n-1</i>). If this parameter is not set, records will be coarsely ordered based on arrival time.</p>
+ <p>Guarantees strictly increasing sequence numbers, for puts from the same client and to the same partition key. Usage: set the <code>SequenceNumberForOrdering</code> of record <i>n</i> to the sequence number of record <i>n-1</i> (as returned in the <a>PutRecordresult</a> when putting record <i>n-1</i>). If this parameter is not set, records will be coarsely ordered based on arrival time.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable sequenceNumberForOrdering;
 
@@ -459,7 +459,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisStreamStatus) {
 /**
  <p>An array of successfully and unsuccessfully processed record results, correlated with the request by natural ordering. A record that is successfully added to your Amazon Kinesis stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be added to your Amazon Kinesis stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.</p>
  */
-@property (nonatomic, strong) NSArray<AWSKinesisPutRecordsResultEntry *> * _Nullable records;
+@property (nonatomic, strong) NSArray<AWSKinesisPutRecordsresultEntry *> * _Nullable records;
 
 @end
 
@@ -490,7 +490,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisStreamStatus) {
 /**
  <p>Represents the result of an individual record from a <code>PutRecords</code> request. A record that is successfully added to your Amazon Kinesis stream includes SequenceNumber and ShardId in the result. A record that fails to be added to your Amazon Kinesis stream includes ErrorCode and ErrorMessage in the result.</p>
  */
-@interface AWSKinesisPutRecordsResultEntry : AWSModel
+@interface AWSKinesisPutRecordsresultEntry : AWSModel
 
 
 /**

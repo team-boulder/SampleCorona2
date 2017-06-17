@@ -127,14 +127,14 @@
             [request setValue:[headers objectForKey:key] forHTTPHeaderField:key];
         }
 
-        return [AWSTask taskWithResult:nil];
+        return [AWSTask taskWithresult:nil];
     }
 
     return [AWSTask taskWithError:error];
 }
 
 - (AWSTask *)validateRequest:(NSURLRequest *)request {
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 
 }
 
@@ -217,12 +217,12 @@
     if (error) {
         return [AWSTask taskWithError:error];
     } else {
-        return [AWSTask taskWithResult:nil];
+        return [AWSTask taskWithresult:nil];
     }
 }
 
 - (AWSTask *)validateRequest:(NSURLRequest *)request {
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 + (BOOL)constructURIandHeadersAndBody:(NSMutableURLRequest *)request
@@ -518,11 +518,11 @@
 
     [request aws_validateHTTPMethodAndBody];
 
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 - (AWSTask *)validateRequest:(NSURLRequest *)request {
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 @end
@@ -572,7 +572,7 @@
 
     [request aws_validateHTTPMethodAndBody];
     
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 @end

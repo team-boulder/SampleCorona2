@@ -44,15 +44,15 @@ function string.random(Length, CharSet)
    if CharSet == '' then
       return ''
    else
-      local Result = {}
+      local result = {}
       local Lookup = Built[CharSet] or AddLookup(CharSet)
       local Range = table.getn(Lookup)
 
       for Loop = 1,Length do
-         Result[Loop] = Lookup[math.random(1, Range)]
+         result[Loop] = Lookup[math.random(1, Range)]
       end
 
-      return table.concat(Result)
+      return table.concat(result)
    end
 end
 

@@ -1,36 +1,61 @@
 local scene = storyboard.newScene()
 
--- hogehogehoge
-
 -- require view
-local mae_view = require( ViewDir .. 'mae_view' )
 local result_view = require( ViewDir .. 'result_view' )
+local user_model = require( ModelDir .. 'user_model' )
 
 local function viewHandler( event )
-	if event.name == 'mae_view-tap' then
-
-		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'result')
-		end
+	if event.name == 'result_view-tap' then
 
 		if event.value == 'shiba' then
-			storyboard.gotoScene(ContDir..'shiba')
+			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
 		end
-		
 		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'natsu')
+			storyboard.gotoScene(ContDir..'natsu',{effect="slideLeft"})
 		end
-
 		if event.value == 'kuma' then
-			storyboard.gotoScene(ContDir..'kuma')
+			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
 		end
-
-		if event.value == 'maehara' then
-			mae_view.puni()
+		if event.value == 'mae' then
+			storyboard.gotoScene(ContDir..'product_detail',{effect="slideLeft"})
 		end
-
+		if event.value == 'temp' then
+			storyboard.showOverlay(ContDir..'temp',{effect="slideLeft",params = { title = event.text or 'temp' } })
+		end
+		if event.value == 'add' then
+			result_view.showPopup()
+		end
+		if event.value == 'menu' then
+			result_view.showMenu()
+		end
+		if event.value == 'menubg' then
+			result_view.hideMenu()
+		end
+		if event.value == 'setting' then
+			result_view.hideMenu()
+			storyboard.gotoScene(ContDir..'setting',{effect="slideLeft" })
+		end
+		if event.value == 'bg' then
+			result_view.hidePopup()
+		end
+		if event.value == 'accept' then
+			local function onComplete( event )
+				if ( event.action == "clicked" ) then
+					local i = event.index
+					if ( i == 1 ) then
+						result_view.addLabel()
+					end
+				end
+			end
+			if result_view.checkText() then
+				native.showAlert( "確認", "本当に追加しますか", { "OK", "キャンセル" }, onComplete )
+            else
+				native.showAlert( "警告", "入力欄が空白です", { "OK" })
+			end
+		end
 	end
 end
+
 
 function scene:createScene( event )
 	local group = self.view
@@ -39,12 +64,11 @@ end
 function scene:willEnterScene( event )
 	local group = self.view
 
-	--user_model:addEventListener( modelHandler )
-	mae_view:addEventListener( viewHandler )
-	--if system.hasEventSource( "gyroscope" ) then
-    --	Runtime:addEventListener( "gyroscope", mae_view.onGyroscopeDataReceived )
-	--end
-	local view_obj = mae_view.create()
+	user_model.check()
+	-- user_model:addEventListener( modelHandler )
+	result_view:addEventListener( viewHandler )
+
+	local view_obj = result_view.create()
 	group:insert( view_obj )
 
 end
@@ -57,8 +81,7 @@ function scene:exitScene( event )
 	local group = self.view
 
 	--user_model:removeEventListener( modelHandler )
-	mae_view:removeEventListener( viewHandler )
-	mae_view.destroy()
+	result_view:removeEventListener( viewHandler )
 
 end
 
@@ -69,6 +92,7 @@ end
 
 function scene:destroyScene( event )
 	local group = self.view
+	result_view.destroy()
 end
 
 

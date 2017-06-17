@@ -7,7 +7,7 @@
 
 @property (nonatomic, assign) sqlite3 *db;
 
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
 - (BOOL)executeUpdate:(NSString*)sql error:(NSError**)outErr withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
 
 @end
@@ -37,7 +37,7 @@
     
     if (self) {
         _databasePath               = [aPath copy];
-        _openResultSets             = [[NSMutableSet alloc] init];
+        _openresultSets             = [[NSMutableSet alloc] init];
         _db                         = nil;
         _logsErrors                 = YES;
         _crashOnErrors              = NO;
@@ -54,7 +54,7 @@
 
 - (void)dealloc {
     [self close];
-    AWSFMDBRelease(_openResultSets);
+    AWSFMDBRelease(_openresultSets);
     AWSFMDBRelease(_cachedStatements);
     AWSFMDBRelease(_dateFormat);
     AWSFMDBRelease(_databasePath);
@@ -184,7 +184,7 @@
 - (BOOL)close {
     
     [self clearCachedStatements];
-    [self closeOpenResultSets];
+    [self closeOpenresultSets];
     
     if (!_db) {
         return YES;
@@ -288,30 +288,30 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
     NSLog(@"AWSFMDB: setBusyRetryTimeout does nothing, please use setMaxBusyRetryTimeInterval:");
 }
 
-#pragma mark Result set functions
+#pragma mark result set functions
 
-- (BOOL)hasOpenResultSets {
-    return [_openResultSets count] > 0;
+- (BOOL)hasOpenresultSets {
+    return [_openresultSets count] > 0;
 }
 
-- (void)closeOpenResultSets {
+- (void)closeOpenresultSets {
     
     //Copy the set so we don't get mutation errors
-    NSSet *openSetCopy = AWSFMDBReturnAutoreleased([_openResultSets copy]);
+    NSSet *openSetCopy = AWSFMDBReturnAutoreleased([_openresultSets copy]);
     for (NSValue *rsInWrappedInATastyValueMeal in openSetCopy) {
-        AWSFMResultSet *rs = (AWSFMResultSet *)[rsInWrappedInATastyValueMeal pointerValue];
+        AWSFMresultSet *rs = (AWSFMresultSet *)[rsInWrappedInATastyValueMeal pointerValue];
         
         [rs setParentDB:nil];
         [rs close];
         
-        [_openResultSets removeObject:rsInWrappedInATastyValueMeal];
+        [_openresultSets removeObject:rsInWrappedInATastyValueMeal];
     }
 }
 
-- (void)resultSetDidClose:(AWSFMResultSet *)resultSet {
+- (void)resultSetDidClose:(AWSFMresultSet *)resultSet {
     NSValue *setValue = [NSValue valueWithNonretainedObject:resultSet];
     
-    [_openResultSets removeObject:setValue];
+    [_openresultSets removeObject:setValue];
 }
 
 #pragma mark Cached statements
@@ -439,7 +439,7 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
         return NO;
     }
     
-    AWSFMResultSet *rs = [self executeQuery:@"select name from sqlite_master where type='table'"];
+    AWSFMresultSet *rs = [self executeQuery:@"select name from sqlite_master where type='table'"];
     
     if (rs) {
         [rs close];
@@ -734,11 +734,11 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
 
 #pragma mark Execute queries
 
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withParameterDictionary:(NSDictionary *)arguments {
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withParameterDictionary:(NSDictionary *)arguments {
     return [self executeQuery:sql withArgumentsInArray:nil orDictionary:arguments orVAList:nil];
 }
 
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args {
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args {
     
     if (![self databaseExists]) {
         return 0x00;
@@ -754,7 +754,7 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
     int rc                  = 0x00;
     sqlite3_stmt *pStmt     = 0x00;
     AWSFMStatement *statement  = 0x00;
-    AWSFMResultSet *rs         = 0x00;
+    AWSFMresultSet *rs         = 0x00;
     
     if (_traceExecution && sql) {
         NSLog(@"%@ executeQuery: %@", self, sql);
@@ -869,11 +869,11 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
     }
     
     // the statement gets closed in rs's dealloc or [rs close];
-    rs = [AWSFMResultSet resultSetWithStatement:statement usingParentDatabase:self];
+    rs = [AWSFMresultSet resultSetWithStatement:statement usingParentDatabase:self];
     [rs setQuery:sql];
     
-    NSValue *openResultSet = [NSValue valueWithNonretainedObject:rs];
-    [_openResultSets addObject:openResultSet];
+    NSValue *openresultSet = [NSValue valueWithNonretainedObject:rs];
+    [_openresultSets addObject:openresultSet];
     
     [statement setUseCount:[statement useCount] + 1];
     
@@ -884,7 +884,7 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
     return rs;
 }
 
-- (AWSFMResultSet *)executeQuery:(NSString*)sql, ... {
+- (AWSFMresultSet *)executeQuery:(NSString*)sql, ... {
     va_list args;
     va_start(args, sql);
     
@@ -894,7 +894,7 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
     return result;
 }
 
-- (AWSFMResultSet *)executeQueryWithFormat:(NSString*)format, ... {
+- (AWSFMresultSet *)executeQueryWithFormat:(NSString*)format, ... {
     va_list args;
     va_start(args, format);
     
@@ -907,11 +907,11 @@ static int AWSFMDBDatabaseBusyHandler(void *f, int count) {
     return [self executeQuery:sql withArgumentsInArray:arguments];
 }
 
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments {
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments {
     return [self executeQuery:sql withArgumentsInArray:arguments orDictionary:nil orVAList:nil];
 }
 
-- (AWSFMResultSet *)executeQuery:(NSString*)sql withVAList:(va_list)args {
+- (AWSFMresultSet *)executeQuery:(NSString*)sql withVAList:(va_list)args {
     return [self executeQuery:sql withArgumentsInArray:nil orDictionary:nil orVAList:args];
 }
 
@@ -1167,10 +1167,10 @@ int AWSFMDBExecuteBulkSQLCallback(void *theBlockAsVoid, int columns, char **valu
 }
 
 - (BOOL)executeStatements:(NSString *)sql {
-    return [self executeStatements:sql withResultBlock:nil];
+    return [self executeStatements:sql withresultBlock:nil];
 }
 
-- (BOOL)executeStatements:(NSString *)sql withResultBlock:(AWSFMDBExecuteStatementsCallbackBlock)block {
+- (BOOL)executeStatements:(NSString *)sql withresultBlock:(AWSFMDBExecuteStatementsCallbackBlock)block {
     
     int rc;
     char *errmsg = nil;

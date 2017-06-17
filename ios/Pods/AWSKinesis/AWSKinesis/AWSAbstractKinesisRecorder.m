@@ -139,7 +139,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
     NSUInteger diskByteLimit = self.diskByteLimit;
     __weak id notificationSender = self;
 
-    return [[AWSTask taskWithResult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
+    return [[AWSTask taskWithresult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
         // Inserts a new record to the database.
         __block NSError *error = nil;
         [databaseQueue inDatabase:^(AWSFMDatabase *db) {
@@ -224,7 +224,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
 - (AWSTask *)submitAllRecords {
     AWSFMDatabaseQueue *databaseQueue = self.databaseQueue;
 
-    return [[AWSTask taskWithResult:nil] continueWithExecutor:[AWSExecutor executorWithDispatchQueue:[AWSKinesisRecorder sharedQueue]] withSuccessBlock:^id _Nullable(AWSTask * _Nonnull task) {
+    return [[AWSTask taskWithresult:nil] continueWithExecutor:[AWSExecutor executorWithDispatchQueue:[AWSKinesisRecorder sharedQueue]] withSuccessBlock:^id _Nullable(AWSTask * _Nonnull task) {
         __block NSError *error = nil;
         __block NSUInteger batchSize = 0;
 
@@ -232,7 +232,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
             [databaseQueue inTransaction:^(AWSFMDatabase *db, BOOL *rollback) {
                 NSMutableArray *partitionKeys = nil;
 
-                AWSFMResultSet *rs = [db executeQuery:
+                AWSFMresultSet *rs = [db executeQuery:
                                       @"SELECT partition_key, data, retry_count, stream_name "
                                       @"FROM record "
                                       @"WHERE stream_name = (SELECT stream_name FROM record ORDER BY timestamp ASC LIMIT 1) "
@@ -320,7 +320,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
 - (AWSTask *)removeAllRecords {
     AWSFMDatabaseQueue *databaseQueue = self.databaseQueue;
 
-    return [[AWSTask taskWithResult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
+    return [[AWSTask taskWithresult:nil] continueWithSuccessBlock:^id(AWSTask *task) {
         __block NSError *error = nil;
         [databaseQueue inDatabase:^(AWSFMDatabase *db) {
             if (![db executeUpdate:@"DELETE FROM record"]) {

@@ -154,13 +154,13 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
         AWSFMDatabase *db = [self database];
         block(db);
         
-        if ([db hasOpenResultSets]) {
+        if ([db hasOpenresultSets]) {
             NSLog(@"Warning: there is at least one open result set around after performing [FMDatabaseQueue inDatabase:]");
             
 #if defined(DEBUG) && DEBUG
-            NSSet *openSetCopy = AWSFMDBReturnAutoreleased([[db valueForKey:@"_openResultSets"] copy]);
+            NSSet *openSetCopy = AWSFMDBReturnAutoreleased([[db valueForKey:@"_openresultSets"] copy]);
             for (NSValue *rsInWrappedInATastyValueMeal in openSetCopy) {
-                AWSFMResultSet *rs = (AWSFMResultSet *)[rsInWrappedInATastyValueMeal pointerValue];
+                AWSFMresultSet *rs = (AWSFMresultSet *)[rsInWrappedInATastyValueMeal pointerValue];
                 NSLog(@"query: '%@'", [rs query]);
             }
 #endif

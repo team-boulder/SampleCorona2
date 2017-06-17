@@ -43,6 +43,9 @@ local function viewHandler( event )
 		if event.value == 'bg' then
 			home_view.hidePopup()
 		end
+		if event.value == 'result' then
+			storyboard.gotoScene(ContDir..'result',{effect="slideLeft"})
+		end
 		if event.value == 'accept' then
 			local function onComplete( event )
 				if ( event.action == "clicked" ) then
@@ -57,6 +60,7 @@ local function viewHandler( event )
             else
 				native.showAlert( "警告", "入力欄が空白です", { "OK" })
 			end
+			
 		end
 	end
 end
