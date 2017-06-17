@@ -4,6 +4,11 @@ local scene = storyboard.newScene()
 local home_view = require( ViewDir .. 'home_view' )
 local user_model = require( ModelDir .. 'user_model' )
 
+local function hoge(e)
+	print(e)
+end
+
+
 local function viewHandler( event )
 	if event.name == 'home_view-tap' then
 
@@ -17,7 +22,7 @@ local function viewHandler( event )
 			storyboard.gotoScene(ContDir..'kuma',{effect="slideLeft"})
 		end
 		if event.value == 'mae' then
-			storyboard.gotoScene(ContDir..'mae',{effect="slideLeft"})
+			storyboard.gotoScene(ContDir..'product_detail',{effect="slideLeft"})
 		end
 		if event.value == 'temp' then
 			storyboard.showOverlay(ContDir..'temp',{effect="slideLeft",params = { title = event.text or 'temp' } })
@@ -64,7 +69,7 @@ end
 function scene:willEnterScene( event )
 	local group = self.view
 
-	user_model.check()
+	-- user_model.check()
 	-- user_model:addEventListener( modelHandler )
 	home_view:addEventListener( viewHandler )
 

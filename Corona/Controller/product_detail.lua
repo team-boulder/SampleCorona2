@@ -3,30 +3,14 @@ local scene = storyboard.newScene()
 -- hogehogehoge
 
 -- require view
-local mae_view = require( ViewDir .. 'mae_view' )
+local product_detail_view = require( ViewDir .. 'product_detail_view' )
 local home_view = require( ViewDir .. 'home_view' )
 
 local function viewHandler( event )
-	if event.name == 'mae_view-tap' then
+	if event.name == 'product_detail_view-tap' then
 
 		if event.value == 'back' then
 			storyboard.gotoScene(ContDir..'home')
-		end
-
-		if event.value == 'shiba' then
-			storyboard.gotoScene(ContDir..'shiba')
-		end
-		
-		if event.value == 'natsu' then
-			storyboard.gotoScene(ContDir..'natsu')
-		end
-
-		if event.value == 'kuma' then
-			storyboard.gotoScene(ContDir..'kuma')
-		end
-
-		if event.value == 'maehara' then
-			mae_view.puni()
 		end
 
 	end
@@ -40,11 +24,9 @@ function scene:willEnterScene( event )
 	local group = self.view
 
 	--user_model:addEventListener( modelHandler )
-	mae_view:addEventListener( viewHandler )
-	--if system.hasEventSource( "gyroscope" ) then
-    --	Runtime:addEventListener( "gyroscope", mae_view.onGyroscopeDataReceived )
-	--end
-	local view_obj = mae_view.create()
+	product_detail_view:addEventListener( viewHandler )
+	
+	local view_obj = product_detail_view.create()
 	group:insert( view_obj )
 
 end
@@ -57,8 +39,8 @@ function scene:exitScene( event )
 	local group = self.view
 
 	--user_model:removeEventListener( modelHandler )
-	mae_view:removeEventListener( viewHandler )
-	mae_view.destroy()
+	product_detail_view:removeEventListener( viewHandler )
+	product_detail_view.destroy()
 
 end
 
