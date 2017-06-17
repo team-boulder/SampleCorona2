@@ -10,12 +10,11 @@ end
 
 local themeColor = playerInfoData['theme_color']
 
-function self.create()
+function self.create(params)
 	if obj.group == nil then
 		obj.group = display.newGroup()
 	end
 	height = 0
-	local params = {}
 	
     local image = params.image or display.newImageRect( ImgDir .. 'product_detail/NoImage.png', 512, 512)
     local name  = params.name  or "hoge"
@@ -30,10 +29,15 @@ function self.create()
     obj.bg:setFillColor(255)
 	obj.header = display.newRect(0,0,_W,100)
 	obj.header:setFillColor(unpack(themeColor))
-	obj.title = display.newText('   甘zon',0,0,'Noto-Light.otf',35)
+	obj.title = display.newImage(ImgDir..'home/amazon_logo01.png')
 	obj.title:setReferencePoint(display.CenterReferencePoint)
-	obj.title.x = _W/2
-	obj.title.y = obj.header.height/2
+	obj.title:scale(0.3,0.3)
+	obj.title.x = _W/2+20
+	obj.title.y = 50
+	-- obj.title = display.newText('   甘zon',0,0,'Noto-Light.otf',35)
+	-- obj.title:setReferencePoint(display.CenterReferencePoint)
+	-- obj.title.x = _W/2
+	-- obj.title.y = obj.header.height/2
     
 	obj.scrollView = widget.newScrollView(
 		{
@@ -47,14 +51,14 @@ function self.create()
 	obj.scrollView:setIsLocked( true, "horizontal" )
 
 
-	obj.p_name = display.newText("name",0,0,'Noto-Light.otf',35)
+	obj.p_name = display.newText(params.name,0,0,'Noto-Light.otf',35)
 	obj.p_name:setReferencePoint(display.CenterReferencePoint)
 	obj.p_name:setFillColor(0)
 	obj.p_name.x = _W/2
 	obj.p_name.y = height + obj.p_name.height / 2 + 20
 	height = height + obj.p_name.height
 	
-	obj.image = image
+	obj.image = display.newImage(params.num..".png",system.TemporaryDirectory)
 	obj.image:setReferencePoint(display.CenterReferencePoint)
 	obj.image.x = _W/2
 	obj.image.y = height + obj.image.height / 2 + 30
@@ -68,7 +72,7 @@ function self.create()
 	height = height + obj.price.height
 	
 	obj.detail = native.newTextBox(0,0,512,200)
-	obj.detail.text = detail
+	obj.detail.text = params.description
 	obj.detail:setReferencePoint(display.CenterReferencePoint)
 	--obj.detail:setFillColor(0)
 	obj.detail.x = _W/2
@@ -82,6 +86,7 @@ function self.create()
 
 	obj.group:insert( obj.bg )
 	obj.group:insert( obj.header )
+	obj.group:insert( obj.title )
 	obj.group:insert( obj.scrollView )
 
     
