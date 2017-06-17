@@ -17,11 +17,9 @@ local function viewHandler( event )
 	end
 	if event.name == 'result_view-tap' then
 
-		print(event.value)
 		if event.value.num then
 			-- print("num"..event.value)
-			print(event.value)
-			storyboard.showOverlay(ContDir..'product_detail',{effect="slideLeft",params = event.value })
+			storyboard.showOverlay(ContDir..'product_detail',{isModal = true,effect="slideLeft",params = event.value })
 		end
 		if event.value == 'shiba' then
 			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
