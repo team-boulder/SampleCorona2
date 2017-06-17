@@ -54,12 +54,13 @@ local function viewHandler( event )
 			timer.performWithDelay( 3000,function()
 			r:stopRecording()
 			print("complete")
-  
-			voice_model.voice(filePath)
-			
 			print("playing")
-			media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
+			--media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
+			voice_model.recognation( "newRecording.wav" )
+			print("hoge1")
 			end)
+			print("hoge3")
+			
 		end
 		if event.value == 'accept' then
 			local function onComplete( event )
@@ -93,6 +94,7 @@ function scene:willEnterScene( event )
 	home_view:addEventListener( viewHandler )
 
 	local view_obj = home_view.create()
+	--voice_model.recognation()
 	group:insert( view_obj )
 
 end
