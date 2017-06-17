@@ -2,6 +2,7 @@ local self = object.new()
 
 local obj = {}
 local tableData = {}
+local imageNameArray = {}
 -- local themeColor = {120,230,240}
 
 local themeColor = playerInfoData['theme_color']
@@ -9,22 +10,21 @@ local headerSize = 100
 local boxSize = 200
 
 local function createContent(data)
+
 	local group = display.newGroup()	
-
-	
-
 	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
-	--local itemImageURL = "https://item-shopping.c.yimg.jp/i/g/bookfan_bk-4253221386"
-	local imageName = string.random( 15, '%l%d' )
-	table.insert(tableData,imageName..".png")
-	print(tableData)
-	local itemImage = display.loadRemoteImage(data.image,"GET",networkListener,imageName..".png", system.TemporaryDirectory, display.contentCenterX, display.contentCenterY)
+	--local imageName = string.random( 15, '%l%d' )
+	--table.insert(tableData,imageName..".png")
+	--print(tableData)
+	--local itemImage = display.loadRemoteImage(data.image,"GET",networkListener,imageName..".png", system.TemporaryDirectory, 0, 0)
+	--network.download(data.image,"GET",networkListener, imageName..".png",system.TemporaryDirectory)
+	
 	--local itemImage = display.newImage(itemImageURL, 10, 10)
 	local title = display.newText(group,data.name,210,50,_W-210,110,'Noto-Light.otf',25)
 	title:setReferencePoint(display.CenterReferencePoint)
-	title.y = box.height/4
+	title.y = box.height/3
 	title:setFillColor(80)
 	local price = display.newText(group,"¥"..data.price,210,50,'Noto-Light.otf',35)
 	price:setReferencePoint(display.CenterReferencePoint)
@@ -46,11 +46,20 @@ local function createContent(data)
 		if event.isError then
 			print("error")
 		else
+
 			--print(event.response.fullPath)
 			--print(event.response.filename)
-			event.target.x = 100
-			event.target.y = 100
-			group:insert(event.target)
+			--event.target.x = 100
+			--event.target.y = 100
+			--myImage = display.newImage( event.response.filename, event.response.baseDirectory, 0, 0 )
+			--myImage.x = 0
+			--myImage.y = 0
+			--group:insert(event.target)
+			--group:insert(myImage)
+	
+			--event.target.alpha = 0
+			--transition.to( event.target, { alpha = 1.0 } )
+			--group:insert(event.target)
 		end
 	end
 
@@ -197,18 +206,30 @@ end
 function self.refreshTable(res)
 	if obj.scrollContent then
 		display.remove(obj.scrollContent)
-		for i,v in ipairs(tableData) do
+		--[[for i,v in ipairs(tableData) do
 			local path = system.pathForFile(v,system.TemporaryDirectory)
 			print(path)
 			os.remove(path)
 		end
-		tableData = {}
+		tableData = {}]]--
 		obj.scrollContent = nil
 	end
 	obj.scrollContent = display.newGroup()
 	if res ~= nil then
 		for i,v in ipairs(res) do
 			--print(v)
+			local itemImageURL = v.image
+			local itemName = v.name
+			local itemPrice = v.price
+			local itemData = {}
+			table.insert(itemData,itemImageURL)
+			table.insert(itemData,itemName)
+			table.insert(itemData,itemPrice)		
+			local imageName = string.random( 15, '%l%d' )
+			network.download(itemImageURL,"GET",networkListener, imageName..".png",system.TemporaryDirectory)
+			table.insert(itemData,imageName..".png")
+			table.insert(tableData,itemData)
+			print(tableData[i])
 			local box = createContent(v)
 			box.y = headerSize + (i-1)*boxSize
 			box.value = ''
