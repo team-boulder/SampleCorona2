@@ -12,7 +12,7 @@
 
 - (void)setNetwork:(FYBBaseNetwork *)network;
 - (NSString *)networkName;
-- (void)videosAvailable:(FYBTPNValidationResultBlock)callback;
+- (void)videosAvailable:(FYBTPNValidationresultBlock)callback;
 - (void)playVideoWithParentViewController:(UIViewController *)parentVC notifyingCallback:(FYBTPNVideoEventsHandlerBlock)eventsCallback;
 - (BOOL)startAdapterWithDictionary:(NSDictionary *)dict;
 

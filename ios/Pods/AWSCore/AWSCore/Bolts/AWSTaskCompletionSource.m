@@ -20,7 +20,7 @@
 
 @interface AWSTask (AWSTaskCompletionSource)
 
-- (BOOL)trySetResult:(id)result;
+- (BOOL)trySetresult:(id)result;
 - (BOOL)trySetError:(NSError *)error;
 - (BOOL)trySetException:(NSException *)exception;
 - (BOOL)trySetCancelled;
@@ -46,8 +46,8 @@
 
 #pragma mark - Custom Setters/Getters
 
-- (void)setResult:(id)result {
-    if (![self.task trySetResult:result]) {
+- (void)setresult:(id)result {
+    if (![self.task trySetresult:result]) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot set the result on a completed task."];
     }
@@ -74,8 +74,8 @@
     }
 }
 
-- (BOOL)trySetResult:(id)result {
-    return [self.task trySetResult:result];
+- (BOOL)trySetresult:(id)result {
+    return [self.task trySetresult:result];
 }
 
 - (BOOL)trySetError:(NSError *)error {

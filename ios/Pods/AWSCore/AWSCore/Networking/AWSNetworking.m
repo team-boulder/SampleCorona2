@@ -292,12 +292,12 @@ NSString *const AWSNetworkingErrorDomain = @"com.amazonaws.AWSNetworkingErrorDom
 
 - (AWSTask *)cancel {
     [self.internalRequest cancel];
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 - (AWSTask *)pause {
     [self.internalRequest pause];
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 - (NSDictionary *)dictionaryValue {
@@ -346,7 +346,7 @@ NSString *const AWSNetworkingErrorDomain = @"com.amazonaws.AWSNetworkingErrorDom
     [request setValue:self.userAgent
    forHTTPHeaderField:@"User-Agent"];
     
-    return [AWSTask taskWithResult:nil];
+    return [AWSTask taskWithresult:nil];
 }
 
 @end

@@ -4,13 +4,14 @@ local scene = storyboard.newScene()
 
 -- require view
 local natsu_view = require( ViewDir .. 'natsu_view' )
-local home_view = require( ViewDir .. 'home_view' )
+local result_view = require( ViewDir .. 'result_view' )
+local user_model = require( ModelDir .. 'user_model' )
 
 local function viewHandler( event )
 	if event.name == 'natsu_view-tap' then
 
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home')
+			storyboard.gotoScene(ContDir..'result')
 		end
 
 		if event.value == 'next' then
@@ -20,6 +21,10 @@ local function viewHandler( event )
 	end
 end
 
+function modelHandler( event )
+	
+end
+
 function scene:createScene( event )
 	local group = self.view
 end
@@ -27,6 +32,7 @@ end
 function scene:willEnterScene( event )
 	local group = self.view
 
+	user_model.check()
 	--user_model:addEventListener( modelHandler )
 	natsu_view:addEventListener( viewHandler )
 

@@ -279,7 +279,7 @@ NSString *const AWSKinesisErrorDomain = @"com.amazonaws.AWSKinesisErrorDomain";
 }
 
 + (NSValueTransformer *)recordsJSONTransformer {
-	return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSKinesisPutRecordsResultEntry class]];
+	return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSKinesisPutRecordsresultEntry class]];
 }
 
 @end
@@ -296,7 +296,7 @@ NSString *const AWSKinesisErrorDomain = @"com.amazonaws.AWSKinesisErrorDomain";
 
 @end
 
-@implementation AWSKinesisPutRecordsResultEntry
+@implementation AWSKinesisPutRecordsresultEntry
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{

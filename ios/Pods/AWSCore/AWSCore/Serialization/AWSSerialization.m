@@ -43,7 +43,7 @@ NSString *const AWSJSONParserErrorDomain = @"com.amazonaws.AWSJSONParserErrorDom
     return self;
 }
 
-- (id)parseResult:(id)result {
+- (id)parseresult:(id)result {
     if ([result isKindOfClass:[NSDictionary class]]) {
         return [[AWSJSONDictionary alloc] initWithDictionary:result JSONDefinitionRule:self.JSONDefinitionRule];
     } else {
@@ -59,28 +59,28 @@ NSString *const AWSJSONParserErrorDomain = @"com.amazonaws.AWSJSONParserErrorDom
     //If value found, just return value
     id value = [self.embeddedDictionary objectForKey:aKey];
     if (value) {
-        return [self parseResult:value];
+        return [self parseresult:value];
     }
 
     //find value in metadata dictionary, return the value if found
     id result = [[self.embeddedDictionary objectForKey:@"metadata"] objectForKey:aKey];
     if (result) {
-        return [self parseResult:result];
+        return [self parseresult:result];
     }
 
     //find value according to shapeName, return the value if found
     NSString *shapeName = [self.embeddedDictionary objectForKey:@"shape"];
     if (shapeName.length != 0 ) {
-        NSDictionary *definitionResult = [self.JSONDefinitionRule objectForKey:shapeName];
+        NSDictionary *definitionresult = [self.JSONDefinitionRule objectForKey:shapeName];
 
-        id result = [definitionResult objectForKey:aKey];
+        id result = [definitionresult objectForKey:aKey];
         if (result) {
-            return [self parseResult:result];
+            return [self parseresult:result];
         }
 
-        id metaDataResult = [[definitionResult objectForKey:@"metadata"] objectForKey:aKey];
-        if (metaDataResult) {
-            return [self parseResult:metaDataResult];
+        id metaDataresult = [[definitionresult objectForKey:@"metadata"] objectForKey:aKey];
+        if (metaDataresult) {
+            return [self parseresult:metaDataresult];
         }
     }
 
@@ -404,16 +404,16 @@ NSString *const AWSJSONParserErrorDomain = @"com.amazonaws.AWSJSONParserErrorDom
 
 
     if ([serviceTypeStr isEqualToString:@"query"]) {
-        NSNumber *isResultWrapped = serviceDefinitionRule[@"metadata"][@"resultWrapped"];
-        if (isResultWrapped && ![isResultWrapped boolValue]) {
+        NSNumber *isresultWrapped = serviceDefinitionRule[@"metadata"][@"resultWrapped"];
+        if (isresultWrapped && ![isresultWrapped boolValue]) {
             //If resultWrapped is false
             return fromDictionary;
         } else {
             //If not set, it is true by default
             if (actionRule[@"resultWrapper"] && fromDictionary[actionRule[@"resultWrapper"]]) {
                 return fromDictionary[actionRule[@"resultWrapper"]];
-            } else if ([operationName stringByAppendingString:@"Result"] && fromDictionary[[operationName stringByAppendingString:@"Result"]]){
-                return fromDictionary[[operationName stringByAppendingString:@"Result"]];
+            } else if ([operationName stringByAppendingString:@"result"] && fromDictionary[[operationName stringByAppendingString:@"result"]]){
+                return fromDictionary[[operationName stringByAppendingString:@"result"]];
             } else {
                 return fromDictionary;
             }

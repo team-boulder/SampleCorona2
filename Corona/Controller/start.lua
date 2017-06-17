@@ -20,7 +20,7 @@ local start_view = require( ViewDir .. 'start_view' )
 
 local function viewHandler( event )
 	if event.name == 'start_view-tap' then
-		storyboard.gotoScene( ContDir .. 'home')
+		storyboard.gotoScene( ContDir .. 'result')
 	end
 end
 

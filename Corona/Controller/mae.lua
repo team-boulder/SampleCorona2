@@ -4,13 +4,13 @@ local scene = storyboard.newScene()
 
 -- require view
 local mae_view = require( ViewDir .. 'mae_view' )
-local home_view = require( ViewDir .. 'home_view' )
+local result_view = require( ViewDir .. 'result_view' )
 
 local function viewHandler( event )
 	if event.name == 'mae_view-tap' then
 
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home')
+			storyboard.gotoScene(ContDir..'result')
 		end
 
 		if event.value == 'shiba' then

@@ -449,7 +449,7 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityErrorType) {
 
 /**
  Input to the ListIdentities action.
- Required parameters: [IdentityPoolId, MaxResults]
+ Required parameters: [IdentityPoolId, Maxresults]
  */
 @interface AWSCognitoIdentityListIdentitiesInput : AWSRequest
 
@@ -462,7 +462,7 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityErrorType) {
 /**
  The maximum number of identities to return.
  */
-@property (nonatomic, strong) NSNumber * _Nullable maxResults;
+@property (nonatomic, strong) NSNumber * _Nullable maxresults;
 
 /**
  A pagination token.
@@ -496,7 +496,7 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityErrorType) {
 
 /**
  Input to the ListIdentityPools action.
- Required parameters: [MaxResults]
+ Required parameters: [Maxresults]
  */
 @interface AWSCognitoIdentityListIdentityPoolsInput : AWSRequest
 
@@ -504,7 +504,7 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityErrorType) {
 /**
  The maximum number of identities to return.
  */
-@property (nonatomic, strong) NSNumber * _Nullable maxResults;
+@property (nonatomic, strong) NSNumber * _Nullable maxresults;
 
 /**
  A pagination token.
@@ -556,10 +556,10 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityErrorType) {
 /**
  <p>The maximum number of identities to return.</p>
  */
-@property (nonatomic, strong) NSNumber * _Nullable maxResults;
+@property (nonatomic, strong) NSNumber * _Nullable maxresults;
 
 /**
- <p>A pagination token. The first call you make will have <code>NextToken</code> set to null. After that the service will return <code>NextToken</code> values as needed. For example, let's say you make a request with <code>MaxResults</code> set to 10, and there are 20 matches in the database. The service will return a pagination token as a part of the response. This token can be used to call the API again and get results starting from the 11th match.</p>
+ <p>A pagination token. The first call you make will have <code>NextToken</code> set to null. After that the service will return <code>NextToken</code> values as needed. For example, let's say you make a request with <code>Maxresults</code> set to 10, and there are 20 matches in the database. The service will return a pagination token as a part of the response. This token can be used to call the API again and get results starting from the 11th match.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable nextToken;
 
@@ -582,7 +582,7 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityErrorType) {
 @property (nonatomic, strong) NSString * _Nullable identityId;
 
 /**
- <p>A pagination token. The first call you make will have <code>NextToken</code> set to null. After that the service will return <code>NextToken</code> values as needed. For example, let's say you make a request with <code>MaxResults</code> set to 10, and there are 20 matches in the database. The service will return a pagination token as a part of the response. This token can be used to call the API again and get results starting from the 11th match.</p>
+ <p>A pagination token. The first call you make will have <code>NextToken</code> set to null. After that the service will return <code>NextToken</code> values as needed. For example, let's say you make a request with <code>Maxresults</code> set to 10, and there are 20 matches in the database. The service will return a pagination token as a part of the response. This token can be used to call the API again and get results starting from the 11th match.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable nextToken;
 

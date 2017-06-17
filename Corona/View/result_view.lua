@@ -11,18 +11,27 @@ local tableData = {
 
 local themeColor = playerInfoData['theme_color']
 local headerSize = 100
-local boxSize = 100
+local boxSize = 200
 
 local function createContent(str)
-	local group = display.newGroup()
+	local group = display.newGroup()	
+
+	
 
 	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
-	local text = display.newText(group,str,50,0,'Noto-Light.otf',35)
-	text:setReferencePoint(display.CenterReferencePoint)
-	text.y = box.height/2
-	text:setFillColor(80)
+	local itemImageURL = "https://item-shopping.c.yimg.jp/i/g/bookfan_bk-4253221386"
+	local itemImage = display.loadRemoteImage(itemImageURL,"GET",networkListener,"aaaaaaaa.png", system.TemporaryDirectory, 100,100)
+	--local itemImage = display.newImage(itemImageURL, 10, 10)
+	local title = display.newText(group,str,210,50,'Noto-Light.otf',35)
+	title:setReferencePoint(display.CenterReferencePoint)
+	title.y = box.height/4
+	title:setFillColor(80)
+	local price = display.newText(group,"¥"..str,210,50,'Noto-Light.otf',35)
+	price:setReferencePoint(display.CenterReferencePoint)
+	price.y = box.height-45
+	price:setFillColor(80)
 
 	function box:touch(event)
 		if event.phase == "began" then
@@ -33,7 +42,21 @@ local function createContent(str)
 		end
 	end
 	box:addEventListener('touch')
+	
+	function networkListener(event)
+		print("networkListener")
+		if event.isError then
+			print("error")
+		else
+			event.target.x = 100
+			event.target.y = 100
+			group:insert(event.target)
+		end
+	end
+
 	return group
+
+
 end
 
 function self.create()
@@ -43,11 +66,13 @@ function self.create()
 		obj.contentNum = 0
 		obj.header = display.newRect(0,0,_W,headerSize)
 		obj.header:setFillColor(unpack(themeColor))
-		obj.title = display.newText('   Coincheck',0,0,'Noto-Light.otf',35)
-		obj.title:setReferencePoint(display.CenterReferencePoint)
-		obj.title.x = _W/2
-		obj.title.y = obj.header.height/2
-		obj.menu = display.newImage( ImgDir .. 'home/menu.png',30,30)
+		obj.textField = native.newTextField(100,10,_W-110,80)
+		--obj.searchButton = display.newImage(ImgDir .. 'result/ecalbt008_002.png',_W-100,5)
+		--obj.searchButton.xScale = 3
+		--obj.textField:setReferencePoint(display.CenterReferencePoint)
+		--obj.textField.x = _W/2
+		--obj.textField.y = obj.header.height/2
+		obj.menu = display.newImage( ImgDir .. 'result/menu.png',30,30)
 		obj.menuArea = display.newRect(0,0,150,100)
 		obj.menuArea.value = 'menu'
 		obj.menuArea.isVisible = false
@@ -73,7 +98,8 @@ function self.create()
 			obj.scrollView:insert(obj[v.value])
 			obj.contentNum = obj.contentNum + 1
 		end
-
+		
+		--[[
 		-- 追加ボタンの生成
 		obj.addButton = display.newGroup()
 		local circle = display.newCircle( obj.addButton, _W-100, _H-100, 50)
@@ -86,11 +112,14 @@ function self.create()
 		circle.fill.effect.levels.white = 0.2
 		circle.fill.effect.levels.black = 1.0
 		circle.fill.effect.levels.gamma = 0.2
+
+		
 		obj.addButton:setReferencePoint(circle.x, circle.y)
 		obj.addButton.anim = true
 		obj.addButton.value = 'add'
 		obj.addButton:addEventListener('tap',self.tap)
 
+		
 		-- メニューを予め作成しておく
 		obj.menuGroup = display.newGroup()
 		obj.menuBG = display.newRect(0,0,_W,_H)
@@ -150,16 +179,17 @@ function self.create()
 		obj.accept:addEventListener('tap',self.tap)
 		obj.popupGroup:insert(obj.textField)
 		obj.popupGroup.alpha = 0
+		]]--
 
 		obj.group:insert( obj.scrollView )
 		obj.group:insert( obj.header )
-		obj.group:insert( obj.title )
+		obj.group:insert( obj.textField )
 		obj.group:insert( obj.menu )
 		obj.group:insert( obj.menuArea )
-		obj.group:insert( obj.addButton )
-		obj.group:insert( obj.menuBG )
-		obj.group:insert( obj.menuGroup )
-		obj.group:insert( obj.popupGroup )
+		--obj.group:insert( obj.addButton )
+		--obj.group:insert( obj.menuBG )
+		--obj.group:insert( obj.menuGroup )
+		--obj.group:insert( obj.popupGroup )
 
 		return obj.group
 	end
@@ -220,7 +250,7 @@ function self.touch( e )
 
 	local event =
 	{
-		name   = 'home_view-touch',
+		name   = 'result_view-touch',
 		value  = e.target.value,
 	}
 	self:dispatchEvent( event )
@@ -245,7 +275,7 @@ function self.tap( e )
 
 	local event =
 	{
-		name   = 'home_view-tap',
+		name   = 'result_view-tap',
 		value  = e.target.value,
 	}
 	if e.target.text then
