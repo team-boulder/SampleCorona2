@@ -46,6 +46,17 @@ local function viewHandler( event )
 		if event.value == 'result' then
 			storyboard.gotoScene(ContDir..'result',{effect="slideLeft"})
 		end
+		if event.value == 'rec' then
+			local filePath = system.pathForFile( "newRecording.wav", system.DocumentsDirectory )
+			r = media.newRecording( filePath )
+			r:startRecording()
+			print("recording")
+			timer.performWithDelay( 3000,function()
+			r:stopRecording()
+			print("playing")
+			media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
+			end)
+		end
 		if event.value == 'accept' then
 			local function onComplete( event )
 				if ( event.action == "clicked" ) then

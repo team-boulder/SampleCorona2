@@ -52,6 +52,11 @@ function self.create()
 		obj.musi.value = 'result'
 		obj.musi:addEventListener('tap',self.tap)
 
+		obj.rec = display.newText('Rec',_W/2,3*_H/4,'Noto-Light.otf',30)
+		obj.rec:setFillColor(150)
+		obj.rec.value = 'rec'
+		obj.rec:addEventListener('tap',self.tap)
+
 		-- local sheetOptions = {
 		-- 	width = 512,
 		-- 	height = 256,
@@ -93,7 +98,7 @@ function self.create()
 		obj.group:insert( obj.title )
 		obj.group:insert( obj.serch )
 		obj.group:insert( obj.musi )
-		--obj.group:insert( obj.max )
+		obj.group:insert( obj.rec )
 		-- obj.group:insert( obj.title3 )
 		--obj.group:insert( obj.startButton )
 
