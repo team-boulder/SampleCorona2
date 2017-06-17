@@ -7,6 +7,8 @@ local home_view = require( ViewDir .. 'home_view' )
 local function viewHandler( event )
 	if event.name == 'product_detail_view-tap' then
 		if event.value == 'back' then
+			-- product_detail_view.view:removeSelf()			
+			--storyboard.hideOverlay("slideRight")
 			storyboard.hideOverlay("slideRight")
 			storyboard.showOverlay(ContDir..'kuma',{isModal = true,effect="fromBottom",params = event.value })
 		end
