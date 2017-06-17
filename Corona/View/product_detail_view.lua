@@ -20,6 +20,7 @@ function self.create()
     local image = params.image or display.newImage( ImgDir .. 'product_detail/NoImage.png')
     local name  = params.name  or "hoge"
 	local price = params.price or 0
+	local detail = params.detail or "ここに詳細の文が入ります.デジタル大辞泉 - 文章の用語解説 - 1 文を連ねて、まとまった思想・感情を表現したもの。主に詩に対して、散文をいう。2 文法で、文よりも大きな単位。一文だけのこともあるが、通常はいくつかの文が集まって、まとまった思想・話題を表現するもの。3 威儀"
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(255)
@@ -29,7 +30,6 @@ function self.create()
 	obj.title:setReferencePoint(display.CenterReferencePoint)
 	obj.title.x = _W/2
 	obj.title.y = obj.header.height/2
-	height = height + obj.header.height
     
 	obj.scrollView = widget.newScrollView(
 		{
@@ -54,22 +54,32 @@ function self.create()
 	obj.image:setReferencePoint(display.CenterReferencePoint)
 	obj.image.x = _W/2
 	obj.image.y = height + obj.image.height / 2 + 30
-	height = height + obj.image.height
+	height = height + obj.image.height + 20
     
-	obj.price = display.newText(price,0,0,'Noto-Light.otf',35)
+	obj.price = display.newText("¥"..price,0,0,'Noto-Light.otf',60)
 	obj.price:setReferencePoint(display.CenterReferencePoint)
 	obj.price:setFillColor(0)
-	obj.price.x = _W/2
+	obj.price.x = _W/6
 	obj.price.y = height + obj.price.height / 2 + 20
 	height = height + obj.price.height
 	
+	obj.detail = native.newTextBox(0,0,512,200)
+	obj.detail.text = detail
+	obj.detail:setReferencePoint(display.CenterReferencePoint)
+	--obj.detail:setFillColor(0)
+	obj.detail.x = _W/2
+	obj.detail.y = height + obj.detail.height / 2 + 20
+	height = height + obj.detail.height
+
+	obj.scrollView:insert(obj.p_name)
+	obj.scrollView:insert(obj.image)
+	obj.scrollView:insert(obj.price)
+	obj.scrollView:insert(obj.detail)
 
 	obj.group:insert( obj.bg )
 	obj.group:insert( obj.header )
 	obj.group:insert( obj.scrollView )
-	obj.group:insert( obj.title )
-    obj.group:insert( obj.p_name )
-	obj.group:insert( obj.image )
+
     
 
 
