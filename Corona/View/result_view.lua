@@ -15,7 +15,6 @@ local function createContent(data)
 	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
-	-- local image = display.newImage(group,data.imageName,system.TemporaryDirectory,30,30)
 	local title = display.newText(group,data.name,210,50,_W-230,110,'Noto-Light.otf',25)
 	title:setReferencePoint(display.CenterReferencePoint)
 	title.y = box.height/3
@@ -302,7 +301,7 @@ function textListener(event)
 	if ( event.phase == "began" ) then
         -- User begins editing "defaultField"
  
-    elseif ( event.phase == "submitted" ) then
+    elseif ( event.phase == "ended" or event.phase == "submitted" ) then
         -- Output resulting text from "defaultField"
         print( event.target.text )
 		if obj.textField.text == "" then
@@ -313,13 +312,16 @@ function textListener(event)
 		obj.textField.isVisible = false
 		obj.placeholder.isVisible = true
 
-		local events = 
-		{
-			name = "result_view-search",
-			value = event.target.text,
-		}
-		if obj.textField.text ~= "" then
-			self:dispatchEvent(events)
+		
+		if event.phase == "submitted"  then
+			local events = 
+			{
+				name = "result_view-search",
+				value = event.target.text,
+			}
+			if obj.textField.text ~= "" then
+				self:dispatchEvent(events)
+			end
 		end
 
  
