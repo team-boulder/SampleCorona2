@@ -1,19 +1,14 @@
 local self = object.new()
 
 local obj = {}
-local tableData = {
-	{ label = '夏山', value = 'natsu' },
-	{ label = '芝',   value = 'shiba' },
-	{ label = '熊川', value = 'kuma' },
-	{ label = '前原', value = 'mae' },
-}
+local tableData = {}
 -- local themeColor = {120,230,240}
 
 local themeColor = playerInfoData['theme_color']
 local headerSize = 100
 local boxSize = 200
 
-local function createContent(str)
+local function createContent(data)
 	local group = display.newGroup()	
 
 	
@@ -21,14 +16,17 @@ local function createContent(str)
 	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
-	local itemImageURL = "https://item-shopping.c.yimg.jp/i/g/bookfan_bk-4253221386"
-	local itemImage = display.loadRemoteImage(itemImageURL,"GET",networkListener,"aaaaaaaa.png", system.TemporaryDirectory, 100,100)
+	--local itemImageURL = "https://item-shopping.c.yimg.jp/i/g/bookfan_bk-4253221386"
+	local imageName = string.random( 15, '%l%d' )
+	table.insert(tableData,imageName..".png")
+	print(tableData)
+	local itemImage = display.loadRemoteImage(data.image,"GET",networkListener,imageName..".png", system.TemporaryDirectory, display.contentCenterX, display.contentCenterY)
 	--local itemImage = display.newImage(itemImageURL, 10, 10)
-	local title = display.newText(group,str,210,50,'Noto-Light.otf',35)
+	local title = display.newText(group,data.name,210,50,_W-210,110,'Noto-Light.otf',25)
 	title:setReferencePoint(display.CenterReferencePoint)
 	title.y = box.height/4
 	title:setFillColor(80)
-	local price = display.newText(group,"¥"..str,210,50,'Noto-Light.otf',35)
+	local price = display.newText(group,"¥"..data.price,210,50,'Noto-Light.otf',35)
 	price:setReferencePoint(display.CenterReferencePoint)
 	price.y = box.height-45
 	price:setFillColor(80)
@@ -48,6 +46,8 @@ local function createContent(str)
 		if event.isError then
 			print("error")
 		else
+			--print(event.response.fullPath)
+			--print(event.response.filename)
 			event.target.x = 100
 			event.target.y = 100
 			group:insert(event.target)
@@ -59,14 +59,19 @@ local function createContent(str)
 
 end
 
-function self.create()
+function self.create(res)
 	if obj.group == nil then
 		obj.group = display.newGroup()
+		if res == nil then res = {} end
 
 		obj.contentNum = 0
 		obj.header = display.newRect(0,0,_W,headerSize)
 		obj.header:setFillColor(unpack(themeColor))
-		obj.textField = native.newTextField(100,10,_W-110,80)
+		obj.textField = native.newTextField(100,25,_W-110,50)
+		obj.textField.placeholder = "検索キーワードを入力"
+		obj.textField.size = 35
+		obj.textField:addEventListener( "userInput", textListener )
+		
 		--obj.searchButton = display.newImage(ImgDir .. 'result/ecalbt008_002.png',_W-100,5)
 		--obj.searchButton.xScale = 3
 		--obj.textField:setReferencePoint(display.CenterReferencePoint)
@@ -89,15 +94,9 @@ function self.create()
 		})
 		obj.scrollView:setIsLocked( true, "horizontal" )
 
+		self.refreshTable(res)
 		-- 連想配列から取り出してテーブルを作成
-		for i,v in ipairs(tableData) do
-			obj[v.value] = createContent(v.label)
-			obj[v.value].y = headerSize + (i-1)*boxSize
-			obj[v.value].value = v.value
-			obj[v.value]:addEventListener('tap',self.tap)
-			obj.scrollView:insert(obj[v.value])
-			obj.contentNum = obj.contentNum + 1
-		end
+		
 		
 		--[[
 		-- 追加ボタンの生成
@@ -195,6 +194,32 @@ function self.create()
 	end
 end
 
+function self.refreshTable(res)
+	if obj.scrollContent then
+		display.remove(obj.scrollContent)
+		for i,v in ipairs(tableData) do
+			local path = system.pathForFile(v,system.TemporaryDirectory)
+			print(path)
+			os.remove(path)
+		end
+		tableData = {}
+		obj.scrollContent = nil
+	end
+	obj.scrollContent = display.newGroup()
+	if res ~= nil then
+		for i,v in ipairs(res) do
+			--print(v)
+			local box = createContent(v)
+			box.y = headerSize + (i-1)*boxSize
+			box.value = ''
+			box:addEventListener('tap',self.tap)
+			obj.scrollContent:insert(box)
+			obj.contentNum = obj.contentNum + 1
+		end
+	end
+	obj.scrollView:insert(obj.scrollContent)
+end
+
 function self.showMenu()
 	transition.to( obj.menuGroup, { time = 150, alpha = 1, x = 0 } )
 	transition.to( obj.menuBG, { time = 150, alpha = 1 } )
@@ -259,6 +284,27 @@ function self.touch( e )
 		return false
     else
 		return true
+    end
+end
+
+function textListener(event)
+	if ( event.phase == "began" ) then
+        -- User begins editing "defaultField"
+ 
+    elseif ( event.phase == "ended" or event.phase == "submitted" ) then
+        -- Output resulting text from "defaultField"
+        print( event.target.text )
+
+		local events = 
+		{
+			name = "result_view-search",
+			value = event.target.text,
+		}
+		self:dispatchEvent(events)
+
+ 
+    elseif ( event.phase == "editing" ) then
+    
     end
 end
 

@@ -9,12 +9,8 @@ function self.search( word )
 		-- print( e )
 		if not e.isError then
 			local data = json.decode( e.response )
-			print(data)
-			if data.result == 'success' then
-				self:dispatchEvent( { name = 'user_model-recoverStamina', result = 'success', data = data } )
-			else
-				self:dispatchEvent( { name = 'user_model-recoverStamina', result = 'failure', data = data } )
-			end
+			--print(data)
+			self:dispatchEvent( { name = 'search_model-search', result = 'success', data = data } )
 		end
 	end
 

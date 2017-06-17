@@ -2,9 +2,21 @@ local scene = storyboard.newScene()
 
 -- require view
 local result_view = require( ViewDir .. 'result_view' )
-local user_model = require( ModelDir .. 'user_model' )
+local search_model = require( ModelDir .. 'search_model' )
+
+local function modelHandler( event )
+	if event.name == 'search_model-search' then
+		--print(event.data)
+		result_view.refreshTable(event.data)
+	end
+
+end
+
 
 local function viewHandler( event )
+	if event.name == 'result_view-search' then
+		search_model.search(event.value)
+	end
 	if event.name == 'result_view-tap' then
 
 		if event.value == 'shiba' then
@@ -64,8 +76,7 @@ end
 function scene:willEnterScene( event )
 	local group = self.view
 
-	user_model.check()
-	-- user_model:addEventListener( modelHandler )
+	search_model:addEventListener( modelHandler )
 	result_view:addEventListener( viewHandler )
 
 	local view_obj = result_view.create()
@@ -80,7 +91,7 @@ end
 function scene:exitScene( event )
 	local group = self.view
 
-	--user_model:removeEventListener( modelHandler )
+	search_model:removeEventListener( modelHandler )
 	result_view:removeEventListener( viewHandler )
 
 end
