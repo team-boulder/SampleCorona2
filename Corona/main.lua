@@ -65,7 +65,7 @@ resetCache()
 emitter    = require(ModelDir .. 'emitter_model')
 
 -- スタートページヘ
-storyboard.gotoScene( ContDir .. 'home' )
+storyboard.gotoScene( ContDir .. 'result' )
 
 local suspend_time = 0
 local function onSystemEvent(event)

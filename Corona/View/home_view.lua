@@ -20,11 +20,14 @@ function self.create()
 		obj.background:setFillColor(unpack(themeColor))
 		obj.header = display.newRect(0,0,_W,headerSize)
 		obj.header:setFillColor(unpack(themeColor2))
+		obj.header.isVisible = false
 		obj.head_con = display.newImage(ImgDir..'home/icon.png')
 		obj.head_con:setReferencePoint(display.CenterReferencePoint)
 		obj.head_con:scale(0.3,0.3)
 		obj.head_con.x = _W/5
 		obj.head_con.y = _H/15
+		obj.head_con.isVisible = false
+		
 		--obj.header.isVisible = false
 		obj.title = display.newImage(ImgDir..'home/amazon_logo01.png')
 		obj.title:setReferencePoint(display.CenterReferencePoint)
