@@ -52,8 +52,9 @@ function self.create(res)
 		obj.title.y = 50
 		obj.header = display.newRect(0,0,_W,headerSize)
 		obj.header:setFillColor(unpack(themeColor))
+		obj.header.value = 'header'
+		obj.header:addEventListener( "tap",self.tap )
 		obj.textBox = display.newRect(30,110,580,70)
-		obj.textBox.value = 'searchBox'
 		function obj.textBox:tap()
 			obj.textField.isVisible = true
 			obj.placeholder.isVisible = false
@@ -351,11 +352,7 @@ function self.tap( e )
     end
 	self:dispatchEvent( event )
 
-	if e.target.value == 'bg' and e.target.value == 'popupWindow' then
-		return false
-    else
-		return true
-    end
+	return true
 end
 
 return self
