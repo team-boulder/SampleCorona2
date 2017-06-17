@@ -1,18 +1,17 @@
 local scene = storyboard.newScene()
 
--- hogehogehoge
-
 -- require view
 local product_detail_view = require( ViewDir .. 'product_detail_view' )
 local home_view = require( ViewDir .. 'home_view' )
 
 local function viewHandler( event )
 	if event.name == 'product_detail_view-tap' then
-
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home')
+			-- product_detail_view.view:removeSelf()			
+			--storyboard.hideOverlay("slideRight")
+			storyboard.hideOverlay("slideRight")
+			storyboard.showOverlay(ContDir..'kuma',{isModal = true,effect="fromBottom",params = event.value })
 		end
-
 	end
 end
 
@@ -26,7 +25,7 @@ function scene:willEnterScene( event )
 	--user_model:addEventListener( modelHandler )
 	product_detail_view:addEventListener( viewHandler )
 	
-	local view_obj = product_detail_view.create()
+	local view_obj = product_detail_view.create(event.params)
 	group:insert( view_obj )
 
 end

@@ -9,7 +9,7 @@ function self.search( word )
 		-- print( e )
 		if not e.isError then
 			local data = json.decode( e.response )
-			--print(data)
+			-- print(data)
 			self:dispatchEvent( { name = 'search_model-search', result = 'success', data = data } )
 		end
 	end

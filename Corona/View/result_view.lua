@@ -2,31 +2,24 @@ local self = object.new()
 
 local obj = {}
 local tableData = {}
+local imageNameArray = {}
 -- local themeColor = {120,230,240}
 
 local themeColor = playerInfoData['theme_color']
-local headerSize = 100
+local headerSize = 200
 local boxSize = 200
 
 local function createContent(data)
+
 	local group = display.newGroup()	
-
-	
-
 	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
-	--local itemImageURL = "https://item-shopping.c.yimg.jp/i/g/bookfan_bk-4253221386"
-	local imageName = string.random( 15, '%l%d' )
-	table.insert(tableData,imageName..".png")
-	print(tableData)
-	local itemImage = display.loadRemoteImage(data.image,"GET",networkListener,imageName..".png", system.TemporaryDirectory, display.contentCenterX, display.contentCenterY)
-	--local itemImage = display.newImage(itemImageURL, 10, 10)
-	local title = display.newText(group,data.name,210,50,_W-210,110,'Noto-Light.otf',25)
+	local title = display.newText(group,data.name,210,50,_W-230,110,'Noto-Light.otf',25)
 	title:setReferencePoint(display.CenterReferencePoint)
-	title.y = box.height/4
+	title.y = box.height/3
 	title:setFillColor(80)
-	local price = display.newText(group,"¥"..data.price,210,50,'Noto-Light.otf',35)
+	local price = display.newText(group,"¥"..data.price,210,50,'Noto-Medium.otf',35)
 	price:setReferencePoint(display.CenterReferencePoint)
 	price.y = box.height-45
 	price:setFillColor(80)
@@ -40,19 +33,6 @@ local function createContent(data)
 		end
 	end
 	box:addEventListener('touch')
-	
-	function networkListener(event)
-		print("networkListener")
-		if event.isError then
-			print("error")
-		else
-			--print(event.response.fullPath)
-			--print(event.response.filename)
-			event.target.x = 100
-			event.target.y = 100
-			group:insert(event.target)
-		end
-	end
 
 	return group
 
@@ -65,19 +45,42 @@ function self.create(res)
 		if res == nil then res = {} end
 
 		obj.contentNum = 0
+		obj.title = display.newImage(ImgDir..'home/amazon_logo01.png')
+		obj.title:setReferencePoint(display.CenterReferencePoint)
+		obj.title:scale(0.3,0.3)
+		obj.title.x = _W/2+20
+		obj.title.y = 50
 		obj.header = display.newRect(0,0,_W,headerSize)
 		obj.header:setFillColor(unpack(themeColor))
-		obj.textField = native.newTextField(100,25,_W-110,50)
-		obj.textField.placeholder = "検索キーワードを入力"
+		obj.header.value = 'header'
+		obj.header:addEventListener( "tap",self.tap )
+		obj.textBox = display.newRect(30,110,580,70)
+		function obj.textBox:tap()
+			obj.textField.isVisible = true
+			obj.placeholder.isVisible = false
+			native.setKeyboardFocus( obj.textField )
+		end
+		obj.textBox:addEventListener( "tap" )
+		obj.placeholder = display.newText("検索キーワードを入力",130,125,_W-140,50,'Noto-Light.otf',25)
+		obj.placeholder:setFillColor(50)
+		obj.textField = native.newTextField(120,122,400,50)
 		obj.textField.size = 35
+		obj.textField.hasBackground = false
+		obj.textField.isVisible = false
+		obj.textField.font = native.newFont( 'Noto-Light.otf',25 )
 		obj.textField:addEventListener( "userInput", textListener )
+		obj.musi = display.newImage(ImgDir..'home/search.png')
+		obj.musi:setReferencePoint(display.CenterReferencePoint)
+		obj.musi:scale(0.07,0.07)
+		obj.musi.x = 70
+		obj.musi.y = 145
 		
 		--obj.searchButton = display.newImage(ImgDir .. 'result/ecalbt008_002.png',_W-100,5)
 		--obj.searchButton.xScale = 3
 		--obj.textField:setReferencePoint(display.CenterReferencePoint)
 		--obj.textField.x = _W/2
 		--obj.textField.y = obj.header.height/2
-		obj.menu = display.newImage( ImgDir .. 'result/menu.png',30,30)
+		obj.menu = display.newImage( ImgDir .. 'result/menu.png',20,35)
 		obj.menuArea = display.newRect(0,0,150,100)
 		obj.menuArea.value = 'menu'
 		obj.menuArea.isVisible = false
@@ -182,7 +185,10 @@ function self.create(res)
 
 		obj.group:insert( obj.scrollView )
 		obj.group:insert( obj.header )
-		obj.group:insert( obj.textField )
+		obj.group:insert( obj.title )
+		obj.group:insert( obj.textBox )
+		obj.group:insert( obj.placeholder )
+		obj.group:insert( obj.musi )
 		obj.group:insert( obj.menu )
 		obj.group:insert( obj.menuArea )
 		--obj.group:insert( obj.addButton )
@@ -195,29 +201,34 @@ function self.create(res)
 end
 
 function self.refreshTable(res)
-	if obj.scrollContent then
-		display.remove(obj.scrollContent)
-		for i,v in ipairs(tableData) do
-			local path = system.pathForFile(v,system.TemporaryDirectory)
-			print(path)
-			os.remove(path)
-		end
-		tableData = {}
-		obj.scrollContent = nil
-	end
-	obj.scrollContent = display.newGroup()
+
 	if res ~= nil then
+		if obj.scrollContent then
+			display.remove(obj.scrollContent)
+			obj.scrollContent = nil
+		end
+		obj.scrollContent = display.newGroup()
+
 		for i,v in ipairs(res) do
-			--print(v)
 			local box = createContent(v)
 			box.y = headerSize + (i-1)*boxSize
-			box.value = ''
+			v.num = i
+			box.value = v
 			box:addEventListener('tap',self.tap)
 			obj.scrollContent:insert(box)
 			obj.contentNum = obj.contentNum + 1
 		end
+		obj.scrollView:insert(obj.scrollContent)
+
+		local function networkListener(event)
+			local i = string.match( event.response.filename, "(.+)\.png" )
+			local image = display.newImage(obj.scrollContent,event.response.filename,system.TemporaryDirectory,30,headerSize+20 +(i-1)*boxSize)
+		end
+		for i,v in ipairs(res) do
+			os.remove(system.pathForFile( i..".png", system.TemporaryDirectory))
+			network.download(v.image,"GET",networkListener, i..".png",system.TemporaryDirectory)
+		end
 	end
-	obj.scrollView:insert(obj.scrollContent)
 end
 
 function self.showMenu()
@@ -294,13 +305,25 @@ function textListener(event)
     elseif ( event.phase == "ended" or event.phase == "submitted" ) then
         -- Output resulting text from "defaultField"
         print( event.target.text )
+		if obj.textField.text == "" then
+			obj.placeholder.text = "検索キーワードを入力"
+		else
+			obj.placeholder.text = obj.textField.text
+		end
+		obj.textField.isVisible = false
+		obj.placeholder.isVisible = true
 
-		local events = 
-		{
-			name = "result_view-search",
-			value = event.target.text,
-		}
-		self:dispatchEvent(events)
+		
+		if event.phase == "submitted"  then
+			local events = 
+			{
+				name = "result_view-search",
+				value = event.target.text,
+			}
+			if obj.textField.text ~= "" then
+				self:dispatchEvent(events)
+			end
+		end
 
  
     elseif ( event.phase == "editing" ) then
@@ -329,11 +352,7 @@ function self.tap( e )
     end
 	self:dispatchEvent( event )
 
-	if e.target.value == 'bg' and e.target.value == 'popupWindow' then
-		return false
-    else
-		return true
-    end
+	return true
 end
 
 return self

@@ -9,9 +9,7 @@ local function modelHandler( event )
 		--print(event.data)
 		result_view.refreshTable(event.data)
 	end
-
 end
-
 
 local function viewHandler( event )
 	if event.name == 'result_view-search' then
@@ -19,6 +17,10 @@ local function viewHandler( event )
 	end
 	if event.name == 'result_view-tap' then
 
+		if event.value.num then
+			-- print("num"..event.value)
+			storyboard.showOverlay(ContDir..'product_detail',{effect = "slideLeft",isModal = true,params = event.value })
+		end
 		if event.value == 'shiba' then
 			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
 		end
@@ -86,6 +88,7 @@ end
 
 function scene:enterScene( event )
 	local group = self.view
+	search_model.search("人気")
 end
 
 function scene:exitScene( event )

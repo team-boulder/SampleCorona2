@@ -14,7 +14,8 @@ local function viewHandler( event )
 --         end
 
 		if event.value == 'back' then
-			print('Hello')
+
+			-- print('Hello')
 			storyboard.hideOverlay(ContDir..'home')
 
 		end
@@ -44,7 +45,8 @@ function scene:willEnterScene( event )
 end
 
 function scene:enterScene( event )
-	local group = self.view
+	local group = self.view 
+	kuma_view.locationHandler()
 end
 
 function scene:exitScene( event )
