@@ -27,8 +27,12 @@ function self.create(params)
 
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(255)
+	obj.bg.value = 'bg'
 	obj.header = display.newRect(0,0,_W,100)
 	obj.header:setFillColor(unpack(themeColor))
+	obj.back = display.newImage(ImgDir..'result/back.png',20,20)
+	obj.back.value = 'back'
+	obj.back:addEventListener("tap",self.tap)
 	obj.title = display.newImage(ImgDir..'home/amazon_logo01.png')
 	obj.title:setReferencePoint(display.CenterReferencePoint)
 	obj.title:scale(0.3,0.3)
@@ -87,6 +91,7 @@ function self.create(params)
 	obj.group:insert( obj.bg )
 	obj.group:insert( obj.header )
 	obj.group:insert( obj.title )
+	obj.group:insert( obj.back )
 	obj.group:insert( obj.scrollView )
 
     
@@ -101,6 +106,7 @@ function self.destroy()
 			display.remove( obj.group )
 			obj.group = nil
 		end
+		-- remove()
 		transition.to( obj.group, { time = 200, alpha = 0, onComplete = remove } )
 	end
 end
@@ -108,7 +114,7 @@ end
 function self.tap( e )
 	local event =
 	{
-		name   = 'product_detail-tap',
+		name   = 'product_detail_view-tap',
 		value  = e.target.value,
 	}
 	self:dispatchEvent( event )

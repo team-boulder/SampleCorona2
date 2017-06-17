@@ -15,7 +15,7 @@ local function viewHandler( event )
 
 		if event.value == 'back' then
 			print('Hello')
-			storyboard.hideOverlay(ContDir..'home')
+			storyboard.hideOverlay("fade")
 
 		end
 		-- if event.value == 'Noback' then
@@ -36,7 +36,7 @@ function scene:willEnterScene( event )
 	local group = self.view
 
 	--user_model:addEventListener( modelHandler )
-	-- kuma_view:addEventListener( viewHandler )
+	kuma_view:addEventListener( viewHandler )
 	-- playerInfoData['age'] = playerInfoData['age'] - 0.2
 	local view_obj = kuma_view.create()
 	group:insert( view_obj )
