@@ -9,47 +9,60 @@ function self.create()
 	end
 
     obj.bg = display.newRect(0,0,_W,_H)
-    obj.bg:setFillColor(0)
-    obj.title = display.newText('ショップ',0,50,nil,40)
+    obj.bg:setFillColor(255,255,255)
+    obj.title = display.newText('付近のボルダリングジムはこちら',0,100,nil,40)
     obj.title:setReferencePoint(display.CenterReferencePoint)
+	obj.title:setFillColor(0)
     obj.title.x = _W/2
-    obj.title.value = 'shop'
+    -- obj.title.value = 'back'
 
-    obj.back = display.newText('戻る',_W/2,_H-200,nil,50)
+    -- obj.back = display.newText('戻る',_W/2,_H-200,nil,50)
+    -- obj.back:setReferencePoint(display.CenterReferencePoint)
+    -- obj.back.x = _W/2
+    -- obj.back.value = 'Noback'
+	-- anim.new(obj.back)
+    -- -- obj.back.value = 'back'
+	obj.back = display.newImageRect("back.png",800,800)
+	obj.back:scale(0.06,0.06)
+	obj.back.x = _W-30
+	obj.back.y = 30
+	-- obj.back = display.newRect(_W-60,10,50,50)
     obj.back:setReferencePoint(display.CenterReferencePoint)
-    obj.back.x = _W/2
-    obj.back.value = 'Noback'
-	anim.new(obj.back)
-    -- obj.back.value = 'back'
-	obj.rect = display.newRect(_W-200,_H-200,200,100)
-    obj.rect:setReferencePoint(display.CenterReferencePoint)
-	obj.rect:setFillColor( math.random(0,255), math.random(0,255), math.random(0,255))
-    obj.rect.value = 'rect'
+	obj.back:setFillColor(128)
+    obj.back.value = 'back'
 
-    obj.ifback = display.newText('押しても戻りません',_W/2,_H-125,nil,50)
-    obj.ifback:setReferencePoint(display.CenterReferencePoint)
-	obj.ifback:setFillColor( 255, 0, 0)
-    obj.ifback.x = _W/2
-    obj.ifback.value = 'ifback'
-	obj.ifback.isVisible = false
-	anim.new(obj.ifback)
-	obj.ifback:punipuni()
-	print(playerInfoData['age'])
-	print(time - playerInfoData['age'] * 2000) 
-	transition.to( obj.rect, { time = time - playerInfoData['age'] * 2000, transition=easing.continuousLoop,x=(0), y=(0), iterations=-1, xScale=0.3, yScale=0.3} )
-    -- obj.back:addEventListener('tap',self.tap)
-    obj.rect:addEventListener('tap',self.tap)
+    -- obj.ifback = display.newText('押しても戻りません',_W/2,_H-125,nil,50)
+    -- obj.ifback:setReferencePoint(display.CenterReferencePoint)
+	-- obj.ifback:setFillColor( 255, 0, 0)
+    -- obj.ifback.x = _W/2
+    -- obj.ifback.value = 'ifback'
+	-- obj.ifback.isVisible = false
+	-- anim.new(obj.ifback)
+	-- obj.ifback:punipuni()
+	-- transition.to( obj.rect, { time = time - playerInfoData['age'] * 2000, transition=easing.continuousLoop,x=(0), y=(0), iterations=-1, xScale=0.3, yScale=0.3} )
+    -- obj.shop:addEventListener('tap',self.tap)
     obj.title:addEventListener('tap',self.tap)
+    -- obj.rect:addEventListener('tap',self.tap)
+    -- obj.title:addEventListener('tap',self.tap)
     obj.back:addEventListener('tap',self.tap)
     obj.group:insert( obj.bg )
     obj.group:insert( obj.title )
     obj.group:insert( obj.back )
-	obj.group:insert( obj.rect )
-	obj.group:insert( obj.ifback )
+	-- obj.group:insert( obj.rect )
+	-- obj.group:insert( obj.ifback )
 
-	Runtime:addEventListener( "location", self.locationHandler )
+	-- Runtime:addEventListener( "location", self.locationHandler )
+	-- self.locationHandler()
+local options1 = 
+{ 
+    title = "ボルダリングジムbigfoot福岡店", 
+    subtitle = "ロック クライミング ジム", 
+    listener = markerListener1,
+	-- imageFile = "boul1.png",
+}
 
 	obj.myMap = native.newMapView( 0, _H/2 - 220, _W, 500 )
+	obj.myMap:addMarker( 33.593716, 130.405979, options1 )
 	obj.group:insert( obj.myMap )
 
     return obj.group
@@ -58,12 +71,34 @@ end
 function self.locationHandler( event )
 	local latitude = event.latitude
 	local longitude = event.longitude
+-- 	local options1 = 
+-- { 
+--     title = "ボルダリングジムbigfoot福岡店", 
+--     subtitle = "ロック クライミング ジム", 
+--     listener = markerListener1,
+-- 	-- imageFile = "boul1.png",
+-- }
+	local options2 = 
+{ 
+    title = "ボルダリングジム・ホアホア", 
+    subtitle = "ロック クライミング ジム", 
+    listener = markerListener2,
+	-- imageFile = "boul1.png",
+}
+	local options3 = 
+{ 
+    title = "ブラボークライミング福岡天神", 
+    subtitle = "ロック クライミング ジム", 
+    listener = markerListener3,
+	-- imageFile = "boul1.png",
+}
+
 	if obj.markerID then
 		obj.myMap:removeMarker( obj.markerID )
 	end
-	obj.markerID = obj.myMap:addMarker( latitude,longitude)
-	print(latitude)
-	print(longitude)
+	-- obj.markerID = obj.myMap:addMarker( 33.593716, 130.405979, options1 )
+	obj.markerID = obj.myMap:addMarker( 33.591188, 130.430758, options2 )
+	obj.markerID = obj.myMap:addMarker( 33.589241, 130.392957, options3 )
 end
 
 function self.destroy()
@@ -87,16 +122,16 @@ function self.tap( e )
 	return true
 end
 
-function self.puni()
-	obj.back:punipuni()
-end
+-- function self.puni()
+-- 	obj.back:punipuni()
+-- end
 
 function self.reflesh()
 	obj.ifback.isVisible = true
 end 
 
-local function puni()
-end
+-- local function puni()
+-- end
 
 -- Map marker listener function
 -- local function markerListener(event)
