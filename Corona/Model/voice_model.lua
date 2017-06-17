@@ -1,30 +1,31 @@
 local self = object.new()
 
+local mime = require( "mime" )
 local tonumber = tonumber
+
 
 userInfoData = {}
 
-function self.check( word )
-	local function networkListener( event )
-    	if ( event.isError ) then
-       	 print( "Network error: ", event.response )
-    	elseif ( event.phase == "ended" ) then
-     	   print ( "Upload complete!" )
-    	end
+function self.recognation()
+	local function networkListener( e )
+		-- print( e )
+		if not e.isError then
+			local data = json.decode( e.response )
+			print(e.response)
+		end
 	end
-
-	local tmp_id = string.random( 10, '%l%d' )
-	
+	params = {}
+	params["bodyType"] = "binary"
 	--付加するパラメータ
-	local params = {
-		"object.json", 
-    	system.DocumentsDirectory, 
-    	"application/json"
-		}
-	params['query'] = page
-	-- params['transaction_id'] = transaction_id or tmp_id
+	print("hoge")
+  	network.upload( 
+    	"http://59.157.6.140/boulder/upload.php", 
+    	"POST", 
+    	networkListener, 
+    	"Model/HON2_22A.wav", 
+    	"multipart/form-encoded"
+    )
 
-	fnetwork.request( 'http://59.157.6.140/boulder/search.php', 'POST', networkListener, params )
 end
 
 return self
