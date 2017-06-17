@@ -1,20 +1,20 @@
-#import "AWSFMResultSet.h"
+#import "AWSFMresultSet.h"
 #import "AWSFMDatabase.h"
 #import "unistd.h"
 #import "AWSFMDatabase+Private.h"
 
 @interface AWSFMDatabase ()
-- (void)resultSetDidClose:(AWSFMResultSet *)resultSet;
+- (void)resultSetDidClose:(AWSFMresultSet *)resultSet;
 @end
 
 
-@implementation AWSFMResultSet
+@implementation AWSFMresultSet
 @synthesize query=_query;
 @synthesize statement=_statement;
 
 + (instancetype)resultSetWithStatement:(AWSFMStatement *)statement usingParentDatabase:(AWSFMDatabase*)aDB {
     
-    AWSFMResultSet *rs = [[AWSFMResultSet alloc] init];
+    AWSFMresultSet *rs = [[AWSFMresultSet alloc] init];
     
     [rs setStatement:statement];
     [rs setParentDB:aDB];

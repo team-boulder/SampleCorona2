@@ -51,9 +51,18 @@ function self.create()
 	-- obj.group:insert( obj.rect )
 	-- obj.group:insert( obj.ifback )
 
-	Runtime:addEventListener( "location", self.locationHandler )
+	-- Runtime:addEventListener( "location", self.locationHandler )
+	-- self.locationHandler()
+local options1 = 
+{ 
+    title = "ボルダリングジムbigfoot福岡店", 
+    subtitle = "ロック クライミング ジム", 
+    listener = markerListener1,
+	-- imageFile = "boul1.png",
+}
 
 	obj.myMap = native.newMapView( 0, _H/2 - 220, _W, 500 )
+	obj.myMap:addMarker( 33.593716, 130.405979, options1 )
 	obj.group:insert( obj.myMap )
 
     return obj.group
@@ -62,13 +71,13 @@ end
 function self.locationHandler( event )
 	local latitude = event.latitude
 	local longitude = event.longitude
-	local options1 = 
-{ 
-    title = "ボルダリングジムbigfoot福岡店", 
-    subtitle = "ロック クライミング ジム", 
-    listener = markerListener1,
-	-- imageFile = "boul1.png",
-}
+-- 	local options1 = 
+-- { 
+--     title = "ボルダリングジムbigfoot福岡店", 
+--     subtitle = "ロック クライミング ジム", 
+--     listener = markerListener1,
+-- 	-- imageFile = "boul1.png",
+-- }
 	local options2 = 
 { 
     title = "ボルダリングジム・ホアホア", 
@@ -87,7 +96,7 @@ function self.locationHandler( event )
 	if obj.markerID then
 		obj.myMap:removeMarker( obj.markerID )
 	end
-	obj.markerID = obj.myMap:addMarker( 33.593716, 130.405979, options1 )
+	-- obj.markerID = obj.myMap:addMarker( 33.593716, 130.405979, options1 )
 	obj.markerID = obj.myMap:addMarker( 33.591188, 130.430758, options2 )
 	obj.markerID = obj.myMap:addMarker( 33.589241, 130.392957, options3 )
 end

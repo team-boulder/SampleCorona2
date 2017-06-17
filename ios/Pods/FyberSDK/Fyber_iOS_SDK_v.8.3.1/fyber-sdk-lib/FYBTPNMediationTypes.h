@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, FYBTPNValidationResult) {
+typedef NS_ENUM(NSInteger, FYBTPNValidationresult) {
     FYBTPNValidationNoVideoAvailable,
     FYBTPNValidationNoSdkIntegrated,
     FYBTPNValidationTimeout,
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, FYBTPNValidationResult) {
     FYBTPNValidationSuccess
 };
 
-NSString *FYBTPNValidationResultToString(FYBTPNValidationResult validationResult);
+NSString *FYBTPNValidationresultToString(FYBTPNValidationresult validationresult);
 
 typedef NS_ENUM(NSInteger, FYBTPNVideoEvent) {
     FYBTPNVideoEventStarted,
@@ -31,5 +31,5 @@ typedef NS_ENUM(NSInteger, FYBTPNVideoEvent) {
 
 NSString *FYBTPNVideoEventToString(FYBTPNVideoEvent event);
 
-typedef void (^FYBTPNValidationResultBlock)(NSString *tpnKey, FYBTPNValidationResult validationResult);
+typedef void (^FYBTPNValidationresultBlock)(NSString *tpnKey, FYBTPNValidationresult validationresult);
 typedef void (^FYBTPNVideoEventsHandlerBlock)(NSString *tpnKey, FYBTPNVideoEvent event);

@@ -258,7 +258,7 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"identityPoolId" : @"IdentityPoolId",
-             @"maxResults" : @"MaxResults",
+             @"maxresults" : @"Maxresults",
              @"nextToken" : @"NextToken",
              };
 }
@@ -285,7 +285,7 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
-             @"maxResults" : @"MaxResults",
+             @"maxresults" : @"Maxresults",
              @"nextToken" : @"NextToken",
              };
 }
@@ -314,7 +314,7 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
              @"developerUserIdentifier" : @"DeveloperUserIdentifier",
              @"identityId" : @"IdentityId",
              @"identityPoolId" : @"IdentityPoolId",
-             @"maxResults" : @"MaxResults",
+             @"maxresults" : @"Maxresults",
              @"nextToken" : @"NextToken",
              };
 }

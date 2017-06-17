@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "AWSFMResultSet.h"
+#import "AWSFMresultSet.h"
 #import "AWSFMDatabasePool.h"
 
 
@@ -47,7 +47,7 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
  The three main classes in AWSFMDB are:
 
  - `FMDatabase` - Represents a single SQLite database.  Used for executing SQL statements.
- - `<FMResultSet>` - Represents the results of executing a query on an `FMDatabase`.
+ - `<FMresultSet>` - Represents the results of executing a query on an `FMDatabase`.
  - `<FMDatabaseQueue>` - If you want to perform queries and updates on multiple threads, you'll want to use this class.
 
  ### See also
@@ -84,7 +84,7 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
     NSTimeInterval      _startBusyRetryTime;
     
     NSMutableDictionary *_cachedStatements;
-    NSMutableSet        *_openResultSets;
+    NSMutableSet        *_openresultSets;
     NSMutableSet        *_openFunctions;
 
     NSDateFormatter     *_dateFormat;
@@ -399,7 +399,7 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
  
  @return      `YES` upon success; `NO` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
 
- @see executeStatements:withResultBlock:
+ @see executeStatements:withresultBlock:
  @see [sqlite3_exec()](http://sqlite.org/c3ref/exec.html)
 
  */
@@ -424,7 +424,7 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
 
  */
 
-- (BOOL)executeStatements:(NSString *)sql withResultBlock:(AWSFMDBExecuteStatementsCallbackBlock)block;
+- (BOOL)executeStatements:(NSString *)sql withresultBlock:(AWSFMDBExecuteStatementsCallbackBlock)block;
 
 /** Last insert rowid
  
@@ -459,9 +459,9 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
 
 /** Execute select statement
 
- Executing queries returns an `<FMResultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
+ Executing queries returns an `<FMresultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
  
- In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMResultSet next]>`) from one record to the other.
+ In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMresultSet next]>`) from one record to the other.
  
  This method employs [`sqlite3_bind`](http://sqlite.org/c3ref/bind_blob.html) for any optional value parameters. This  properly escapes any characters that need escape sequences (e.g. quotation marks), which eliminates simple SQL errors as well as protects against SQL injection attacks. This method natively handles `NSString`, `NSNumber`, `NSNull`, `NSDate`, and `NSData` objects. All other object types will be interpreted as text values using the object's `description` method.
 
@@ -469,32 +469,32 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
 
  @param ... Optional parameters to bind to `?` placeholders in the SQL statement. These should be Objective-C objects (e.g. `NSString`, `NSNumber`, etc.), not fundamental C data types (e.g. `int`, `char *`, etc.).
 
- @return A `<FMResultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
+ @return A `<FMresultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
  
- @see FMResultSet
- @see [`FMResultSet next`](<[FMResultSet next]>)
+ @see FMresultSet
+ @see [`FMresultSet next`](<[FMresultSet next]>)
  @see [`sqlite3_bind`](http://sqlite.org/c3ref/bind_blob.html)
  
  @note If you want to use this from Swift, please note that you must include `FMDatabaseVariadic.swift` in your project. Without that, you cannot use this method directly, and instead have to use methods such as `<executeQuery:withArgumentsInArray:>`.
  */
 
-- (AWSFMResultSet *)executeQuery:(NSString*)sql, ...;
+- (AWSFMresultSet *)executeQuery:(NSString*)sql, ...;
 
 /** Execute select statement
 
- Executing queries returns an `<FMResultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
+ Executing queries returns an `<FMresultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
  
- In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMResultSet next]>`) from one record to the other.
+ In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMresultSet next]>`) from one record to the other.
  
  @param format The SQL to be performed, with `printf`-style escape sequences.
 
  @param ... Optional parameters to bind to use in conjunction with the `printf`-style escape sequences in the SQL statement.
 
- @return A `<FMResultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
+ @return A `<FMresultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
 
  @see executeQuery:
- @see FMResultSet
- @see [`FMResultSet next`](<[FMResultSet next]>)
+ @see FMresultSet
+ @see [`FMresultSet next`](<[FMresultSet next]>)
 
  @note This method does not technically perform a traditional printf-style replacement. What this method actually does is replace the printf-style percent sequences with a SQLite `?` placeholder, and then bind values to that placeholder. Thus the following command
  
@@ -508,47 +508,47 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
  
  */
 
-- (AWSFMResultSet *)executeQueryWithFormat:(NSString*)format, ... NS_FORMAT_FUNCTION(1,2);
+- (AWSFMresultSet *)executeQueryWithFormat:(NSString*)format, ... NS_FORMAT_FUNCTION(1,2);
 
 /** Execute select statement
 
- Executing queries returns an `<FMResultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
+ Executing queries returns an `<FMresultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
  
- In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMResultSet next]>`) from one record to the other.
+ In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMresultSet next]>`) from one record to the other.
  
  @param sql The SELECT statement to be performed, with optional `?` placeholders.
 
  @param arguments A `NSArray` of objects to be used when binding values to the `?` placeholders in the SQL statement.
 
- @return A `<FMResultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
+ @return A `<FMresultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
 
- @see FMResultSet
- @see [`FMResultSet next`](<[FMResultSet next]>)
+ @see FMresultSet
+ @see [`FMresultSet next`](<[FMresultSet next]>)
  */
 
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments;
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments;
 
 /** Execute select statement
 
- Executing queries returns an `<FMResultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
+ Executing queries returns an `<FMresultSet>` object if successful, and `nil` upon failure.  Like executing updates, there is a variant that accepts an `NSError **` parameter.  Otherwise you should use the `<lastErrorMessage>` and `<lastErrorMessage>` methods to determine why a query failed.
  
- In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMResultSet next]>`) from one record to the other.
+ In order to iterate through the results of your query, you use a `while()` loop.  You also need to "step" (via `<[FMresultSet next]>`) from one record to the other.
  
  @param sql The SELECT statement to be performed, with optional `?` placeholders.
 
  @param arguments A `NSDictionary` of objects keyed by column names that will be used when binding values to the `?` placeholders in the SQL statement.
 
- @return A `<FMResultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
+ @return A `<FMresultSet>` for the result set upon success; `nil` upon failure. If failed, you can call `<lastError>`, `<lastErrorCode>`, or `<lastErrorMessage>` for diagnostic information regarding the failure.
 
- @see FMResultSet
- @see [`FMResultSet next`](<[FMResultSet next]>)
+ @see FMresultSet
+ @see [`FMresultSet next`](<[FMresultSet next]>)
  */
 
-- (AWSFMResultSet *)executeQuery:(NSString *)sql withParameterDictionary:(NSDictionary *)arguments;
+- (AWSFMresultSet *)executeQuery:(NSString *)sql withParameterDictionary:(NSDictionary *)arguments;
 
 
 // Documentation forthcoming.
-- (AWSFMResultSet *)executeQuery:(NSString*)sql withVAList: (va_list)args;
+- (AWSFMresultSet *)executeQuery:(NSString*)sql withVAList: (va_list)args;
 
 ///-------------------
 /// @name Transactions
@@ -629,14 +629,14 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
 
 /** Close all open result sets */
 
-- (void)closeOpenResultSets;
+- (void)closeOpenresultSets;
 
 /** Whether database has any open result sets
  
  @return `YES` if there are open result sets; `NO` if not.
  */
 
-- (BOOL)hasOpenResultSets;
+- (BOOL)hasOpenresultSets;
 
 /** Return whether should cache statements or not
  
@@ -913,7 +913,7 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
         }];
 
         int rowCount = 0;
-        FMResultSet *ars = [adb executeQuery:@"select * from ftest where StringStartsWithH(foo)"];
+        FMresultSet *ars = [adb executeQuery:@"select * from ftest where StringStartsWithH(foo)"];
         while ([ars next]) {
             rowCount++;
             NSLog(@"Does %@ start with 'h'?", [rs stringForColumnIndex:0]);
@@ -1024,12 +1024,12 @@ typedef int(^AWSFMDBExecuteStatementsCallbackBlock)(NSDictionary *resultsDiction
 
 /** Objective-C wrapper for `sqlite3_stmt`
  
- This is a wrapper for a SQLite `sqlite3_stmt`. Generally when using AWSFMDB you will not need to interact directly with `FMStatement`, but rather with `<FMDatabase>` and `<FMResultSet>` only.
+ This is a wrapper for a SQLite `sqlite3_stmt`. Generally when using AWSFMDB you will not need to interact directly with `FMStatement`, but rather with `<FMDatabase>` and `<FMresultSet>` only.
  
  ### See also
  
  - `<FMDatabase>`
- - `<FMResultSet>`
+ - `<FMresultSet>`
  - [`sqlite3_stmt`](http://www.sqlite.org/c3ref/stmt.html)
  */
 

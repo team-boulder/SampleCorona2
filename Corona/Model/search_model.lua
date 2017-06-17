@@ -4,7 +4,7 @@ local tonumber = tonumber
 
 userInfoData = {}
 
-function self.check( word )
+function self.search( word )
 	local function networkListener( e )
 		-- print( e )
 		if not e.isError then
@@ -22,7 +22,7 @@ function self.check( word )
 
 	--付加するパラメータ
 	local params = {}
-	params['page']        = page
+	params['query']        = word
 	-- params['transaction_id'] = transaction_id or tmp_id
 
 	fnetwork.request( 'http://59.157.6.140/boulder/search.php', 'POST', networkListener, params )

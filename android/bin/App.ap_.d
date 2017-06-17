@@ -179,7 +179,7 @@
 /Users/freep/Desktop/freep/usotsuki/android/assets/Audio/geted.mp3 \
 /Users/freep/Desktop/freep/usotsuki/android/assets/Audio/good.mp3 \
 /Users/freep/Desktop/freep/usotsuki/android/assets/Audio/good_choice.mp3 \
-/Users/freep/Desktop/freep/usotsuki/android/assets/Audio/home.mp3 \
+/Users/freep/Desktop/freep/usotsuki/android/assets/Audio/result.mp3 \
 /Users/freep/Desktop/freep/usotsuki/android/assets/Audio/normal_choice.mp3 \
 /Users/freep/Desktop/freep/usotsuki/android/assets/Audio/push.mp3 \
 /Users/freep/Desktop/freep/usotsuki/android/assets/Audio/roulette.mp3 \

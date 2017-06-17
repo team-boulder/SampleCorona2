@@ -80,7 +80,7 @@
           \"output\":{ \
             \"shape\":\"AssumeRoleResponse\", \
             \"documentation\":\"<p>Contains the result of a successful call to the <a>AssumeRole</a> action, including temporary AWS credentials that can be used to make AWS requests. </p>\", \
-            \"resultWrapper\":\"AssumeRoleResult\" \
+            \"resultWrapper\":\"AssumeRoleresult\" \
           }, \
           \"errors\":[ \
             { \
@@ -116,7 +116,7 @@
           \"output\":{ \
             \"shape\":\"AssumeRoleWithSAMLResponse\", \
             \"documentation\":\"<p>Contains the result of a successful call to the <a>AssumeRoleWithSAML</a> action, including temporary AWS credentials that can be used to make AWS requests. </p>\", \
-            \"resultWrapper\":\"AssumeRoleWithSAMLResult\" \
+            \"resultWrapper\":\"AssumeRoleWithSAMLresult\" \
           }, \
           \"errors\":[ \
             { \
@@ -182,7 +182,7 @@
           \"output\":{ \
             \"shape\":\"AssumeRoleWithWebIdentityResponse\", \
             \"documentation\":\"<p>Contains the result of a successful call to the <a>AssumeRoleWithWebIdentity</a> action, including temporary AWS credentials that can be used to make AWS requests. </p>\", \
-            \"resultWrapper\":\"AssumeRoleWithWebIdentityResult\" \
+            \"resultWrapper\":\"AssumeRoleWithWebIdentityresult\" \
           }, \
           \"errors\":[ \
             { \
@@ -258,7 +258,7 @@
           \"output\":{ \
             \"shape\":\"DecodeAuthorizationMessageResponse\", \
             \"documentation\":\"<p>A document that contains additional information about the authorization status of a request from an encoded message that is returned in response to an AWS request. </p>\", \
-            \"resultWrapper\":\"DecodeAuthorizationMessageResult\" \
+            \"resultWrapper\":\"DecodeAuthorizationMessageresult\" \
           }, \
           \"errors\":[ \
             { \
@@ -284,7 +284,7 @@
           \"output\":{ \
             \"shape\":\"GetFederationTokenResponse\", \
             \"documentation\":\"<p>Contains the result of a successful call to the <a>GetFederationToken</a> action, including temporary AWS credentials that can be used to make AWS requests. </p>\", \
-            \"resultWrapper\":\"GetFederationTokenResult\" \
+            \"resultWrapper\":\"GetFederationTokenresult\" \
           }, \
           \"errors\":[ \
             { \
@@ -320,7 +320,7 @@
           \"output\":{ \
             \"shape\":\"GetSessionTokenResponse\", \
             \"documentation\":\"<p>Contains the result of a successful call to the <a>GetSessionToken</a> action, including temporary AWS credentials that can be used to make AWS requests. </p>\", \
-            \"resultWrapper\":\"GetSessionTokenResult\" \
+            \"resultWrapper\":\"GetSessionTokenresult\" \
           }, \
           \"documentation\":\"<p>Returns a set of temporary credentials for an AWS account or IAM user. The credentials consist of an access key ID, a secret access key, and a security token. Typically, you use <code>GetSessionToken</code> if you want to use MFA to protect programmatic calls to specific AWS APIs like Amazon EC2 <code>StopInstances</code>. MFA-enabled IAM users would need to call <code>GetSessionToken</code> and submit an MFA code that is associated with their MFA device. Using the temporary security credentials that are returned from the call, IAM users can then make programmatic calls to APIs that require MFA authentication. </p> <p>The <code>GetSessionToken</code> action must be called by using the long-term AWS security credentials of the AWS account or an IAM user. Credentials that are created by IAM users are valid for the duration that you specify, between 900 seconds (15 minutes) and 129600 seconds (36 hours); credentials that are created by using account credentials have a maximum duration of 3600 seconds (1 hour). </p> <note> <p>We recommend that you do not call <code>GetSessionToken</code> with root account credentials. Instead, follow our <a href=\\\"http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html#create-iam-users\\\">best practices</a> by creating one or more IAM users, giving them the necessary permissions, and using IAM users for everyday interaction with AWS. </p> </note> <p>The permissions associated with the temporary security credentials returned by <code>GetSessionToken</code> are based on the permissions associated with account or IAM user whose credentials are used to call the action. If <code>GetSessionToken</code> is called using root account credentials, the temporary credentials have root account permissions. Similarly, if <code>GetSessionToken</code> is called using the credentials of an IAM user, the temporary credentials have the same permissions as the IAM user. </p> <p>For more information about using <code>GetSessionToken</code> to create temporary credentials, go to <a href=\\\"http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSessionTokens.html\\\" target=\\\"_blank\\\">Creating Temporary Credentials to Enable Access for IAM Users</a> in <i>Using Temporary Security Credentials</i>. </p>\" \
         } \

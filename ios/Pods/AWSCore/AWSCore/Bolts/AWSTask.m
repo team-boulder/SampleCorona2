@@ -54,11 +54,11 @@ NSString *const AWSTaskMultipleExceptionsException = @"AWSMultipleExceptionsExce
     return self;
 }
 
-- (instancetype)initWithResult:(id)result {
+- (instancetype)initWithresult:(id)result {
     self = [super init];
     if (!self) return nil;
 
-    [self trySetResult:result];
+    [self trySetresult:result];
 
     return self;
 }
@@ -92,8 +92,8 @@ NSString *const AWSTaskMultipleExceptionsException = @"AWSMultipleExceptionsExce
 
 #pragma mark - Task Class methods
 
-+ (instancetype)taskWithResult:(id)result {
-    return [[self alloc] initWithResult:result];
++ (instancetype)taskWithresult:(id)result {
+    return [[self alloc] initWithresult:result];
 }
 
 + (instancetype)taskWithError:(NSError *)error {
@@ -111,7 +111,7 @@ NSString *const AWSTaskMultipleExceptionsException = @"AWSMultipleExceptionsExce
 + (instancetype)taskForCompletionOfAllTasks:(NSArray<AWSTask *> *)tasks {
     __block int32_t total = (int32_t)tasks.count;
     if (total == 0) {
-        return [self taskWithResult:nil];
+        return [self taskWithresult:nil];
     }
 
     __block int32_t cancelled = 0;
@@ -166,7 +166,7 @@ NSString *const AWSTaskMultipleExceptionsException = @"AWSMultipleExceptionsExce
     return tcs.task;
 }
 
-+ (instancetype)taskForCompletionOfAllTasksWithResults:(NSArray<AWSTask *> *)tasks {
++ (instancetype)taskForCompletionOfAllTasksWithresults:(NSArray<AWSTask *> *)tasks {
     return [[self taskForCompletionOfAllTasks:tasks] continueWithSuccessBlock:^id(AWSTask *task) {
         return [tasks valueForKey:@"result"];
     }];
@@ -200,7 +200,7 @@ NSString *const AWSTaskMultipleExceptionsException = @"AWSMultipleExceptionsExce
 }
 
 + (instancetype)taskFromExecutor:(AWSExecutor *)executor withBlock:(nullable id (^)())block {
-    return [[self taskWithResult:nil] continueWithExecutor:executor withBlock:^id(AWSTask *task) {
+    return [[self taskWithresult:nil] continueWithExecutor:executor withBlock:^id(AWSTask *task) {
         return block();
     }];
 }
@@ -213,7 +213,7 @@ NSString *const AWSTaskMultipleExceptionsException = @"AWSMultipleExceptionsExce
     }
 }
 
-- (BOOL)trySetResult:(id)result {
+- (BOOL)trySetresult:(id)result {
     @synchronized(self.lock) {
         if (self.completed) {
             return NO;
