@@ -3,11 +3,11 @@ local scene = storyboard.newScene()
 -- require view
 local home_view = require( ViewDir .. 'home_view' )
 local user_model = require( ModelDir .. 'user_model' )
+local voice_model = require( ModelDir .. 'voice_model' )
 
 local function hoge(e)
 	print(e)
 end
-
 
 local function viewHandler( event )
 	if event.name == 'home_view-tap' then
@@ -53,6 +53,10 @@ local function viewHandler( event )
 			print("recording")
 			timer.performWithDelay( 3000,function()
 			r:stopRecording()
+			print("complete")
+  
+			voice_model.voice(filePath)
+			
 			print("playing")
 			media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
 			end)
