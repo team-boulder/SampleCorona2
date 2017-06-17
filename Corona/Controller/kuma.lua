@@ -36,7 +36,7 @@ function scene:willEnterScene( event )
 	local group = self.view
 
 	--user_model:addEventListener( modelHandler )
-	kuma_view:addEventListener( viewHandler )
+	-- kuma_view:addEventListener( viewHandler )
 	-- playerInfoData['age'] = playerInfoData['age'] - 0.2
 	local view_obj = kuma_view.create()
 	group:insert( view_obj )
@@ -44,7 +44,8 @@ function scene:willEnterScene( event )
 end
 
 function scene:enterScene( event )
-	local group = self.view
+	local group = self.view 
+	kuma_view.locationHandler()
 end
 
 function scene:exitScene( event )
