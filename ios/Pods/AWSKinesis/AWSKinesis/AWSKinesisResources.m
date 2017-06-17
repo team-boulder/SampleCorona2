@@ -847,7 +847,7 @@
             }, \
             \"SequenceNumberForOrdering\":{ \
               \"shape\":\"SequenceNumber\", \
-              \"documentation\":\"<p>Guarantees strictly increasing sequence numbers, for puts from the same client and to the same partition key. Usage: set the <code>SequenceNumberForOrdering</code> of record <i>n</i> to the sequence number of record <i>n-1</i> (as returned in the <a>PutRecordResult</a> when putting record <i>n-1</i>). If this parameter is not set, records will be coarsely ordered based on arrival time.</p>\" \
+              \"documentation\":\"<p>Guarantees strictly increasing sequence numbers, for puts from the same client and to the same partition key. Usage: set the <code>SequenceNumberForOrdering</code> of record <i>n</i> to the sequence number of record <i>n-1</i> (as returned in the <a>PutRecordresult</a> when putting record <i>n-1</i>). If this parameter is not set, records will be coarsely ordered based on arrival time.</p>\" \
             } \
           }, \
           \"documentation\":\"<p>Represents the input for <code>PutRecord</code>.</p>\" \
@@ -897,7 +897,7 @@
               \"documentation\":\"<p>The number of unsuccessfully processed records in a <code>PutRecords</code> request.</p>\" \
             }, \
             \"Records\":{ \
-              \"shape\":\"PutRecordsResultEntryList\", \
+              \"shape\":\"PutRecordsresultEntryList\", \
               \"documentation\":\"<p>An array of successfully and unsuccessfully processed record results, correlated with the request by natural ordering. A record that is successfully added to your Amazon Kinesis stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be added to your Amazon Kinesis stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.</p>\" \
             } \
           }, \
@@ -931,7 +931,7 @@
           \"min\":1, \
           \"max\":500 \
         }, \
-        \"PutRecordsResultEntry\":{ \
+        \"PutRecordsresultEntry\":{ \
           \"type\":\"structure\", \
           \"members\":{ \
             \"SequenceNumber\":{ \
@@ -953,9 +953,9 @@
           }, \
           \"documentation\":\"<p>Represents the result of an individual record from a <code>PutRecords</code> request. A record that is successfully added to your Amazon Kinesis stream includes SequenceNumber and ShardId in the result. A record that fails to be added to your Amazon Kinesis stream includes ErrorCode and ErrorMessage in the result.</p>\" \
         }, \
-        \"PutRecordsResultEntryList\":{ \
+        \"PutRecordsresultEntryList\":{ \
           \"type\":\"list\", \
-          \"member\":{\"shape\":\"PutRecordsResultEntry\"}, \
+          \"member\":{\"shape\":\"PutRecordsresultEntry\"}, \
           \"min\":1, \
           \"max\":500 \
         }, \

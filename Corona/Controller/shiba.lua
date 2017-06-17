@@ -2,7 +2,7 @@ local scene = storyboard.newScene()
 
 -- require view
 local shiba_view = require( ViewDir .. 'shiba_view' )
-local home_view = require( ViewDir .. 'home_view' )
+local result_view = require( ViewDir .. 'result_view' )
 local shiba2_view = require( ViewDir .. 'shiba2_view' )
 local playerInfo = require( ContDir .. 'playerInfo')
 
@@ -10,7 +10,7 @@ local function viewHandler( event )
 	if event.name == 'shiba_view-tap' then
 
 		if event.value == 'back' then
-			storyboard.gotoScene(ContDir..'home')
+			storyboard.gotoScene(ContDir..'result')
 			print("ThinThin")
 		end
 

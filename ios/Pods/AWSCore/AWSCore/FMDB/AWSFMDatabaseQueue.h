@@ -27,7 +27,7 @@
         [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:2]];
         [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:3]];
 
-        FMResultSet *rs = [db executeQuery:@"select * from foo"];
+        FMresultSet *rs = [db executeQuery:@"select * from foo"];
         while ([rs next]) {
             //…
         }

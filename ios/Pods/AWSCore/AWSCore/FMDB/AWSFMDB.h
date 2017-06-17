@@ -1,5 +1,5 @@
 #import "AWSFMDatabase.h"
-#import "AWSFMResultSet.h"
+#import "AWSFMresultSet.h"
 #import "AWSFMDatabaseAdditions.h"
 #import "AWSFMDatabaseQueue.h"
 #import "AWSFMDatabasePool.h"

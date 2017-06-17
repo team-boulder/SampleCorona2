@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, AWSCognitoIdentityProviderErrorType) {
     AWSCognitoIdentityProviderErrorIdentityIsNil,
 };
 
-@class AWSTask<__covariant ResultType>;
+@class AWSTask<__covariant resultType>;
 
 /**
  * AWSIdentityProvider provides an interface for acquiring an identity token from a provider.
