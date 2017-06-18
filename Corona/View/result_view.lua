@@ -176,11 +176,13 @@ function self.create(res)
 
 		obj.onOffButton = display.newRect(obj.menuGroup, 100, 100, 200,100 )
 		if playerInfoData['mode'] == true then
-			obj.onButtonColor:setFillColor(unpack(onButtonColor))
+			obj.onOffButton:setFillColor(unpack(offButtonColor))
+			playerInfoData['mode'] = false
 		else
-			obj.onButtonColor:setFillColor(unpack(offButtonColor))
+			obj.onOffButton:setFillColor(unpack(onButtonColor))
+			playerInfoData['mode'] = true
 		end
-		obj.onOffButton.value = "onOfButton"
+		obj.onOffButton.value = "onOffButton"
 		obj.onOffButton:addEventListener('tap',self.tap)
 
 		
@@ -340,11 +342,14 @@ function self.touch( e )
 end
 
 function self.refresh()
+	print("============")
 	if playerInfoData['mode'] == true then
-		obj.onButtonColor:setFillColor(unpack(onButtonColor))
-	else
-		obj.onButtonColor:setFillColor(unpack(offButtonColor))
-	end
+			obj.onOffButton:setFillColor(unpack(offButtonColor))
+			playerInfoData['mode'] = false
+		else
+			obj.onOffButton:setFillColor(unpack(onButtonColor))
+			playerInfoData['mode'] = true
+		end
 end
 
 function textListener(event)
