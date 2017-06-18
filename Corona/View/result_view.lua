@@ -3,12 +3,13 @@ local self = object.new()
 local obj = {}
 local tableData = {}
 local imageNameArray = {}
--- local themeColor = {120,230,240}
+local themeColor = {76,221,255}
 
-local onButtonColor = {100,100,100 }
-local offButtonColor = {200,150,150}
+local blackButtonColor = { 0,0,0 }
+local blueButtonColor = {255,192,203}
+local redButtonColor = {150,150,190}
 
-local themeColor = playerInfoData['theme_color']
+--local themeColor = playerInfoData['theme_color']
 local headerSize = 200
 local boxSize = 200
 
@@ -158,7 +159,7 @@ function self.create(res)
 		obj.menuTitle:setFillColor(100)
 		obj.menuTitle.x = obj.menuWindow.x 
 		obj.menuTitle.y = 50
-		obj.menuSetting = display.newText(obj.menuGroup,'厳しめ',0,0,'Noto-Light.otf',35)
+		--[[obj.menuSetting = display.newText(obj.menuGroup,'厳しめ',0,0,'Noto-Light.otf',35)
 		obj.menuSetting:setReferencePoint(display.CenterReferencePoint)
 		obj.menuSetting:setFillColor(100)
 		obj.menuSetting.x = obj.menuWindow.x 
@@ -173,18 +174,32 @@ function self.create(res)
 		obj.menuSetting2.y = 250
 		obj.menuSetting2.value = 'setting2'
 		obj.menuSetting2:addEventListener('tap',self.tap)
+		]]--
 
-		obj.onOffButton = display.newRect(obj.menuGroup, 100, 100, 200,100 )
+		obj.Button = display.newRect(obj.menuGroup,90,195,230,80)
 		if playerInfoData['mode'] == true then
-			obj.onOffButton:setFillColor(unpack(offButtonColor))
+			obj.Button:setFillColor(unpack(redButtonColor))
+		else
+			obj.Button:setFillColor(unpack(buleButtonColor))
+		end
+		
+
+
+		obj.onOffButton = display.newText(obj.menuGroup,"あま〜い", 120, 200,'Noto-Light.otf',40 )
+		obj.onOffButton:setFillColor(unpack(blackButtonColor))
+		if playerInfoData['mode'] == true then
+			
+			obj.onOffButton.text = "修行"
 			playerInfoData['mode'] = false
 		else
-			obj.onOffButton:setFillColor(unpack(onButtonColor))
+			obj.onOffButton.text = "あま〜い"
 			playerInfoData['mode'] = true
 		end
 		obj.onOffButton.value = "onOffButton"
 		obj.onOffButton:addEventListener('tap',self.tap)
 
+		obj.modeText = display.newText(obj.menuGroup,"モード", 145, 120,'Noto-Light.otf',40 )
+		obj.modeText:setFillColor(120)
 		
 
 
@@ -342,14 +357,15 @@ function self.touch( e )
 end
 
 function self.refresh()
-	print("============")
 	if playerInfoData['mode'] == true then
-			obj.onOffButton:setFillColor(unpack(offButtonColor))
-			playerInfoData['mode'] = false
-		else
-			obj.onOffButton:setFillColor(unpack(onButtonColor))
-			playerInfoData['mode'] = true
-		end
+		obj.Button:setFillColor(unpack(redButtonColor))
+		obj.onOffButton.text = "修行"
+		playerInfoData['mode'] = false
+	else
+		obj.Button:setFillColor(unpack(blueButtonColor))
+		obj.onOffButton.text = "あま〜い"
+		playerInfoData['mode'] = true
+	end
 end
 
 function textListener(event)
