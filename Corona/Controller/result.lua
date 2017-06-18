@@ -26,7 +26,8 @@ local function viewHandler( event )
 		end
 
 		if event.value == 'onOffButton' then
-			result_view.refrexh()
+			print("======a======")
+			result_view.refresh()
 		end
 		if event.value == 'shiba' then
 			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
