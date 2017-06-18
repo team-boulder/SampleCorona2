@@ -5,6 +5,9 @@ local tableData = {}
 local imageNameArray = {}
 -- local themeColor = {120,230,240}
 
+local onButtonColor = {100,100,100 }
+local offButtonColor = {200,150,150}
+
 local themeColor = playerInfoData['theme_color']
 local headerSize = 200
 local boxSize = 200
@@ -171,6 +174,18 @@ function self.create(res)
 		obj.menuSetting2.value = 'setting2'
 		obj.menuSetting2:addEventListener('tap',self.tap)
 
+		obj.onOffButton = display.newRect(obj.menuGroup, 100, 100, 200,100 )
+		if playerInfoData['mode'] == true then
+			obj.onButtonColor:setFillColor(unpack(onButtonColor))
+		else
+			obj.onButtonColor:setFillColor(unpack(offButtonColor))
+		end
+		obj.onOffButton.value = "onOfButton"
+		obj.onOffButton:addEventListener('tap',self.tap)
+
+		
+
+
 		obj.menuGroup.x = -400
 		obj.menuGroup.alpha = 0
 
@@ -322,6 +337,14 @@ function self.touch( e )
     else
 		return true
     end
+end
+
+function self.refresh()
+	if playerInfoData['mode'] == true then
+		obj.onButtonColor:setFillColor(unpack(onButtonColor))
+	else
+		obj.onButtonColor:setFillColor(unpack(offButtonColor))
+	end
 end
 
 function textListener(event)
