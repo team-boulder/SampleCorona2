@@ -4,7 +4,7 @@ local tonumber = tonumber
 
 userInfoData = {}
 
-function self.check( word )
+function self.voice( voice )
 	local function networkListener( event )
     	if ( event.isError ) then
        	 print( "Network error: ", event.response )
@@ -13,18 +13,17 @@ function self.check( word )
     	end
 	end
 
-	local tmp_id = string.random( 10, '%l%d' )
-	
+	--local tmp_id = string.random( 10, '%l%d' )
 	--付加するパラメータ
-	local params = {
-		"object.json", 
+	local params = { 
+		voice,
     	system.DocumentsDirectory, 
-    	"application/json"
+    	""
 		}
-	params['query'] = page
+	--params['query'] = voice
 	-- params['transaction_id'] = transaction_id or tmp_id
 
-	fnetwork.request( 'http://59.157.6.140/boulder/search.php', 'POST', networkListener, params )
+	fnetwork.Upload( 'http://59.157.6.140/boulder/search.php', 'POST', networkListener,params )
 end
 
 return self

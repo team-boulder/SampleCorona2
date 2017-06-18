@@ -121,6 +121,7 @@ function self.create(res)
 		obj.addButton.value = 'add'
 		obj.addButton:addEventListener('tap',self.tap)
 
+		--]]
 		
 		-- メニューを予め作成しておく
 		obj.menuGroup = display.newGroup()
@@ -135,21 +136,34 @@ function self.create(res)
 		obj.menuWindow.value = 'menuWindow'
 		obj.menuWindow:addEventListener('tap',self.tap)
 		obj.menuWindow:addEventListener('touch',self.touch)
-		obj.menuTitle = display.newText(obj.menuGroup,'ありがちなメニュー',0,0,'Noto-Light.otf',35)
+		obj.menuHeader = display.newRect(obj.menuGroup,0,0,400,100)
+		obj.menuHeader:setFillColor(unpack(themeColor))
+		obj.menuWindow.value = 'menuHeader'
+		obj.menuTitle = display.newText(obj.menuGroup,'設定',0,0,'Noto-Light.otf',35)
 		obj.menuTitle:setReferencePoint(display.CenterReferencePoint)
 		obj.menuTitle:setFillColor(100)
 		obj.menuTitle.x = obj.menuWindow.x 
 		obj.menuTitle.y = 50
-		obj.menuSetting = display.newText(obj.menuGroup,'設定',0,0,'Noto-Light.otf',35)
+		obj.menuSetting = display.newText(obj.menuGroup,'厳しめ',0,0,'Noto-Light.otf',35)
 		obj.menuSetting:setReferencePoint(display.CenterReferencePoint)
 		obj.menuSetting:setFillColor(100)
 		obj.menuSetting.x = obj.menuWindow.x 
 		obj.menuSetting.y = 180
 		obj.menuSetting.value = 'setting'
 		obj.menuSetting:addEventListener('tap',self.tap)
+
+		obj.menuSetting2 = display.newText(obj.menuGroup,'甘め',0,0,'Noto-Light.otf',35)
+		obj.menuSetting2:setReferencePoint(display.CenterReferencePoint)
+		obj.menuSetting2:setFillColor(100)
+		obj.menuSetting2.x = obj.menuWindow.x 
+		obj.menuSetting2.y = 250
+		obj.menuSetting2.value = 'setting2'
+		obj.menuSetting2:addEventListener('tap',self.tap)
+
 		obj.menuGroup.x = -400
 		obj.menuGroup.alpha = 0
 
+		--[[
 		-- ポップアップウィンドウも予め作成しておく
 		obj.popupGroup = display.newGroup()
 		obj.bg = display.newRect(obj.popupGroup,0,0,_W,_H)
@@ -192,8 +206,8 @@ function self.create(res)
 		obj.group:insert( obj.menu )
 		obj.group:insert( obj.menuArea )
 		--obj.group:insert( obj.addButton )
-		--obj.group:insert( obj.menuBG )
-		--obj.group:insert( obj.menuGroup )
+		obj.group:insert( obj.menuBG )
+		obj.group:insert( obj.menuGroup )
 		--obj.group:insert( obj.popupGroup )
 
 		return obj.group
