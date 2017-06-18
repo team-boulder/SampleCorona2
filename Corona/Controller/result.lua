@@ -5,6 +5,8 @@ local result_view = require( ViewDir .. 'result_view' )
 local search_model = require( ModelDir .. 'search_model' )
 local voice_model = require( ModelDir .. 'voice_model' )
 
+
+
 local function modelHandler( event )
 	if event.name == 'search_model-search' then
 		--print(event.data)
@@ -21,6 +23,10 @@ local function viewHandler( event )
 		if event.value.num then
 			-- print("num"..event.value)
 			storyboard.showOverlay(ContDir..'product_detail',{effect = "slideLeft",isModal = true,params = event.value })
+		end
+
+		if event.value == 'onOffButton' then
+			result_view.refrexh()
 		end
 		if event.value == 'shiba' then
 			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
