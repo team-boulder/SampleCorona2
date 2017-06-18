@@ -192,6 +192,8 @@ function self.create(res)
 		]]--
 
 		obj.Button = display.newRect(obj.menuGroup,90,195,230,80)
+		obj.Button:setReferencePoint(display.CenterReferencePoint)
+		obj.Button.y = 230
 		if playerInfoData['mode'] == true then
 			obj.Button:setFillColor(unpack(redButtonColor))
 		else
@@ -201,7 +203,9 @@ function self.create(res)
 
 
 		obj.onOffButton = display.newText(obj.menuGroup,"あま〜い", 120, 200,'Noto-Light.otf',40 )
+		obj.onOffButton:setReferencePoint(display.CenterReferencePoint)
 		obj.onOffButton:setFillColor(unpack(blackButtonColor))
+		obj.onOffButton.y = obj.Button.y
 		if playerInfoData['mode'] == true then
 			
 			obj.onOffButton.text = "修行"
