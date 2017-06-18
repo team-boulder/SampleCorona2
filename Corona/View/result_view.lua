@@ -62,9 +62,14 @@ function self.create(res)
 		end
 		obj.textBox:addEventListener( "tap" )
 		obj.placeholder = display.newText("検索キーワードを入力",130,125,_W-140,50,'Noto-Light.otf',25)
+		-- obj.placeholder:setReferencePoint(display.CenterReferencePoint)
+		-- obj.placeholder.130
+		-- obj.placeholder._W-140
 		obj.placeholder:setFillColor(50)
 		obj.textField = native.newTextField(120,122,400,50)
-		obj.textField.size = 35
+		obj.textField:setReferencePoint(display.CenterReferencePoint)
+		obj.textField.y = 145
+		obj.textField.size = 25
 		obj.textField.hasBackground = false
 		obj.textField.isVisible = false
 		obj.textField.font = native.newFont( 'Noto-Light.otf',25 )
