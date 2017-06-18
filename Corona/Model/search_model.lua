@@ -21,7 +21,11 @@ function self.search( word )
 	params['query']        = word
 	-- params['transaction_id'] = transaction_id or tmp_id
 
-	fnetwork.request( 'http://59.157.6.140/boulder/search.php', 'POST', networkListener, params )
+	if playerInfoData['mode'] then 
+		fnetwork.request( 'http://59.157.6.140/boulder/sweet.php', 'POST', networkListener, params )
+	else
+		fnetwork.request( 'http://59.157.6.140/boulder/search.php', 'POST', networkListener, params )
+	end
 end
 
 return self
