@@ -191,7 +191,7 @@ function self.create(res)
 		obj.menuSetting2:addEventListener('tap',self.tap)
 		]]--
 
-		obj.Button = display.newRect(obj.menuGroup,90,195,230,80)
+		obj.Button = display.newRoundedRect(obj.menuGroup,90,195,230,80,15)
 		obj.Button:setReferencePoint(display.CenterReferencePoint)
 		obj.Button.y = 280
 		if playerInfoData['mode'] == true then
