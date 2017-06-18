@@ -79,6 +79,7 @@ function self.create(res)
 		obj.rec:setFillColor(150)
 		obj.rec.value = 'rec'
 		obj.rec:addEventListener('tap',self.tap)
+		obj.rec.isVisible = false
 
 		--obj.searchButton = display.newImage(ImgDir .. 'result/ecalbt008_002.png',_W-100,5)
 		--obj.searchButton.xScale = 3
