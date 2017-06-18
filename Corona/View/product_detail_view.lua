@@ -15,7 +15,8 @@ function self.create(params)
 		obj.group = display.newGroup()
 	end
 	height = 0
-	
+	local url = params.url
+	print(url)
     local image = params.image or display.newImageRect( ImgDir .. 'product_detail/NoImage.png', 512, 512)
     local name  = params.name  or "hoge"
 	local price = params.price or 0
@@ -25,19 +26,28 @@ function self.create(params)
 	--	image:scale(0.5,0.5)
 	--end
 
+	obj.view = native.newWebView(0,100,_W,_H-100)
+	obj.view:request(url)
+
     obj.bg = display.newRect(0,0,_W,_H)
     obj.bg:setFillColor(255)
 	obj.bg.value = 'bg'
 	obj.header = display.newRect(0,0,_W,100)
 	obj.header:setFillColor(unpack(themeColor))
-	obj.back = display.newImage(ImgDir..'result/back.png',20,20)
+	--[[obj.back = display.newImage(ImgDir..'result/back.png',20,20)
 	obj.back.value = 'back'
-	obj.back:addEventListener("tap",self.tap)
+	obj.back:addEventListener("tap",self.tap)]]--
 	obj.title = display.newImage(ImgDir..'home/amazon_logo01.png')
 	obj.title:setReferencePoint(display.CenterReferencePoint)
 	obj.title:scale(0.3,0.3)
 	obj.title.x = _W/2+20
 	obj.title.y = 50
+	obj.back = display.newImageRect(ImgDir.."result/back.png",50,50)
+	obj.back:scale(1,1)
+	obj.back.x = 50
+	obj.back.y = 50
+	obj.back.value = "back"
+	obj.back:addEventListener("tap",self.tap)
 	-- obj.title = display.newText('   甘zon',0,0,'Noto-Light.otf',35)
 	-- obj.title:setReferencePoint(display.CenterReferencePoint)
 	-- obj.title.x = _W/2
@@ -88,11 +98,15 @@ function self.create(params)
 	obj.scrollView:insert(obj.price)
 	obj.scrollView:insert(obj.detail)
 
+	obj.scrollView.isVisible = false
+	obj.detail.isVisible = false
 	obj.group:insert( obj.bg )
 	obj.group:insert( obj.header )
 	obj.group:insert( obj.title )
-	obj.group:insert( obj.back )
 	obj.group:insert( obj.scrollView )
+	--obj.group:insert( obj.view )
+	obj.group:insert( obj.back )
+	
 
     
 
@@ -101,6 +115,10 @@ function self.create(params)
 end
 
 function self.destroy()
+	print("asdfasdf")
+	obj.view:removeSelf()
+	-- obj.view.isVisible = false
+	obj.view = nil
 	if obj.group then
 		local function remove()
 			display.remove( obj.group )

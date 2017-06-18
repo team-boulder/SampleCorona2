@@ -8,7 +8,9 @@ local function viewHandler( event )
 	if event.name == 'product_detail_view-tap' then
 		if event.value == 'back' then
 			storyboard.hideOverlay("slideRight")
-			storyboard.showOverlay(ContDir..'kuma',{isModal = true,effect="fromBottom",params = event.value })
+			if scene.data.swap then
+				storyboard.showOverlay(ContDir..'kuma',{isModal = true,effect="fromBottom",params = event.value })
+			end
 		end
 	end
 end
@@ -19,7 +21,7 @@ end
 
 function scene:willEnterScene( event )
 	local group = self.view
-
+	scene.data = event.params
 	--user_model:addEventListener( modelHandler )
 	product_detail_view:addEventListener( viewHandler )
 	

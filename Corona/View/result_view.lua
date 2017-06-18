@@ -75,6 +75,12 @@ function self.create(res)
 		obj.musi.x = 70
 		obj.musi.y = 145
 		
+		obj.rec = display.newText('Rec',_W/8*7,0,'Noto-Light.otf',30)
+		obj.rec:setFillColor(150)
+		obj.rec.value = 'rec'
+		obj.rec:addEventListener('tap',self.tap)
+		obj.rec.isVisible = false
+
 		--obj.searchButton = display.newImage(ImgDir .. 'result/ecalbt008_002.png',_W-100,5)
 		--obj.searchButton.xScale = 3
 		--obj.textField:setReferencePoint(display.CenterReferencePoint)
@@ -205,6 +211,7 @@ function self.create(res)
 		obj.group:insert( obj.musi )
 		obj.group:insert( obj.menu )
 		obj.group:insert( obj.menuArea )
+		obj.group:insert( obj.rec )
 		--obj.group:insert( obj.addButton )
 		obj.group:insert( obj.menuBG )
 		obj.group:insert( obj.menuGroup )

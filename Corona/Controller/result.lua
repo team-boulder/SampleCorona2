@@ -3,6 +3,7 @@ local scene = storyboard.newScene()
 -- require view
 local result_view = require( ViewDir .. 'result_view' )
 local search_model = require( ModelDir .. 'search_model' )
+local voice_model = require( ModelDir .. 'voice_model' )
 
 local function modelHandler( event )
 	if event.name == 'search_model-search' then
@@ -19,7 +20,7 @@ local function viewHandler( event )
 
 		if event.value.num then
 			-- print("num"..event.value)
-			storyboard.showOverlay(ContDir..'product_detail',{isModal = true,effect="slideLeft",params = event.value })
+			storyboard.showOverlay(ContDir..'product_detail',{effect = "slideLeft",isModal = true,params = event.value })
 		end
 		if event.value == 'shiba' then
 			storyboard.gotoScene(ContDir..'shiba',{effect="slideLeft"})
@@ -55,6 +56,22 @@ local function viewHandler( event )
 		end
 		if event.value == 'bg' then
 			result_view.hidePopup()
+		end
+		if event.value == 'rec' then
+			local filePath = system.pathForFile( "newRecording.wav", system.DocumentsDirectory )
+			r = media.newRecording( filePath )
+			r:startRecording()
+			print("recording")
+			timer.performWithDelay( 3000,function()
+			r:stopRecording()
+			print("complete")
+			print("playing")
+			--media.playSound( "newRecording.wav" ,system.DocumentsDirectory)
+			voice_model.recognation( "newRecording.wav" )
+			print("hoge1")
+			end)
+			print("hoge3")
+			
 		end
 		if event.value == 'accept' then
 			local function onComplete( event )
