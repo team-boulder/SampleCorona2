@@ -193,7 +193,7 @@ function self.create(res)
 
 		obj.Button = display.newRect(obj.menuGroup,90,195,230,80)
 		obj.Button:setReferencePoint(display.CenterReferencePoint)
-		obj.Button.y = 230
+		obj.Button.y = 280
 		if playerInfoData['mode'] == true then
 			obj.Button:setFillColor(unpack(redButtonColor))
 		else
