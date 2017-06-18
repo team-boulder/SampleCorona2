@@ -19,10 +19,17 @@ local function createContent(data)
 	local box = display.newRect(group,0,0,_W,boxSize)
 	box:setStrokeColor(220)
 	box.strokeWidth = 2
-	local title = display.newText(group,data.name,210,50,_W-230,110,'Noto-Light.otf',25)
-	title:setReferencePoint(display.CenterReferencePoint)
-	title.y = box.height/3
-	title:setFillColor(80)
+	if 'simulator' == system.getInfo( 'environment' ) then
+		local title = display.newText(group,data.name,210,50,_W-230,120,'Noto-Light.otf',25)
+		title:setReferencePoint(display.CenterReferencePoint)
+		title:setFillColor(80)
+		title.y = box.height/3
+	else
+		local title = display.newText(group,data.name,210,50,_W-230,130,'Noto-Light.otf',25)
+		title:setReferencePoint(display.CenterReferencePoint)
+		title:setFillColor(80)
+		title.y = box.height/3-10
+	end
 	local price = display.newText(group,"¥"..data.price,210,50,'Noto-Medium.otf',35)
 	price:setReferencePoint(display.CenterReferencePoint)
 	price.y = box.height-45
@@ -66,14 +73,22 @@ function self.create(res)
 		end
 		obj.textBox:addEventListener( "tap" )
 		obj.placeholder = display.newText("検索キーワードを入力",130,125,_W-140,50,'Noto-Light.otf',25)
-		-- obj.placeholder:setReferencePoint(display.CenterReferencePoint)
-		-- obj.placeholder.130
-		-- obj.placeholder._W-140
+		obj.placeholder:setReferencePoint(display.CenterReferencePoint)
+		if 'simulator' == system.getInfo( 'environment' ) then
+			obj.placeholder.y = 150
+		else
+			obj.placeholder.y = 135
+		end
+		-- obj.placeholder.x = _W-140
 		obj.placeholder:setFillColor(50)
-		obj.textField = native.newTextField(120,122,400,50)
+		if 'simulator' == system.getInfo( 'environment' ) then
+			obj.textField = native.newTextField(120,128,400,50)
+		else
+			obj.textField = native.newTextField(120,128,400,80)
+		end
 		obj.textField:setReferencePoint(display.CenterReferencePoint)
 		obj.textField.y = 145
-		obj.textField.size = 25
+		obj.textField.size = 15
 		obj.textField.hasBackground = false
 		obj.textField.isVisible = false
 		obj.textField.font = native.newFont( 'Noto-Light.otf',25 )
