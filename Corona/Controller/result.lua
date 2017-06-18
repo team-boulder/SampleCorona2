@@ -50,6 +50,10 @@ local function viewHandler( event )
 			result_view.hideMenu()
 			storyboard.gotoScene(ContDir..'setting',{effect="slideLeft" })
 		end
+		if event.value == 'setting2' then
+			result_view.hideMenu()
+			storyboard.gotoScene(ContDir..'setting',{effect="slideLeft" })
+		end
 		if event.value == 'bg' then
 			result_view.hidePopup()
 		end

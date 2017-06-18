@@ -38,7 +38,6 @@ function self.recognation( path )
 		system.DocumentsDirectory,
 		"audio/wav"		
     )
-
 end
 
 return self
